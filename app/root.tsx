@@ -9,9 +9,10 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { ThemeProvider } from "./contexts/ThemeContext"; 
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { Paper } from "@mui/material";
 import TopNavBar from "./components/TopNavBar";
+import { ErrorLayout } from "./components/ErrorLayout";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -49,7 +50,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-        {children}
+        <ThemeProvider>
+          <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0 }}>
+            <TopNavBar />
+            {children}
+          </Paper>
+        </ThemeProvider>; 
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -58,12 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <ThemeProvider>
-    <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0 }}>
-      <TopNavBar />
-      <Outlet />
-    </Paper>
-  </ThemeProvider>;
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -83,14 +84,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <ErrorLayout title={message} description={details} error={stack} />
   );
-}
+} 

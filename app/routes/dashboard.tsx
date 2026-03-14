@@ -2,10 +2,10 @@ import { TabsLayout, type TabItem } from "~/components/TabsLayout";
 import { GeneralPage } from "~/pages/GeneralPage";
 import { DetailPage } from "~/pages/DetailPage";
 import { OmissionPage } from "~/pages/OmissionPage";
-import { Await, useLoaderData,  type LoaderFunction, type LoaderFunctionArgs } from "react-router";
+import { Await, useLoaderData, type LoaderFunction, type LoaderFunctionArgs } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
 import type { InsuranceGenernalInformation } from "~/models/InsuranceGenernalInformation";
-import React from "react"; 
+import React from "react";
 import { LoadingLayout } from "~/components/LoadingLayout";
 
 
@@ -40,14 +40,14 @@ const mockInsuranceGenernalInformationData: InsuranceGenernalInformation = {
 };
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const loadingData = new Promise<InsuranceGenernalInformation>((resolve) => {
-    setTimeout(() => {
-      resolve(mockInsuranceGenernalInformationData);
-    }, 5000);
-  });
-  
-  // Return the promise inside an object
-  return { loadingData };
+    const loadingData = new Promise<InsuranceGenernalInformation>((resolve) => {
+        setTimeout(() => {
+            resolve(mockInsuranceGenernalInformationData);
+        }, 5000);
+    });
+
+    // Return the promise inside an object
+    return { loadingData };
 }
 
 export default function playground() {
@@ -55,11 +55,11 @@ export default function playground() {
 
     const handleInsuranceGenernalInformationSubmit: SubmitHandler<InsuranceGenernalInformation> = (data) => {
         console.log("Form Data:", data);
-    }; 
+    };
 
     return <>
-        <React.Suspense fallback={<LoadingLayout/>}>
-            <Await resolve={loadingData}>
+        <React.Suspense fallback={<LoadingLayout />}>
+            <Await resolve={loadingData}> 
                 {(loadedData) => {
                     const myTabs: TabItem[] = [
                         {
@@ -79,7 +79,7 @@ export default function playground() {
                         { label: 'Contract renewal', content: <OmissionPage /> },
                         { label: 'Client Remarks', content: <OmissionPage /> },
                     ];
-                    return <TabsLayout tabs={myTabs} />; 
+                    return <TabsLayout tabs={myTabs} />;
                 }}
             </Await>
         </React.Suspense>
