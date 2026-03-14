@@ -5,5 +5,4 @@ export default [
         route("playground", "routes/playground.tsx"),
         route("about", "routes/about.tsx"),
         route("post/:postId", "routes/post.tsx"),
-        route("insurance", "routes/InsuranceBasicInfo.tsx"), 
 ] satisfies RouteConfig;

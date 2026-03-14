@@ -17,44 +17,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import type { InsuranceGenernalInformation } from '~/models/InsuranceGenernalInformation';
 import { HookFormTextField } from '../HookFormTextField';
-
-const defaultValues: InsuranceGenernalInformation = {
-  policyNumber: 'P178791',
-  policySuffix: 'N',
-  updateDate: '09/07/2025 11:29:33',
-  quoteNumber: '沒有相關報價紀錄',
-  policyStatus: '生效中',
-  sharedNumber: 'Z2983005',
-  policyCode: 'Z2983005',
-  policyHolder: 'WONG CHUN HO',
-  underwritingCompany: 'V2 - 安盛保險有限公司',
-  agentName: 'AG1040 - LAM FUNG LIN (LILIAN)',
-  insuredAmountCurrency: 'HKD',
-  insuredAmount: '120,000.00',
-  onlineNumber: '',
-  premiumCurrency: 'HKD',
-  policyPremium: '2,577.50',
-  remarks: 'TANG WING HO 同事',
-  updatedBy: 'jackie',
-  nextStep: '已存檔',
-  inputDate: '23/04/2025 14:53:0',
-  hasCancellationDate: true,
-  cancellationDate: '23/04/2025',
-  hasSubmissionDate: false,
-  submissionDate: '09/03/2026',
-  notificationDate: '',
-  noticeNumber: '未列印通知書',
-  receiptDate: '24/04/2025 11:43:4',
-  receiptNumber: 'R122726',
-};
-
+ 
 export interface InsuranceGenernalInformationFormProps {
+  data?: InsuranceGenernalInformation;
   onSubmit?: (data: InsuranceGenernalInformation) => void;
 }
 
-export const InsuranceGenernalInformationForm: React.FC<InsuranceGenernalInformationFormProps> = ({ onSubmit = () => { } }) => {
+export const InsuranceGenernalInformationForm: React.FC<InsuranceGenernalInformationFormProps> = ({ data, onSubmit = () => { } }) => {
   const { register, handleSubmit, control } = useForm<InsuranceGenernalInformation>({
-    defaultValues: defaultValues,
+    defaultValues: data,
   });
 
   return (

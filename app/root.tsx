@@ -9,11 +9,25 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { AppMainLayout } from "./layouts/AppMainLayout";
+import { ThemeProvider } from "./contexts/ThemeContext"; 
+import { Paper } from "@mui/material";
+import TopNavBar from "./components/TopNavBar";
+
+export function meta({ }: Route.MetaArgs) {
+  return [
+    { charset: "utf-8" },
+    { title: "Insurance Management System" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+    { name: "description", content: "A modern insurance management system built with Remix and Material-UI." },
+    { name: "copyright", content: "© 2026 Insurance Management System. All rights reserved." },
+  ];
+}
 
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  {
+    rel: "preconnect",
+    href: "https://fonts.googleapis.com"
+  },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
@@ -44,13 +58,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <>
-    <ThemeProvider>
-      <AppMainLayout>
-        <Outlet />
-      </AppMainLayout>
-    </ThemeProvider> 
-  </>;
+  return <ThemeProvider>
+    <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0 }}>
+      <TopNavBar />
+      <Outlet />
+    </Paper>
+  </ThemeProvider>;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

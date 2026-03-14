@@ -1,23 +1,23 @@
 import { Paper } from "@mui/material";
 import type { SubmitHandler } from "react-hook-form";
+import { data, useLoaderData } from "react-router";
 import { InsuranceGenernalInformationForm } from "~/components/forms/InsuranceGenernalInformationForm";
 import type { InsuranceGenernalInformation } from "~/models/InsuranceGenernalInformation";
-
+ 
 interface GeneralPageProps {
+   data?: InsuranceGenernalInformation;
+   handleDataSubmit?: SubmitHandler<InsuranceGenernalInformation>;
 }
 
-interface IUserForm {
-   email: string;
-   username: string;
-}
-
-export const GeneralPage: React.FC<GeneralPageProps> = ({ }) => {
-   const handleUserSubmit: SubmitHandler<InsuranceGenernalInformation> = (data) => {
-      console.log("Form Data:", data);
-   };
+export const GeneralPage: React.FC<GeneralPageProps> = ({ 
+   data, handleDataSubmit 
+}) => { 
    return (
-      <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0 }}>
-         <InsuranceGenernalInformationForm  onSubmit={handleUserSubmit}/>
+      <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0 }}> 
+         <InsuranceGenernalInformationForm
+            onSubmit={handleDataSubmit}
+            data={data}
+         />
       </Paper>
    );
 };
