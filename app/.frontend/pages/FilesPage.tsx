@@ -13,11 +13,11 @@ import {
     Delete as DeleteIcon,
     Download as DownloadIcon,
     InsertDriveFile as FileIcon
-} from '@mui/icons-material'; 
+} from '@mui/icons-material';
 import type { Client } from '~/generated/prisma/browser';
 import type { ClientFileInformation } from '../models/ClientFileInformation';
 import FileUploadDialog from '../components/dialogs/FileUploadDialog';
- 
+
 // Define the shape of our form data
 export interface FilesPageProps {
     clients: Client[];
@@ -62,7 +62,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, onFileUpload }) => {
         file.name.toLowerCase().includes(searchTerm.toLowerCase())
         || file.belongedTo.toLowerCase().includes(searchTerm.toLowerCase())
     );
- 
+
     return (
         <Box sx={{ p: 4, maxWidth: 1000, margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
@@ -76,22 +76,22 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, onFileUpload }) => {
                         name="search"
                         control={control}
                         render={({ field }) => (
-                            <>  </>
-                            // <TextField
-                            //     id="file-search-input"
-                            //     {...field}
-                            //     placeholder="Search files..."
-                            //     variant="outlined"
-                            //     size="small"
-                            //     sx={{ flexGrow: 1 }}
-                            //     InputProps={{
-                            //         startAdornment: (
-                            //             <InputAdornment position="start">
-                            //                 <SearchIcon />
-                            //             </InputAdornment>
-                            //         ),
-                            //     }}
-                            // />
+                            <TextField
+                                {...field}
+                                id="file-search-input"
+                                suppressHydrationWarning  
+                                placeholder="Search files..."
+                                variant="outlined"
+                                size="small"
+                                sx={{ flexGrow: 1 }}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
                         )}
                     />
 
