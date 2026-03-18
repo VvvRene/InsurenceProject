@@ -15,7 +15,7 @@ import {
 import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import type { InsuranceGenernalInformation } from '~/models/InsuranceGenernalInformation';
+import type { InsuranceGenernalInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { HookFormTextField } from '../HookFormTextField';
  
 export interface InsuranceGenernalInformationFormProps {

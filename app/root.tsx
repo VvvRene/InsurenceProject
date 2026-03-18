@@ -9,10 +9,10 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { ThemeProvider } from "./.frontend/contexts/ThemeContext";
 import { Paper } from "@mui/material";
-import TopNavBar from "./components/TopNavBar";
-import { ErrorLayout } from "./components/ErrorLayout";
+import TopNavBar from "./.frontend/components/TopNavBar";
+import { ErrorLayout } from "./.frontend/components/ErrorLayout";
 
 export function meta({ }: Route.MetaArgs) {
   return [

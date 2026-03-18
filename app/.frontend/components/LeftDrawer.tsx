@@ -1,6 +1,6 @@
 import { Drawer, Button, List, ListItem, ListItemText, Toolbar } from '@mui/material';
 import { Link, Router, useNavigate } from 'react-router';
-import useLeftDrawerStore from '~/hooks/userLeftDrawerStore';
+import useLeftDrawerStore from '~/.frontend/hooks/userLeftDrawerStore';
 
 interface LeftDrawerProps {
   isToolbarAdjusted?: boolean;
@@ -16,6 +16,11 @@ export const LeftDrawer: React.FC<LeftDrawerProps> = ({ isToolbarAdjusted = fals
         <ListItem onClick={() => { closeDrawer(); navigate('/'); }}>
           <Link reloadDocument to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             <ListItemText primary="Dashboard" />
+          </Link>
+        </ListItem>
+         <ListItem onClick={() => { closeDrawer(); navigate('/'); }}>
+          <Link reloadDocument to="/files" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItemText primary="Files Management" />
           </Link>
         </ListItem>
         <ListItem onClick={() => { closeDrawer(); navigate('/about'); }}>

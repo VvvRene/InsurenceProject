@@ -1,8 +1,8 @@
 import { Paper } from "@mui/material";
 import type { SubmitHandler } from "react-hook-form";
 import { data, useLoaderData } from "react-router";
-import { InsuranceGenernalInformationForm } from "~/components/forms/InsuranceGenernalInformationForm";
-import type { InsuranceGenernalInformation } from "~/models/InsuranceGenernalInformation";
+import { InsuranceGenernalInformationForm } from "~/.frontend/components/forms/InsuranceGenernalInformationForm";
+import type { InsuranceGenernalInformation } from "~/.frontend/models/InsuranceGenernalInformation";
  
 interface GeneralPageProps {
    data?: InsuranceGenernalInformation;

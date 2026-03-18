@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from "react";
 import { createTheme, ThemeProvider as MUIProvider, CssBaseline } from "@mui/material"; 
-import { ThemeMode } from "~/constants/ThemeMode";
+import { ThemeMode } from "~/.frontend/constants/ThemeMode";
  
 interface ThemeContextType {
   mode: ThemeMode;

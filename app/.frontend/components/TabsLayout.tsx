@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Tabs, Tab, Paper } from '@mui/material';
 import { motion, AnimatePresence } from "motion/react";
-import { useTabs } from '~/hooks/useTabs';
+import { useTabs } from '~/.frontend/hooks/useTabs';
 
 // Define the shape of each tab object
 export interface TabItem {
