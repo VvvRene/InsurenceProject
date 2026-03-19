@@ -23,10 +23,7 @@ export async function action({ request }: Route.ActionArgs) {
 
         case "delete":
             return fileHandleDelete(formData);
-
-        case "download": 
-            return fileHandleDownload(formData);
-
+ 
         default:
             throw new Response("Invalid Intent", { status: 400 });
     }
@@ -81,19 +78,6 @@ async function fileHandleDelete(formData: FormData) {
     await prisma.clientFile.delete({ where: { id: fileId } });
 }
 
-async function fileHandleDownload(formData: FormData) {
-    const fileId = Number(formData.get("fileId"));
-    if (!fileId) return { error: "Missing file ID" };
-
-    const fileRecord = await prisma.clientFile.findUnique({ where: { id: fileId } });
-    if (fileRecord) {
-        window.location.href = `/client/files/download/${fileId}`;
-    } else {
-        return { error: "File not found" }; 
-    }
-}   
- 
-
 export default function fileManagement({ }: Route.ComponentProps) {
     const fetcher = useFetcher();
     const { clients, clientFiles } = useLoaderData<typeof loader>();
@@ -107,15 +91,7 @@ export default function fileManagement({ }: Route.ComponentProps) {
         // This sends the data to the 'action' function above
         fetcher.submit(formData, { method: "post", encType: "multipart/form-data" });
     }
-
-    const handleFileDownload = (fileId: number) => {
-        console.log("Downloading file with ID:", fileId);
-        const formData = new FormData();
-        formData.append("intent", "download");
-        formData.append("fileId", fileId.toString());
-        fetcher.submit(formData, { method: "post" });
-    }
-
+ 
     const handleFileDelete = (fileId: number) => {
         console.log("Deleting file with ID:", fileId);
         const formData = new FormData();
@@ -128,8 +104,7 @@ export default function fileManagement({ }: Route.ComponentProps) {
         <FilesPage
             clients={clients}
             clientFiles={clientFiles}
-            onFileUpload={handleFileUploadData}
-            onFileDownload={handleFileDownload}
+            onFileUpload={handleFileUploadData} 
             onFileDelete={handleFileDelete}
         />
     );

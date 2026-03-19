@@ -23,8 +23,7 @@ import FileUploadDialog from '../components/dialogs/FileUploadDialog';
 export interface FilesPageProps {
     clients: Client[];
     clientFiles?: ClientFile[]; // You can replace 'any' with the actual type of your client files if you have it defined
-    onFileUpload: (data: ClientFileInformation) => void; // Optional callback for file upload
-    onFileDownload: (fileId: number) => void; // Optional callback for file download
+    onFileUpload: (data: ClientFileInformation) => void; // Optional callback for file upload 
     onFileDelete: (fileId: number) => void; // Optional callback for file deletion
 }
 
@@ -33,7 +32,7 @@ interface FileFormInputs {
     fileUpload: FileList | null;
 }
 
-const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUpload, onFileDelete, onFileDownload }) => {
+const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUpload, onFileDelete }) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -53,16 +52,16 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
         const isFileNameMatch = file.name.toLowerCase().includes(searchTerm.toLowerCase());
         const isClientNameMatch = client ? `${client.firstName} ${client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) : false;
         return isFileNameMatch || isClientNameMatch;
-    });
+    }) || [];
 
     return (
-        <Box sx={{ p: 4, maxWidth: 1000, margin: '0 auto' }}>
+        <Box sx={{ maxWidth: 1000, margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
-                File Management
+                Client File Management
             </Typography>
 
-            <Paper sx={{ p: 2, mb: 3 }}>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <Paper sx={{ p: 2, mb: 3, bgcolor: 'layer.level1' }}>
+                <Stack direction={{ xs: 'column', sm: 'row'}} spacing={2}>
                     {/* Search Field controlled by RHF */}
                     <Controller
                         name="search"
@@ -119,13 +118,14 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                     <TableHead sx={{ backgroundColor: "primary.main" }}>
                         <TableRow>
                             <TableCell sx={{ color: "primary.contrastText", width: '40%' }}>File Name</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", width: '30%' }}>User</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>Size</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", pr: 4, width: '20%' }} align="right">Actions</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: 'auto' }}>User</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>Size</TableCell> 
+                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>Date</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", pr: 4, width: '120px' }} align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filteredFiles?.map((file) => (
+                        {filteredFiles.map((file) => (
                             <Tooltip key={file.id} title={file.description || "No description provided"} arrow
                                 slotProps={{
                                     popper: {
@@ -144,6 +144,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                                     </TableCell>
                                     <TableCell>{clients.find(client => client.id === file.clientId)?.firstName} {clients.find(client => client.id === file.clientId)?.lastName}</TableCell>
                                     <TableCell>{file.size}</TableCell>
+                                    <TableCell>{new Date(file.createdAt).toLocaleDateString('en-US')}</TableCell>
                                     <TableCell align="right">
                                         <IconButton color="primary" href={`/client/files/download/${file.id}`} download>
                                             <DownloadIcon />

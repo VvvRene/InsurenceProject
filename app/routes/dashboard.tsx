@@ -7,6 +7,7 @@ import type { SubmitHandler } from "react-hook-form";
 import type { InsuranceGenernalInformation } from "~/.frontend/models/InsuranceGenernalInformation";
 import React from "react";
 import { LoadingLayout } from "~/.frontend/components/LoadingLayout";
+import { Paper } from "@mui/material";
 
 
 const mockInsuranceGenernalInformationData: InsuranceGenernalInformation = {
@@ -59,7 +60,7 @@ export default function playground() {
 
     return <>
         <React.Suspense fallback={<LoadingLayout />}>
-            <Await resolve={loadingData}> 
+            <Await resolve={loadingData}>
                 {(loadedData) => {
                     const myTabs: TabItem[] = [
                         {
@@ -79,7 +80,11 @@ export default function playground() {
                         { label: 'Contract renewal', content: <OmissionPage /> },
                         { label: 'Client Remarks', content: <OmissionPage /> },
                     ];
-                    return <TabsLayout tabs={myTabs} />;
+                    return <>
+                        <Paper>
+                            <TabsLayout tabs={myTabs} />
+                        </Paper>
+                    </>;
                 }}
             </Await>
         </React.Suspense>

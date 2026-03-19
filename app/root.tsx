@@ -13,6 +13,7 @@ import { ThemeProvider } from "./.frontend/contexts/ThemeContext";
 import { Paper } from "@mui/material";
 import TopNavBar from "./.frontend/components/TopNavBar";
 import { ErrorLayout } from "./.frontend/components/ErrorLayout";
+import { Box, height } from "@mui/system";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -51,11 +52,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
         <ThemeProvider>
-          <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0 }}>
+          <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0, bgcolor: "background.body"}}>
             <TopNavBar />
-            {children}
+            <Box sx={{ height: '100%', width: '100%', p: 4}}  >
+              {children}
+            </Box>
           </Paper>
-        </ThemeProvider>; 
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

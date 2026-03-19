@@ -39,13 +39,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       primary: {
         main: mode === ThemeMode.Light ? '#1976d2' : '#90caf9' ,
       },
-      background: {
-        default:  mode === ThemeMode.Light  ? '#fff' : '#121212' ,
-        paper:  mode === ThemeMode.Light  ? '#fff' : '#1e1e1e' ,
-      },
+      background: { 
+        default: mode === ThemeMode.Light  ? '#F0F4F8' : '#171A1C' ,
+        paper:  mode === ThemeMode.Light  ? '#fff' : '#0B0D0E' ,
+      }, 
       tabBar: { 
         backgroundColor: mode === ThemeMode.Light  ? '#e9f5ff' : '#1e1e1e' ,
       },
+      layer:{
+        level1: mode === ThemeMode.Light  ? '#ededed' : '#191919' ,
+        level2: mode === ThemeMode.Light  ? '#DDE7EE' : '#32383E' ,
+        level3: mode === ThemeMode.Light  ? '#CDD7E1' : '#555E68' ,
+      }
     },
   }), [mode]);
 
@@ -68,6 +73,11 @@ export const useThemeToggle = () => {
 declare module '@mui/material/styles' {
   interface Palette {
     // This adds the key to the theme object
+    layer:{
+      level1: string, 
+      level2: string, 
+      level3: string, 
+    };
     tabBar: {
       backgroundColor: string;
     };
@@ -77,5 +87,10 @@ declare module '@mui/material/styles' {
      tabBar?: {
       backgroundColor?: string;
     };
+    layer?:{
+      level1?: string, 
+      level2?: string,
+      level3?: string,
+    }
   }
 }

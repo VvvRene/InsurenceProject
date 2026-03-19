@@ -17,7 +17,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({ tabs }) => {
   const { activeTab, handleTabChange } = useTabs(0);
 
   return (
-    <Box sx={{ width: '100%',  backgroundColor: 'tabBar.backgroundColor' }}>
+    <Box>
        <Tabs 
           value={activeTab} 
           textColor="inherit"

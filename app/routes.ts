@@ -7,4 +7,7 @@ export default [
         route("post/:postId", "routes/post.tsx"),
         route("client/files", "routes/clientFileManagement.tsx"),
         route("client/files/download/:fileId", "routes/clientFileDownload.$fileId.ts"),
+        // route("agent/files", "routes/agentFileManagement.tsx"),
+        // route("agent/files/download/:fileId", "routes/agentFileDownload.$fileId.ts"),
+        route("client", "routes/clientsInfo.tsx"),
 ] satisfies RouteConfig;
