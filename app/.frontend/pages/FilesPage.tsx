@@ -5,7 +5,8 @@ import { useForm, Controller } from 'react-hook-form';
 import {
     Box, Typography, TextField, Button, Paper, Table, TableBody,
     TableCell, TableContainer, TableHead, TableRow, IconButton,
-    InputAdornment, Stack
+    InputAdornment, Stack,
+    Tooltip
 } from '@mui/material';
 import {
     Search as SearchIcon,
@@ -14,14 +15,17 @@ import {
     Download as DownloadIcon,
     InsertDriveFile as FileIcon
 } from '@mui/icons-material';
-import type { Client } from '~/generated/prisma/browser';
+import type { Client, ClientFile } from '~/generated/prisma/browser';
 import type { ClientFileInformation } from '../models/ClientFileInformation';
 import FileUploadDialog from '../components/dialogs/FileUploadDialog';
 
 // Define the shape of our form data
 export interface FilesPageProps {
     clients: Client[];
+    clientFiles?: ClientFile[]; // You can replace 'any' with the actual type of your client files if you have it defined
     onFileUpload: (data: ClientFileInformation) => void; // Optional callback for file upload
+    onFileDownload: (fileId: number) => void; // Optional callback for file download
+    onFileDelete: (fileId: number) => void; // Optional callback for file deletion
 }
 
 interface FileFormInputs {
@@ -29,15 +33,7 @@ interface FileFormInputs {
     fileUpload: FileList | null;
 }
 
-interface FileData {
-    id: string;
-    name: string;
-    size: string;
-    belongedTo: string;
-    uploadDate: string;
-}
-
-const FilesPage: React.FC<FilesPageProps> = ({ clients, onFileUpload }) => {
+const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUpload, onFileDelete, onFileDownload }) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -52,16 +48,12 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, onFileUpload }) => {
     // Watch the search field for real-time filtering
     const searchTerm = watch('search');
 
-    // Mock data
-    const files: FileData[] = [
-        { id: '1', name: 'Project_Proposal.pdf', belongedTo: "John Doe", size: '2.4 MB', uploadDate: '2026-03-10' },
-        { id: '2', name: 'Budget_2026.xlsx', belongedTo: "Jane Smith", size: '1.1 MB', uploadDate: '2026-03-15' },
-    ];
-
-    const filteredFiles = files.filter(file =>
-        file.name.toLowerCase().includes(searchTerm.toLowerCase())
-        || file.belongedTo.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredFiles = clientFiles?.filter(file => {
+        const client = clients.find(c => c.id === file.clientId);
+        const isFileNameMatch = file.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const isClientNameMatch = client ? `${client.firstName} ${client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+        return isFileNameMatch || isClientNameMatch;
+    });
 
     return (
         <Box sx={{ p: 4, maxWidth: 1000, margin: '0 auto' }}>
@@ -79,7 +71,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, onFileUpload }) => {
                             <TextField
                                 {...field}
                                 id="file-search-input"
-                                suppressHydrationWarning  
+                                suppressHydrationWarning
                                 placeholder="Search files..."
                                 variant="outlined"
                                 size="small"
@@ -126,28 +118,42 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, onFileUpload }) => {
                 <Table>
                     <TableHead sx={{ backgroundColor: "primary.main" }}>
                         <TableRow>
-                            <TableCell sx={{ color: "primary.contrastText" }}>File Name</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText" }}>User</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText" }}>Size</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", pr: 4 }} align="right">Actions</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: '40%' }}>File Name</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: '30%' }}>User</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>Size</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", pr: 4, width: '20%' }} align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filteredFiles.map((file) => (
-                            <TableRow key={file.id} hover>
-                                <TableCell sx={{ width: '40%' }}>
-                                    <Stack direction="row" alignItems="center" spacing={1}>
-                                        <FileIcon color="primary" fontSize="small" />
-                                        {file.name}
-                                    </Stack>
-                                </TableCell>
-                                <TableCell sx={{ width: '30%' }}>{file.belongedTo}</TableCell>
-                                <TableCell sx={{ width: '10%' }}>{file.size}</TableCell>
-                                <TableCell sx={{ width: 'auto' }} align="right">
-                                    <IconButton color="primary"><DownloadIcon /></IconButton>
-                                    <IconButton color="error"><DeleteIcon /></IconButton>
-                                </TableCell>
-                            </TableRow>
+                        {filteredFiles?.map((file) => (
+                            <Tooltip key={file.id} title={file.description || "No description provided"} arrow
+                                slotProps={{
+                                    popper: {
+                                        sx: {
+                                            zIndex: 1500, // Ensure it's above everything
+                                            pointerEvents: 'none', // Prevents mouse "stutter"
+                                        },
+                                    },
+                                }} >
+                                <TableRow key={file.id} hover>
+                                    <TableCell>
+                                        <Stack direction="row" alignItems="center" spacing={1}>
+                                            <FileIcon color="primary" fontSize="small" />
+                                            {file.name}
+                                        </Stack>
+                                    </TableCell>
+                                    <TableCell>{clients.find(client => client.id === file.clientId)?.firstName} {clients.find(client => client.id === file.clientId)?.lastName}</TableCell>
+                                    <TableCell>{file.size}</TableCell>
+                                    <TableCell align="right">
+                                        <IconButton color="primary" href={`/client/files/download/${file.id}`} download>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                        <IconButton color="error" onClick={() => onFileDelete(file.id)}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            </Tooltip>
                         ))}
                     </TableBody>
                 </Table>

@@ -18,4 +18,25 @@ model Client {
   chineseName   String
   createdAt     DateTime @default(now())
   updateAt      DateTime @updatedAt
+ 
+  // Relation: A client can have many files
+  files         ClientFile[]
+}
+
+model ClientFile {
+  id           Int   @id @default(autoincrement())
+  name         String   // Original filename
+  path         String   // Where it's stored on the server (e.g., /uploads/my-file.pdf)
+  size         Int      // Size in bytes
+  mimeType     String?  // e.g., "application/pdf" or "image/png"
+  description  String?
+
+  // Relation: Each file belongs to one User
+  clientId     Int
+  owner        Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([clientId]) // Makes searching for a user's files much faster
 }

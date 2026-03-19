@@ -232,6 +232,7 @@ export type ClientWhereInput = {
   chineseName?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   updateAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  files?: Prisma.ClientFileListRelationFilter
 }
 
 export type ClientOrderByWithRelationInput = {
@@ -242,6 +243,7 @@ export type ClientOrderByWithRelationInput = {
   chineseName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updateAt?: Prisma.SortOrder
+  files?: Prisma.ClientFileOrderByRelationAggregateInput
 }
 
 export type ClientWhereUniqueInput = Prisma.AtLeast<{
@@ -255,6 +257,7 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   chineseName?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   updateAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  files?: Prisma.ClientFileListRelationFilter
 }, "id">
 
 export type ClientOrderByWithAggregationInput = {
@@ -292,6 +295,7 @@ export type ClientCreateInput = {
   chineseName: string
   createdAt?: Date | string
   updateAt?: Date | string
+  files?: Prisma.ClientFileCreateNestedManyWithoutOwnerInput
 }
 
 export type ClientUncheckedCreateInput = {
@@ -302,6 +306,7 @@ export type ClientUncheckedCreateInput = {
   chineseName: string
   createdAt?: Date | string
   updateAt?: Date | string
+  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type ClientUpdateInput = {
@@ -311,6 +316,7 @@ export type ClientUpdateInput = {
   chineseName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.ClientFileUpdateManyWithoutOwnerNestedInput
 }
 
 export type ClientUncheckedUpdateInput = {
@@ -321,6 +327,7 @@ export type ClientUncheckedUpdateInput = {
   chineseName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.ClientFileUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type ClientCreateManyInput = {
@@ -390,6 +397,11 @@ export type ClientSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type ClientScalarRelationFilter = {
+  is?: Prisma.ClientWhereInput
+  isNot?: Prisma.ClientWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -406,6 +418,103 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type ClientCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutFilesInput, Prisma.ClientUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutFilesInput
+  connect?: Prisma.ClientWhereUniqueInput
+}
+
+export type ClientUpdateOneRequiredWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutFilesInput, Prisma.ClientUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.ClientUpsertWithoutFilesInput
+  connect?: Prisma.ClientWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutFilesInput, Prisma.ClientUpdateWithoutFilesInput>, Prisma.ClientUncheckedUpdateWithoutFilesInput>
+}
+
+export type ClientCreateWithoutFilesInput = {
+  abbreviation: string
+  firstName: string
+  lastName: string
+  chineseName: string
+  createdAt?: Date | string
+  updateAt?: Date | string
+}
+
+export type ClientUncheckedCreateWithoutFilesInput = {
+  id?: number
+  abbreviation: string
+  firstName: string
+  lastName: string
+  chineseName: string
+  createdAt?: Date | string
+  updateAt?: Date | string
+}
+
+export type ClientCreateOrConnectWithoutFilesInput = {
+  where: Prisma.ClientWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientCreateWithoutFilesInput, Prisma.ClientUncheckedCreateWithoutFilesInput>
+}
+
+export type ClientUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.ClientUpdateWithoutFilesInput, Prisma.ClientUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.ClientCreateWithoutFilesInput, Prisma.ClientUncheckedCreateWithoutFilesInput>
+  where?: Prisma.ClientWhereInput
+}
+
+export type ClientUpdateToOneWithWhereWithoutFilesInput = {
+  where?: Prisma.ClientWhereInput
+  data: Prisma.XOR<Prisma.ClientUpdateWithoutFilesInput, Prisma.ClientUncheckedUpdateWithoutFilesInput>
+}
+
+export type ClientUpdateWithoutFilesInput = {
+  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ClientUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type ClientCountOutputType
+ */
+
+export type ClientCountOutputType = {
+  files: number
+}
+
+export type ClientCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  files?: boolean | ClientCountOutputTypeCountFilesArgs
+}
+
+/**
+ * ClientCountOutputType without action
+ */
+export type ClientCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientCountOutputType
+   */
+  select?: Prisma.ClientCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ClientCountOutputType without action
+ */
+export type ClientCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientFileWhereInput
+}
 
 
 export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -416,6 +525,8 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   chineseName?: boolean
   createdAt?: boolean
   updateAt?: boolean
+  files?: boolean | Prisma.Client$filesArgs<ExtArgs>
+  _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -449,10 +560,18 @@ export type ClientSelectScalar = {
 }
 
 export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "abbreviation" | "firstName" | "lastName" | "chineseName" | "createdAt" | "updateAt", ExtArgs["result"]["client"]>
+export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  files?: boolean | Prisma.Client$filesArgs<ExtArgs>
+  _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type ClientIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ClientIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Client"
-  objects: {}
+  objects: {
+    files: Prisma.$ClientFilePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     abbreviation: string
@@ -855,6 +974,7 @@ readonly fields: ClientFieldRefs;
  */
 export interface Prisma__ClientClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  files<T extends Prisma.Client$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -908,6 +1028,10 @@ export type ClientFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  /**
    * Filter, which Client to fetch.
    */
   where: Prisma.ClientWhereUniqueInput
@@ -926,6 +1050,10 @@ export type ClientFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  /**
    * Filter, which Client to fetch.
    */
   where: Prisma.ClientWhereUniqueInput
@@ -943,6 +1071,10 @@ export type ClientFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Client
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
   /**
    * Filter, which Client to fetch.
    */
@@ -992,6 +1124,10 @@ export type ClientFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  /**
    * Filter, which Client to fetch.
    */
   where?: Prisma.ClientWhereInput
@@ -1039,6 +1175,10 @@ export type ClientFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Client
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
   /**
    * Filter, which Clients to fetch.
    */
@@ -1088,6 +1228,10 @@ export type ClientCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  /**
    * The data needed to create a Client.
    */
   data: Prisma.XOR<Prisma.ClientCreateInput, Prisma.ClientUncheckedCreateInput>
@@ -1133,6 +1277,10 @@ export type ClientUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Client
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
   /**
    * The data needed to update a Client.
    */
@@ -1200,6 +1348,10 @@ export type ClientUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  /**
    * The filter to search for the Client to update in case it exists.
    */
   where: Prisma.ClientWhereUniqueInput
@@ -1226,6 +1378,10 @@ export type ClientDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  /**
    * Filter which Client to delete.
    */
   where: Prisma.ClientWhereUniqueInput
@@ -1246,6 +1402,30 @@ export type ClientDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Client.files
+ */
+export type Client$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientFile
+   */
+  select?: Prisma.ClientFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientFile
+   */
+  omit?: Prisma.ClientFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientFileInclude<ExtArgs> | null
+  where?: Prisma.ClientFileWhereInput
+  orderBy?: Prisma.ClientFileOrderByWithRelationInput | Prisma.ClientFileOrderByWithRelationInput[]
+  cursor?: Prisma.ClientFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientFileScalarFieldEnum | Prisma.ClientFileScalarFieldEnum[]
+}
+
+/**
  * Client without action
  */
 export type ClientDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1257,4 +1437,8 @@ export type ClientDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Client
    */
   omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
 }

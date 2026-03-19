@@ -46,3 +46,8 @@ export { Prisma }
  * 
  */
 export type Client = Prisma.ClientModel
+/**
+ * Model ClientFile
+ * 
+ */
+export type ClientFile = Prisma.ClientFileModel

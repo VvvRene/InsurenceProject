@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type Client = Prisma.ClientModel
+/**
+ * Model ClientFile
+ * 
+ */
+export type ClientFile = Prisma.ClientFileModel

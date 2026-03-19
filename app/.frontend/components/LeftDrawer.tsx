@@ -18,8 +18,8 @@ export const LeftDrawer: React.FC<LeftDrawerProps> = ({ isToolbarAdjusted = fals
             <ListItemText primary="Dashboard" />
           </Link>
         </ListItem>
-         <ListItem onClick={() => { closeDrawer(); navigate('/'); }}>
-          <Link reloadDocument to="/files" style={{ textDecoration: 'none', color: 'inherit' }}>
+         <ListItem onClick={() => { closeDrawer(); navigate('/client/files'); }}>
+          <Link reloadDocument to="/client/files" style={{ textDecoration: 'none', color: 'inherit' }}>
             <ListItemText primary="Files Management" />
           </Link>
         </ListItem>

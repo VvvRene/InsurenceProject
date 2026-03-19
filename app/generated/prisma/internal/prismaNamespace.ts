@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Client: 'Client'
+  Client: 'Client',
+  ClientFile: 'ClientFile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "client"
+    modelProps: "client" | "clientFile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ClientFile: {
+      payload: Prisma.$ClientFilePayload<ExtArgs>
+      fields: Prisma.ClientFileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClientFileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClientFileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>
+        }
+        findFirst: {
+          args: Prisma.ClientFileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClientFileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>
+        }
+        findMany: {
+          args: Prisma.ClientFileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>[]
+        }
+        create: {
+          args: Prisma.ClientFileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>
+        }
+        createMany: {
+          args: Prisma.ClientFileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClientFileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>[]
+        }
+        delete: {
+          args: Prisma.ClientFileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>
+        }
+        update: {
+          args: Prisma.ClientFileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>
+        }
+        deleteMany: {
+          args: Prisma.ClientFileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClientFileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClientFileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>[]
+        }
+        upsert: {
+          args: Prisma.ClientFileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientFilePayload>
+        }
+        aggregate: {
+          args: Prisma.ClientFileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClientFile>
+        }
+        groupBy: {
+          args: Prisma.ClientFileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClientFileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClientFileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClientFileCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -527,12 +602,35 @@ export const ClientScalarFieldEnum = {
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
 
 
+export const ClientFileScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  path: 'path',
+  size: 'size',
+  mimeType: 'mimeType',
+  description: 'description',
+  clientId: 'clientId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientFileScalarFieldEnum = (typeof ClientFileScalarFieldEnum)[keyof typeof ClientFileScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -664,6 +762,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   client?: Prisma.ClientOmit
+  clientFile?: Prisma.ClientFileOmit
 }
 
 /* Types for Logging */
