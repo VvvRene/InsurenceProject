@@ -55,7 +55,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
     }) || [];
 
     return (
-        <Box sx={{ maxWidth: 1000, margin: '0 auto' }}>
+        <Box sx={{  margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
                 Client File Management
             </Typography>

@@ -54,7 +54,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ThemeProvider>
           <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0, bgcolor: "background.body"}}>
             <TopNavBar />
-            <Box sx={{ height: '100%', width: '100%', p: 4}}  >
+            <Box sx={{ height: '100%', width: '100%', py: 4, px:8}}  >
               {children}
             </Box>
           </Paper>
