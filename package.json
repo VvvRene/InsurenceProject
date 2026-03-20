@@ -14,6 +14,9 @@
     "db:studio": "npx env-cmd -f .env npx prisma studio",
     "db:seed": "npx tsx prisma/seed.ts"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

@@ -52,7 +52,14 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Client: 'Client',
-  ClientFile: 'ClientFile'
+  InsurancePolicy: 'InsurancePolicy',
+  VehiclePolicyDetail: 'VehiclePolicyDetail',
+  HomePolicyDetail: 'HomePolicyDetail',
+  LifePolicyDetail: 'LifePolicyDetail',
+  InsuranceCompany: 'InsuranceCompany',
+  Broker: 'Broker',
+  ClientFile: 'ClientFile',
+  Currency: 'Currency'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -70,30 +77,114 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const ClientScalarFieldEnum = {
   id: 'id',
-  abbreviation: 'abbreviation',
+  type: 'type',
+  identity: 'identity',
   firstName: 'firstName',
   lastName: 'lastName',
   chineseName: 'chineseName',
+  phoneNumber: 'phoneNumber',
+  email: 'email',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
+
+
+export const InsurancePolicyScalarFieldEnum = {
+  id: 'id',
+  uuid: 'uuid',
+  processType: 'processType',
+  category: 'category',
+  status: 'status',
+  policyNumber: 'policyNumber',
+  quotationNumber: 'quotationNumber',
+  clientId: 'clientId',
+  insuranceCompanyId: 'insuranceCompanyId',
+  brokerId: 'brokerId',
+  effectiveDate: 'effectiveDate',
+  expiryDate: 'expiryDate',
+  premiumAmount: 'premiumAmount',
+  currency: 'currency',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InsurancePolicyScalarFieldEnum = (typeof InsurancePolicyScalarFieldEnum)[keyof typeof InsurancePolicyScalarFieldEnum]
+
+
+export const VehiclePolicyDetailScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  coverageType: 'coverageType',
+  registrationNumber: 'registrationNumber',
+  seatNumber: 'seatNumber',
+  engineNumber: 'engineNumber',
+  chassisNumber: 'chassisNumber',
+  manufacturer: 'manufacturer',
+  modelName: 'modelName',
+  yearOfManufacture: 'yearOfManufacture'
+} as const
+
+export type VehiclePolicyDetailScalarFieldEnum = (typeof VehiclePolicyDetailScalarFieldEnum)[keyof typeof VehiclePolicyDetailScalarFieldEnum]
+
+
+export const HomePolicyDetailScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  propertyAddress: 'propertyAddress',
+  propertyType: 'propertyType',
+  sumInsuredStructure: 'sumInsuredStructure',
+  isMortgaged: 'isMortgaged'
+} as const
+
+export type HomePolicyDetailScalarFieldEnum = (typeof HomePolicyDetailScalarFieldEnum)[keyof typeof HomePolicyDetailScalarFieldEnum]
+
+
+export const LifePolicyDetailScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  beneficiaryName: 'beneficiaryName',
+  sumAssured: 'sumAssured',
+  medicalRequired: 'medicalRequired'
+} as const
+
+export type LifePolicyDetailScalarFieldEnum = (typeof LifePolicyDetailScalarFieldEnum)[keyof typeof LifePolicyDetailScalarFieldEnum]
+
+
+export const InsuranceCompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type InsuranceCompanyScalarFieldEnum = (typeof InsuranceCompanyScalarFieldEnum)[keyof typeof InsuranceCompanyScalarFieldEnum]
+
+
+export const BrokerScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type BrokerScalarFieldEnum = (typeof BrokerScalarFieldEnum)[keyof typeof BrokerScalarFieldEnum]
 
 
 export const ClientFileScalarFieldEnum = {
   id: 'id',
   name: 'name',
   path: 'path',
-  size: 'size',
-  mimeType: 'mimeType',
-  description: 'description',
-  clientId: 'clientId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  clientId: 'clientId'
 } as const
 
 export type ClientFileScalarFieldEnum = (typeof ClientFileScalarFieldEnum)[keyof typeof ClientFileScalarFieldEnum]
+
+
+export const CurrencyScalarFieldEnum = {
+  id: 'id',
+  abbr: 'abbr',
+  rate: 'rate'
+} as const
+
+export type CurrencyScalarFieldEnum = (typeof CurrencyScalarFieldEnum)[keyof typeof CurrencyScalarFieldEnum]
 
 
 export const SortOrder = {

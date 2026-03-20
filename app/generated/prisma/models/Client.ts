@@ -36,32 +36,41 @@ export type ClientSumAggregateOutputType = {
 
 export type ClientMinAggregateOutputType = {
   id: number | null
-  abbreviation: string | null
+  type: string | null
+  identity: string | null
   firstName: string | null
   lastName: string | null
   chineseName: string | null
+  phoneNumber: string | null
+  email: string | null
   createdAt: Date | null
-  updateAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ClientMaxAggregateOutputType = {
   id: number | null
-  abbreviation: string | null
+  type: string | null
+  identity: string | null
   firstName: string | null
   lastName: string | null
   chineseName: string | null
+  phoneNumber: string | null
+  email: string | null
   createdAt: Date | null
-  updateAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ClientCountAggregateOutputType = {
   id: number
-  abbreviation: number
+  type: number
+  identity: number
   firstName: number
   lastName: number
   chineseName: number
+  phoneNumber: number
+  email: number
   createdAt: number
-  updateAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -76,32 +85,41 @@ export type ClientSumAggregateInputType = {
 
 export type ClientMinAggregateInputType = {
   id?: true
-  abbreviation?: true
+  type?: true
+  identity?: true
   firstName?: true
   lastName?: true
   chineseName?: true
+  phoneNumber?: true
+  email?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
 }
 
 export type ClientMaxAggregateInputType = {
   id?: true
-  abbreviation?: true
+  type?: true
+  identity?: true
   firstName?: true
   lastName?: true
   chineseName?: true
+  phoneNumber?: true
+  email?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
 }
 
 export type ClientCountAggregateInputType = {
   id?: true
-  abbreviation?: true
+  type?: true
+  identity?: true
   firstName?: true
   lastName?: true
   chineseName?: true
+  phoneNumber?: true
+  email?: true
   createdAt?: true
-  updateAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -193,12 +211,15 @@ export type ClientGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type ClientGroupByOutputType = {
   id: number
-  abbreviation: string
+  type: string
+  identity: string
   firstName: string
   lastName: string
-  chineseName: string
+  chineseName: string | null
+  phoneNumber: string
+  email: string | null
   createdAt: Date
-  updateAt: Date
+  updatedAt: Date
   _count: ClientCountAggregateOutputType | null
   _avg: ClientAvgAggregateOutputType | null
   _sum: ClientSumAggregateOutputType | null
@@ -226,23 +247,31 @@ export type ClientWhereInput = {
   OR?: Prisma.ClientWhereInput[]
   NOT?: Prisma.ClientWhereInput | Prisma.ClientWhereInput[]
   id?: Prisma.IntFilter<"Client"> | number
-  abbreviation?: Prisma.StringFilter<"Client"> | string
+  type?: Prisma.StringFilter<"Client"> | string
+  identity?: Prisma.StringFilter<"Client"> | string
   firstName?: Prisma.StringFilter<"Client"> | string
   lastName?: Prisma.StringFilter<"Client"> | string
-  chineseName?: Prisma.StringFilter<"Client"> | string
+  chineseName?: Prisma.StringNullableFilter<"Client"> | string | null
+  phoneNumber?: Prisma.StringFilter<"Client"> | string
+  email?: Prisma.StringNullableFilter<"Client"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  policies?: Prisma.InsurancePolicyListRelationFilter
   files?: Prisma.ClientFileListRelationFilter
 }
 
 export type ClientOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  abbreviation?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  identity?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
-  chineseName?: Prisma.SortOrder
+  chineseName?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  policies?: Prisma.InsurancePolicyOrderByRelationAggregateInput
   files?: Prisma.ClientFileOrderByRelationAggregateInput
 }
 
@@ -251,23 +280,30 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ClientWhereInput | Prisma.ClientWhereInput[]
   OR?: Prisma.ClientWhereInput[]
   NOT?: Prisma.ClientWhereInput | Prisma.ClientWhereInput[]
-  abbreviation?: Prisma.StringFilter<"Client"> | string
+  type?: Prisma.StringFilter<"Client"> | string
+  identity?: Prisma.StringFilter<"Client"> | string
   firstName?: Prisma.StringFilter<"Client"> | string
   lastName?: Prisma.StringFilter<"Client"> | string
-  chineseName?: Prisma.StringFilter<"Client"> | string
+  chineseName?: Prisma.StringNullableFilter<"Client"> | string | null
+  phoneNumber?: Prisma.StringFilter<"Client"> | string
+  email?: Prisma.StringNullableFilter<"Client"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  policies?: Prisma.InsurancePolicyListRelationFilter
   files?: Prisma.ClientFileListRelationFilter
 }, "id">
 
 export type ClientOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  abbreviation?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  identity?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
-  chineseName?: Prisma.SortOrder
+  chineseName?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClientCountOrderByAggregateInput
   _avg?: Prisma.ClientAvgOrderByAggregateInput
   _max?: Prisma.ClientMaxOrderByAggregateInput
@@ -280,93 +316,124 @@ export type ClientScalarWhereWithAggregatesInput = {
   OR?: Prisma.ClientScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ClientScalarWhereWithAggregatesInput | Prisma.ClientScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Client"> | number
-  abbreviation?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  type?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  identity?: Prisma.StringWithAggregatesFilter<"Client"> | string
   firstName?: Prisma.StringWithAggregatesFilter<"Client"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Client"> | string
-  chineseName?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  chineseName?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  phoneNumber?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  email?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
-  updateAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
 }
 
 export type ClientCreateInput = {
-  abbreviation: string
+  type: string
+  identity: string
   firstName: string
   lastName: string
-  chineseName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
-  files?: Prisma.ClientFileCreateNestedManyWithoutOwnerInput
+  updatedAt?: Date | string
+  policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
+  files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
 }
 
 export type ClientUncheckedCreateInput = {
   id?: number
-  abbreviation: string
+  type: string
+  identity: string
   firstName: string
   lastName: string
-  chineseName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
-  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOwnerInput
+  updatedAt?: Date | string
+  policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
+  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type ClientUpdateInput = {
-  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  files?: Prisma.ClientFileUpdateManyWithoutOwnerNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
+  files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
 }
 
 export type ClientUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  files?: Prisma.ClientFileUncheckedUpdateManyWithoutOwnerNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
+  files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
 }
 
 export type ClientCreateManyInput = {
   id?: number
-  abbreviation: string
+  type: string
+  identity: string
   firstName: string
   lastName: string
-  chineseName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ClientUpdateManyMutationInput = {
-  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  abbreviation?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  identity?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   chineseName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ClientAvgOrderByAggregateInput = {
@@ -375,22 +442,28 @@ export type ClientAvgOrderByAggregateInput = {
 
 export type ClientMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  abbreviation?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  identity?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   chineseName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ClientMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  abbreviation?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  identity?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   chineseName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ClientSumOrderByAggregateInput = {
@@ -406,6 +479,10 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -416,6 +493,20 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type ClientCreateNestedOneWithoutPoliciesInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutPoliciesInput, Prisma.ClientUncheckedCreateWithoutPoliciesInput>
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutPoliciesInput
+  connect?: Prisma.ClientWhereUniqueInput
+}
+
+export type ClientUpdateOneRequiredWithoutPoliciesNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutPoliciesInput, Prisma.ClientUncheckedCreateWithoutPoliciesInput>
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutPoliciesInput
+  upsert?: Prisma.ClientUpsertWithoutPoliciesInput
+  connect?: Prisma.ClientWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutPoliciesInput, Prisma.ClientUpdateWithoutPoliciesInput>, Prisma.ClientUncheckedUpdateWithoutPoliciesInput>
 }
 
 export type ClientCreateNestedOneWithoutFilesInput = {
@@ -432,23 +523,101 @@ export type ClientUpdateOneRequiredWithoutFilesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutFilesInput, Prisma.ClientUpdateWithoutFilesInput>, Prisma.ClientUncheckedUpdateWithoutFilesInput>
 }
 
-export type ClientCreateWithoutFilesInput = {
-  abbreviation: string
+export type ClientCreateWithoutPoliciesInput = {
+  type: string
+  identity: string
   firstName: string
   lastName: string
-  chineseName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
+  files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
+}
+
+export type ClientUncheckedCreateWithoutPoliciesInput = {
+  id?: number
+  type: string
+  identity: string
+  firstName: string
+  lastName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
+}
+
+export type ClientCreateOrConnectWithoutPoliciesInput = {
+  where: Prisma.ClientWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientCreateWithoutPoliciesInput, Prisma.ClientUncheckedCreateWithoutPoliciesInput>
+}
+
+export type ClientUpsertWithoutPoliciesInput = {
+  update: Prisma.XOR<Prisma.ClientUpdateWithoutPoliciesInput, Prisma.ClientUncheckedUpdateWithoutPoliciesInput>
+  create: Prisma.XOR<Prisma.ClientCreateWithoutPoliciesInput, Prisma.ClientUncheckedCreateWithoutPoliciesInput>
+  where?: Prisma.ClientWhereInput
+}
+
+export type ClientUpdateToOneWithWhereWithoutPoliciesInput = {
+  where?: Prisma.ClientWhereInput
+  data: Prisma.XOR<Prisma.ClientUpdateWithoutPoliciesInput, Prisma.ClientUncheckedUpdateWithoutPoliciesInput>
+}
+
+export type ClientUpdateWithoutPoliciesInput = {
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateWithoutPoliciesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type ClientCreateWithoutFilesInput = {
+  type: string
+  identity: string
+  firstName: string
+  lastName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
 }
 
 export type ClientUncheckedCreateWithoutFilesInput = {
   id?: number
-  abbreviation: string
+  type: string
+  identity: string
   firstName: string
   lastName: string
-  chineseName: string
+  chineseName?: string | null
+  phoneNumber: string
+  email?: string | null
   createdAt?: Date | string
-  updateAt?: Date | string
+  updatedAt?: Date | string
+  policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type ClientCreateOrConnectWithoutFilesInput = {
@@ -468,22 +637,30 @@ export type ClientUpdateToOneWithWhereWithoutFilesInput = {
 }
 
 export type ClientUpdateWithoutFilesInput = {
-  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutFilesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  abbreviation?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  chineseName?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
 }
 
 
@@ -492,10 +669,12 @@ export type ClientUncheckedUpdateWithoutFilesInput = {
  */
 
 export type ClientCountOutputType = {
+  policies: number
   files: number
 }
 
 export type ClientCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  policies?: boolean | ClientCountOutputTypeCountPoliciesArgs
   files?: boolean | ClientCountOutputTypeCountFilesArgs
 }
 
@@ -512,6 +691,13 @@ export type ClientCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * ClientCountOutputType without action
  */
+export type ClientCountOutputTypeCountPoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InsurancePolicyWhereInput
+}
+
+/**
+ * ClientCountOutputType without action
+ */
 export type ClientCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ClientFileWhereInput
 }
@@ -519,48 +705,62 @@ export type ClientCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Ex
 
 export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  abbreviation?: boolean
+  type?: boolean
+  identity?: boolean
   firstName?: boolean
   lastName?: boolean
   chineseName?: boolean
+  phoneNumber?: boolean
+  email?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
+  policies?: boolean | Prisma.Client$policiesArgs<ExtArgs>
   files?: boolean | Prisma.Client$filesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  abbreviation?: boolean
+  type?: boolean
+  identity?: boolean
   firstName?: boolean
   lastName?: boolean
   chineseName?: boolean
+  phoneNumber?: boolean
+  email?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  abbreviation?: boolean
+  type?: boolean
+  identity?: boolean
   firstName?: boolean
   lastName?: boolean
   chineseName?: boolean
+  phoneNumber?: boolean
+  email?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectScalar = {
   id?: boolean
-  abbreviation?: boolean
+  type?: boolean
+  identity?: boolean
   firstName?: boolean
   lastName?: boolean
   chineseName?: boolean
+  phoneNumber?: boolean
+  email?: boolean
   createdAt?: boolean
-  updateAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "abbreviation" | "firstName" | "lastName" | "chineseName" | "createdAt" | "updateAt", ExtArgs["result"]["client"]>
+export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "identity" | "firstName" | "lastName" | "chineseName" | "phoneNumber" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["client"]>
 export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  policies?: boolean | Prisma.Client$policiesArgs<ExtArgs>
   files?: boolean | Prisma.Client$filesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -570,16 +770,20 @@ export type ClientIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Client"
   objects: {
+    policies: Prisma.$InsurancePolicyPayload<ExtArgs>[]
     files: Prisma.$ClientFilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    abbreviation: string
+    type: string
+    identity: string
     firstName: string
     lastName: string
-    chineseName: string
+    chineseName: string | null
+    phoneNumber: string
+    email: string | null
     createdAt: Date
-    updateAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["client"]>
   composites: {}
 }
@@ -974,6 +1178,7 @@ readonly fields: ClientFieldRefs;
  */
 export interface Prisma__ClientClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  policies<T extends Prisma.Client$policiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$policiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InsurancePolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   files<T extends Prisma.Client$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1005,12 +1210,15 @@ export interface Prisma__ClientClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface ClientFieldRefs {
   readonly id: Prisma.FieldRef<"Client", 'Int'>
-  readonly abbreviation: Prisma.FieldRef<"Client", 'String'>
+  readonly type: Prisma.FieldRef<"Client", 'String'>
+  readonly identity: Prisma.FieldRef<"Client", 'String'>
   readonly firstName: Prisma.FieldRef<"Client", 'String'>
   readonly lastName: Prisma.FieldRef<"Client", 'String'>
   readonly chineseName: Prisma.FieldRef<"Client", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"Client", 'String'>
+  readonly email: Prisma.FieldRef<"Client", 'String'>
   readonly createdAt: Prisma.FieldRef<"Client", 'DateTime'>
-  readonly updateAt: Prisma.FieldRef<"Client", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Client", 'DateTime'>
 }
     
 
@@ -1399,6 +1607,30 @@ export type ClientDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Clients to delete.
    */
   limit?: number
+}
+
+/**
+ * Client.policies
+ */
+export type Client$policiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InsurancePolicy
+   */
+  select?: Prisma.InsurancePolicySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InsurancePolicy
+   */
+  omit?: Prisma.InsurancePolicyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InsurancePolicyInclude<ExtArgs> | null
+  where?: Prisma.InsurancePolicyWhereInput
+  orderBy?: Prisma.InsurancePolicyOrderByWithRelationInput | Prisma.InsurancePolicyOrderByWithRelationInput[]
+  cursor?: Prisma.InsurancePolicyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InsurancePolicyScalarFieldEnum | Prisma.InsurancePolicyScalarFieldEnum[]
 }
 
 /**

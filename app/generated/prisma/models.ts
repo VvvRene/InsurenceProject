@@ -9,5 +9,12 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Client'
+export type * from './models/InsurancePolicy'
+export type * from './models/VehiclePolicyDetail'
+export type * from './models/HomePolicyDetail'
+export type * from './models/LifePolicyDetail'
+export type * from './models/InsuranceCompany'
+export type * from './models/Broker'
 export type * from './models/ClientFile'
+export type * from './models/Currency'
 export type * from './commonInputTypes'

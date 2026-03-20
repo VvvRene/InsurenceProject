@@ -28,13 +28,11 @@ export type AggregateClientFile = {
 
 export type ClientFileAvgAggregateOutputType = {
   id: number | null
-  size: number | null
   clientId: number | null
 }
 
 export type ClientFileSumAggregateOutputType = {
   id: number | null
-  size: number | null
   clientId: number | null
 }
 
@@ -42,49 +40,32 @@ export type ClientFileMinAggregateOutputType = {
   id: number | null
   name: string | null
   path: string | null
-  size: number | null
-  mimeType: string | null
-  description: string | null
   clientId: number | null
-  createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type ClientFileMaxAggregateOutputType = {
   id: number | null
   name: string | null
   path: string | null
-  size: number | null
-  mimeType: string | null
-  description: string | null
   clientId: number | null
-  createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type ClientFileCountAggregateOutputType = {
   id: number
   name: number
   path: number
-  size: number
-  mimeType: number
-  description: number
   clientId: number
-  createdAt: number
-  updatedAt: number
   _all: number
 }
 
 
 export type ClientFileAvgAggregateInputType = {
   id?: true
-  size?: true
   clientId?: true
 }
 
 export type ClientFileSumAggregateInputType = {
   id?: true
-  size?: true
   clientId?: true
 }
 
@@ -92,36 +73,21 @@ export type ClientFileMinAggregateInputType = {
   id?: true
   name?: true
   path?: true
-  size?: true
-  mimeType?: true
-  description?: true
   clientId?: true
-  createdAt?: true
-  updatedAt?: true
 }
 
 export type ClientFileMaxAggregateInputType = {
   id?: true
   name?: true
   path?: true
-  size?: true
-  mimeType?: true
-  description?: true
   clientId?: true
-  createdAt?: true
-  updatedAt?: true
 }
 
 export type ClientFileCountAggregateInputType = {
   id?: true
   name?: true
   path?: true
-  size?: true
-  mimeType?: true
-  description?: true
   clientId?: true
-  createdAt?: true
-  updatedAt?: true
   _all?: true
 }
 
@@ -215,12 +181,7 @@ export type ClientFileGroupByOutputType = {
   id: number
   name: string
   path: string
-  size: number
-  mimeType: string | null
-  description: string | null
   clientId: number
-  createdAt: Date
-  updatedAt: Date
   _count: ClientFileCountAggregateOutputType | null
   _avg: ClientFileAvgAggregateOutputType | null
   _sum: ClientFileSumAggregateOutputType | null
@@ -250,26 +211,16 @@ export type ClientFileWhereInput = {
   id?: Prisma.IntFilter<"ClientFile"> | number
   name?: Prisma.StringFilter<"ClientFile"> | string
   path?: Prisma.StringFilter<"ClientFile"> | string
-  size?: Prisma.IntFilter<"ClientFile"> | number
-  mimeType?: Prisma.StringNullableFilter<"ClientFile"> | string | null
-  description?: Prisma.StringNullableFilter<"ClientFile"> | string | null
   clientId?: Prisma.IntFilter<"ClientFile"> | number
-  createdAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
-  owner?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
+  client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
 }
 
 export type ClientFileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
-  size?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  owner?: Prisma.ClientOrderByWithRelationInput
+  client?: Prisma.ClientOrderByWithRelationInput
 }
 
 export type ClientFileWhereUniqueInput = Prisma.AtLeast<{
@@ -279,25 +230,15 @@ export type ClientFileWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClientFileWhereInput | Prisma.ClientFileWhereInput[]
   name?: Prisma.StringFilter<"ClientFile"> | string
   path?: Prisma.StringFilter<"ClientFile"> | string
-  size?: Prisma.IntFilter<"ClientFile"> | number
-  mimeType?: Prisma.StringNullableFilter<"ClientFile"> | string | null
-  description?: Prisma.StringNullableFilter<"ClientFile"> | string | null
   clientId?: Prisma.IntFilter<"ClientFile"> | number
-  createdAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
-  owner?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
+  client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
 }, "id">
 
 export type ClientFileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
-  size?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClientFileCountOrderByAggregateInput
   _avg?: Prisma.ClientFileAvgOrderByAggregateInput
   _max?: Prisma.ClientFileMaxOrderByAggregateInput
@@ -312,92 +253,52 @@ export type ClientFileScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"ClientFile"> | number
   name?: Prisma.StringWithAggregatesFilter<"ClientFile"> | string
   path?: Prisma.StringWithAggregatesFilter<"ClientFile"> | string
-  size?: Prisma.IntWithAggregatesFilter<"ClientFile"> | number
-  mimeType?: Prisma.StringNullableWithAggregatesFilter<"ClientFile"> | string | null
-  description?: Prisma.StringNullableWithAggregatesFilter<"ClientFile"> | string | null
   clientId?: Prisma.IntWithAggregatesFilter<"ClientFile"> | number
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClientFile"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClientFile"> | Date | string
 }
 
 export type ClientFileCreateInput = {
   name: string
   path: string
-  size: number
-  mimeType?: string | null
-  description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  owner: Prisma.ClientCreateNestedOneWithoutFilesInput
+  client: Prisma.ClientCreateNestedOneWithoutFilesInput
 }
 
 export type ClientFileUncheckedCreateInput = {
   id?: number
   name: string
   path: string
-  size: number
-  mimeType?: string | null
-  description?: string | null
   clientId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type ClientFileUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.ClientUpdateOneRequiredWithoutFilesNestedInput
+  client?: Prisma.ClientUpdateOneRequiredWithoutFilesNestedInput
 }
 
 export type ClientFileUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileCreateManyInput = {
   id?: number
   name: string
   path: string
-  size: number
-  mimeType?: string | null
-  description?: string | null
   clientId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type ClientFileUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileListRelationFilter = {
@@ -414,17 +315,11 @@ export type ClientFileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
-  size?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type ClientFileAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  size?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
 }
 
@@ -432,122 +327,97 @@ export type ClientFileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
-  size?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type ClientFileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
-  size?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type ClientFileSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  size?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
 }
 
-export type ClientFileCreateNestedManyWithoutOwnerInput = {
-  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutOwnerInput, Prisma.ClientFileUncheckedCreateWithoutOwnerInput> | Prisma.ClientFileCreateWithoutOwnerInput[] | Prisma.ClientFileUncheckedCreateWithoutOwnerInput[]
-  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutOwnerInput | Prisma.ClientFileCreateOrConnectWithoutOwnerInput[]
-  createMany?: Prisma.ClientFileCreateManyOwnerInputEnvelope
+export type ClientFileCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutClientInput, Prisma.ClientFileUncheckedCreateWithoutClientInput> | Prisma.ClientFileCreateWithoutClientInput[] | Prisma.ClientFileUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutClientInput | Prisma.ClientFileCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.ClientFileCreateManyClientInputEnvelope
   connect?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
 }
 
-export type ClientFileUncheckedCreateNestedManyWithoutOwnerInput = {
-  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutOwnerInput, Prisma.ClientFileUncheckedCreateWithoutOwnerInput> | Prisma.ClientFileCreateWithoutOwnerInput[] | Prisma.ClientFileUncheckedCreateWithoutOwnerInput[]
-  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutOwnerInput | Prisma.ClientFileCreateOrConnectWithoutOwnerInput[]
-  createMany?: Prisma.ClientFileCreateManyOwnerInputEnvelope
+export type ClientFileUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutClientInput, Prisma.ClientFileUncheckedCreateWithoutClientInput> | Prisma.ClientFileCreateWithoutClientInput[] | Prisma.ClientFileUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutClientInput | Prisma.ClientFileCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.ClientFileCreateManyClientInputEnvelope
   connect?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
 }
 
-export type ClientFileUpdateManyWithoutOwnerNestedInput = {
-  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutOwnerInput, Prisma.ClientFileUncheckedCreateWithoutOwnerInput> | Prisma.ClientFileCreateWithoutOwnerInput[] | Prisma.ClientFileUncheckedCreateWithoutOwnerInput[]
-  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutOwnerInput | Prisma.ClientFileCreateOrConnectWithoutOwnerInput[]
-  upsert?: Prisma.ClientFileUpsertWithWhereUniqueWithoutOwnerInput | Prisma.ClientFileUpsertWithWhereUniqueWithoutOwnerInput[]
-  createMany?: Prisma.ClientFileCreateManyOwnerInputEnvelope
+export type ClientFileUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutClientInput, Prisma.ClientFileUncheckedCreateWithoutClientInput> | Prisma.ClientFileCreateWithoutClientInput[] | Prisma.ClientFileUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutClientInput | Prisma.ClientFileCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.ClientFileUpsertWithWhereUniqueWithoutClientInput | Prisma.ClientFileUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.ClientFileCreateManyClientInputEnvelope
   set?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
   disconnect?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
   delete?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
   connect?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
-  update?: Prisma.ClientFileUpdateWithWhereUniqueWithoutOwnerInput | Prisma.ClientFileUpdateWithWhereUniqueWithoutOwnerInput[]
-  updateMany?: Prisma.ClientFileUpdateManyWithWhereWithoutOwnerInput | Prisma.ClientFileUpdateManyWithWhereWithoutOwnerInput[]
+  update?: Prisma.ClientFileUpdateWithWhereUniqueWithoutClientInput | Prisma.ClientFileUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.ClientFileUpdateManyWithWhereWithoutClientInput | Prisma.ClientFileUpdateManyWithWhereWithoutClientInput[]
   deleteMany?: Prisma.ClientFileScalarWhereInput | Prisma.ClientFileScalarWhereInput[]
 }
 
-export type ClientFileUncheckedUpdateManyWithoutOwnerNestedInput = {
-  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutOwnerInput, Prisma.ClientFileUncheckedCreateWithoutOwnerInput> | Prisma.ClientFileCreateWithoutOwnerInput[] | Prisma.ClientFileUncheckedCreateWithoutOwnerInput[]
-  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutOwnerInput | Prisma.ClientFileCreateOrConnectWithoutOwnerInput[]
-  upsert?: Prisma.ClientFileUpsertWithWhereUniqueWithoutOwnerInput | Prisma.ClientFileUpsertWithWhereUniqueWithoutOwnerInput[]
-  createMany?: Prisma.ClientFileCreateManyOwnerInputEnvelope
+export type ClientFileUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientFileCreateWithoutClientInput, Prisma.ClientFileUncheckedCreateWithoutClientInput> | Prisma.ClientFileCreateWithoutClientInput[] | Prisma.ClientFileUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.ClientFileCreateOrConnectWithoutClientInput | Prisma.ClientFileCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.ClientFileUpsertWithWhereUniqueWithoutClientInput | Prisma.ClientFileUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.ClientFileCreateManyClientInputEnvelope
   set?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
   disconnect?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
   delete?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
   connect?: Prisma.ClientFileWhereUniqueInput | Prisma.ClientFileWhereUniqueInput[]
-  update?: Prisma.ClientFileUpdateWithWhereUniqueWithoutOwnerInput | Prisma.ClientFileUpdateWithWhereUniqueWithoutOwnerInput[]
-  updateMany?: Prisma.ClientFileUpdateManyWithWhereWithoutOwnerInput | Prisma.ClientFileUpdateManyWithWhereWithoutOwnerInput[]
+  update?: Prisma.ClientFileUpdateWithWhereUniqueWithoutClientInput | Prisma.ClientFileUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.ClientFileUpdateManyWithWhereWithoutClientInput | Prisma.ClientFileUpdateManyWithWhereWithoutClientInput[]
   deleteMany?: Prisma.ClientFileScalarWhereInput | Prisma.ClientFileScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type ClientFileCreateWithoutOwnerInput = {
+export type ClientFileCreateWithoutClientInput = {
   name: string
   path: string
-  size: number
-  mimeType?: string | null
-  description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
-export type ClientFileUncheckedCreateWithoutOwnerInput = {
+export type ClientFileUncheckedCreateWithoutClientInput = {
   id?: number
   name: string
   path: string
-  size: number
-  mimeType?: string | null
-  description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
-export type ClientFileCreateOrConnectWithoutOwnerInput = {
+export type ClientFileCreateOrConnectWithoutClientInput = {
   where: Prisma.ClientFileWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClientFileCreateWithoutOwnerInput, Prisma.ClientFileUncheckedCreateWithoutOwnerInput>
+  create: Prisma.XOR<Prisma.ClientFileCreateWithoutClientInput, Prisma.ClientFileUncheckedCreateWithoutClientInput>
 }
 
-export type ClientFileCreateManyOwnerInputEnvelope = {
-  data: Prisma.ClientFileCreateManyOwnerInput | Prisma.ClientFileCreateManyOwnerInput[]
+export type ClientFileCreateManyClientInputEnvelope = {
+  data: Prisma.ClientFileCreateManyClientInput | Prisma.ClientFileCreateManyClientInput[]
 }
 
-export type ClientFileUpsertWithWhereUniqueWithoutOwnerInput = {
+export type ClientFileUpsertWithWhereUniqueWithoutClientInput = {
   where: Prisma.ClientFileWhereUniqueInput
-  update: Prisma.XOR<Prisma.ClientFileUpdateWithoutOwnerInput, Prisma.ClientFileUncheckedUpdateWithoutOwnerInput>
-  create: Prisma.XOR<Prisma.ClientFileCreateWithoutOwnerInput, Prisma.ClientFileUncheckedCreateWithoutOwnerInput>
+  update: Prisma.XOR<Prisma.ClientFileUpdateWithoutClientInput, Prisma.ClientFileUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.ClientFileCreateWithoutClientInput, Prisma.ClientFileUncheckedCreateWithoutClientInput>
 }
 
-export type ClientFileUpdateWithWhereUniqueWithoutOwnerInput = {
+export type ClientFileUpdateWithWhereUniqueWithoutClientInput = {
   where: Prisma.ClientFileWhereUniqueInput
-  data: Prisma.XOR<Prisma.ClientFileUpdateWithoutOwnerInput, Prisma.ClientFileUncheckedUpdateWithoutOwnerInput>
+  data: Prisma.XOR<Prisma.ClientFileUpdateWithoutClientInput, Prisma.ClientFileUncheckedUpdateWithoutClientInput>
 }
 
-export type ClientFileUpdateManyWithWhereWithoutOwnerInput = {
+export type ClientFileUpdateManyWithWhereWithoutClientInput = {
   where: Prisma.ClientFileScalarWhereInput
-  data: Prisma.XOR<Prisma.ClientFileUpdateManyMutationInput, Prisma.ClientFileUncheckedUpdateManyWithoutOwnerInput>
+  data: Prisma.XOR<Prisma.ClientFileUpdateManyMutationInput, Prisma.ClientFileUncheckedUpdateManyWithoutClientInput>
 }
 
 export type ClientFileScalarWhereInput = {
@@ -557,55 +427,30 @@ export type ClientFileScalarWhereInput = {
   id?: Prisma.IntFilter<"ClientFile"> | number
   name?: Prisma.StringFilter<"ClientFile"> | string
   path?: Prisma.StringFilter<"ClientFile"> | string
-  size?: Prisma.IntFilter<"ClientFile"> | number
-  mimeType?: Prisma.StringNullableFilter<"ClientFile"> | string | null
-  description?: Prisma.StringNullableFilter<"ClientFile"> | string | null
   clientId?: Prisma.IntFilter<"ClientFile"> | number
-  createdAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
 }
 
-export type ClientFileCreateManyOwnerInput = {
+export type ClientFileCreateManyClientInput = {
   id?: number
   name: string
   path: string
-  size: number
-  mimeType?: string | null
-  description?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
-export type ClientFileUpdateWithoutOwnerInput = {
+export type ClientFileUpdateWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ClientFileUncheckedUpdateWithoutOwnerInput = {
+export type ClientFileUncheckedUpdateWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ClientFileUncheckedUpdateManyWithoutOwnerInput = {
+export type ClientFileUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
-  size?: Prisma.IntFieldUpdateOperationsInput | number
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -614,79 +459,54 @@ export type ClientFileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   name?: boolean
   path?: boolean
-  size?: boolean
-  mimeType?: boolean
-  description?: boolean
   clientId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  owner?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientFile"]>
 
 export type ClientFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   path?: boolean
-  size?: boolean
-  mimeType?: boolean
-  description?: boolean
   clientId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  owner?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientFile"]>
 
 export type ClientFileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   path?: boolean
-  size?: boolean
-  mimeType?: boolean
-  description?: boolean
   clientId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  owner?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientFile"]>
 
 export type ClientFileSelectScalar = {
   id?: boolean
   name?: boolean
   path?: boolean
-  size?: boolean
-  mimeType?: boolean
-  description?: boolean
   clientId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
 }
 
-export type ClientFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "path" | "size" | "mimeType" | "description" | "clientId" | "createdAt" | "updatedAt", ExtArgs["result"]["clientFile"]>
+export type ClientFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "path" | "clientId", ExtArgs["result"]["clientFile"]>
 export type ClientFileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
 export type ClientFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
 export type ClientFileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
 
 export type $ClientFilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ClientFile"
   objects: {
-    owner: Prisma.$ClientPayload<ExtArgs>
+    client: Prisma.$ClientPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     path: string
-    size: number
-    mimeType: string | null
-    description: string | null
     clientId: number
-    createdAt: Date
-    updatedAt: Date
   }, ExtArgs["result"]["clientFile"]>
   composites: {}
 }
@@ -1081,7 +901,7 @@ readonly fields: ClientFileFieldRefs;
  */
 export interface Prisma__ClientFileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  owner<T extends Prisma.ClientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientDefaultArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.ClientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientDefaultArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1114,12 +934,7 @@ export interface ClientFileFieldRefs {
   readonly id: Prisma.FieldRef<"ClientFile", 'Int'>
   readonly name: Prisma.FieldRef<"ClientFile", 'String'>
   readonly path: Prisma.FieldRef<"ClientFile", 'String'>
-  readonly size: Prisma.FieldRef<"ClientFile", 'Int'>
-  readonly mimeType: Prisma.FieldRef<"ClientFile", 'String'>
-  readonly description: Prisma.FieldRef<"ClientFile", 'String'>
   readonly clientId: Prisma.FieldRef<"ClientFile", 'Int'>
-  readonly createdAt: Prisma.FieldRef<"ClientFile", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"ClientFile", 'DateTime'>
 }
     
 

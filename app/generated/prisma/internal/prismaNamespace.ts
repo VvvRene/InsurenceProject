@@ -385,7 +385,14 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Client: 'Client',
-  ClientFile: 'ClientFile'
+  InsurancePolicy: 'InsurancePolicy',
+  VehiclePolicyDetail: 'VehiclePolicyDetail',
+  HomePolicyDetail: 'HomePolicyDetail',
+  LifePolicyDetail: 'LifePolicyDetail',
+  InsuranceCompany: 'InsuranceCompany',
+  Broker: 'Broker',
+  ClientFile: 'ClientFile',
+  Currency: 'Currency'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "client" | "clientFile"
+    modelProps: "client" | "insurancePolicy" | "vehiclePolicyDetail" | "homePolicyDetail" | "lifePolicyDetail" | "insuranceCompany" | "broker" | "clientFile" | "currency"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -479,6 +486,450 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    InsurancePolicy: {
+      payload: Prisma.$InsurancePolicyPayload<ExtArgs>
+      fields: Prisma.InsurancePolicyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InsurancePolicyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InsurancePolicyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>
+        }
+        findFirst: {
+          args: Prisma.InsurancePolicyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InsurancePolicyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>
+        }
+        findMany: {
+          args: Prisma.InsurancePolicyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>[]
+        }
+        create: {
+          args: Prisma.InsurancePolicyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>
+        }
+        createMany: {
+          args: Prisma.InsurancePolicyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InsurancePolicyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>[]
+        }
+        delete: {
+          args: Prisma.InsurancePolicyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>
+        }
+        update: {
+          args: Prisma.InsurancePolicyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>
+        }
+        deleteMany: {
+          args: Prisma.InsurancePolicyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InsurancePolicyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InsurancePolicyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>[]
+        }
+        upsert: {
+          args: Prisma.InsurancePolicyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsurancePolicyPayload>
+        }
+        aggregate: {
+          args: Prisma.InsurancePolicyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInsurancePolicy>
+        }
+        groupBy: {
+          args: Prisma.InsurancePolicyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsurancePolicyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InsurancePolicyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsurancePolicyCountAggregateOutputType> | number
+        }
+      }
+    }
+    VehiclePolicyDetail: {
+      payload: Prisma.$VehiclePolicyDetailPayload<ExtArgs>
+      fields: Prisma.VehiclePolicyDetailFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VehiclePolicyDetailFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VehiclePolicyDetailFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>
+        }
+        findFirst: {
+          args: Prisma.VehiclePolicyDetailFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VehiclePolicyDetailFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>
+        }
+        findMany: {
+          args: Prisma.VehiclePolicyDetailFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>[]
+        }
+        create: {
+          args: Prisma.VehiclePolicyDetailCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>
+        }
+        createMany: {
+          args: Prisma.VehiclePolicyDetailCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VehiclePolicyDetailCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>[]
+        }
+        delete: {
+          args: Prisma.VehiclePolicyDetailDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>
+        }
+        update: {
+          args: Prisma.VehiclePolicyDetailUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>
+        }
+        deleteMany: {
+          args: Prisma.VehiclePolicyDetailDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VehiclePolicyDetailUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VehiclePolicyDetailUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>[]
+        }
+        upsert: {
+          args: Prisma.VehiclePolicyDetailUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehiclePolicyDetailPayload>
+        }
+        aggregate: {
+          args: Prisma.VehiclePolicyDetailAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVehiclePolicyDetail>
+        }
+        groupBy: {
+          args: Prisma.VehiclePolicyDetailGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VehiclePolicyDetailGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VehiclePolicyDetailCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VehiclePolicyDetailCountAggregateOutputType> | number
+        }
+      }
+    }
+    HomePolicyDetail: {
+      payload: Prisma.$HomePolicyDetailPayload<ExtArgs>
+      fields: Prisma.HomePolicyDetailFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HomePolicyDetailFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HomePolicyDetailFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>
+        }
+        findFirst: {
+          args: Prisma.HomePolicyDetailFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HomePolicyDetailFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>
+        }
+        findMany: {
+          args: Prisma.HomePolicyDetailFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>[]
+        }
+        create: {
+          args: Prisma.HomePolicyDetailCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>
+        }
+        createMany: {
+          args: Prisma.HomePolicyDetailCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HomePolicyDetailCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>[]
+        }
+        delete: {
+          args: Prisma.HomePolicyDetailDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>
+        }
+        update: {
+          args: Prisma.HomePolicyDetailUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>
+        }
+        deleteMany: {
+          args: Prisma.HomePolicyDetailDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HomePolicyDetailUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HomePolicyDetailUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>[]
+        }
+        upsert: {
+          args: Prisma.HomePolicyDetailUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HomePolicyDetailPayload>
+        }
+        aggregate: {
+          args: Prisma.HomePolicyDetailAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHomePolicyDetail>
+        }
+        groupBy: {
+          args: Prisma.HomePolicyDetailGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HomePolicyDetailGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HomePolicyDetailCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HomePolicyDetailCountAggregateOutputType> | number
+        }
+      }
+    }
+    LifePolicyDetail: {
+      payload: Prisma.$LifePolicyDetailPayload<ExtArgs>
+      fields: Prisma.LifePolicyDetailFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LifePolicyDetailFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LifePolicyDetailFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>
+        }
+        findFirst: {
+          args: Prisma.LifePolicyDetailFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LifePolicyDetailFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>
+        }
+        findMany: {
+          args: Prisma.LifePolicyDetailFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>[]
+        }
+        create: {
+          args: Prisma.LifePolicyDetailCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>
+        }
+        createMany: {
+          args: Prisma.LifePolicyDetailCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LifePolicyDetailCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>[]
+        }
+        delete: {
+          args: Prisma.LifePolicyDetailDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>
+        }
+        update: {
+          args: Prisma.LifePolicyDetailUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>
+        }
+        deleteMany: {
+          args: Prisma.LifePolicyDetailDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LifePolicyDetailUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LifePolicyDetailUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>[]
+        }
+        upsert: {
+          args: Prisma.LifePolicyDetailUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifePolicyDetailPayload>
+        }
+        aggregate: {
+          args: Prisma.LifePolicyDetailAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLifePolicyDetail>
+        }
+        groupBy: {
+          args: Prisma.LifePolicyDetailGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LifePolicyDetailGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LifePolicyDetailCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LifePolicyDetailCountAggregateOutputType> | number
+        }
+      }
+    }
+    InsuranceCompany: {
+      payload: Prisma.$InsuranceCompanyPayload<ExtArgs>
+      fields: Prisma.InsuranceCompanyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InsuranceCompanyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InsuranceCompanyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>
+        }
+        findFirst: {
+          args: Prisma.InsuranceCompanyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InsuranceCompanyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>
+        }
+        findMany: {
+          args: Prisma.InsuranceCompanyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>[]
+        }
+        create: {
+          args: Prisma.InsuranceCompanyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>
+        }
+        createMany: {
+          args: Prisma.InsuranceCompanyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InsuranceCompanyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>[]
+        }
+        delete: {
+          args: Prisma.InsuranceCompanyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>
+        }
+        update: {
+          args: Prisma.InsuranceCompanyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>
+        }
+        deleteMany: {
+          args: Prisma.InsuranceCompanyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InsuranceCompanyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InsuranceCompanyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>[]
+        }
+        upsert: {
+          args: Prisma.InsuranceCompanyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsuranceCompanyPayload>
+        }
+        aggregate: {
+          args: Prisma.InsuranceCompanyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInsuranceCompany>
+        }
+        groupBy: {
+          args: Prisma.InsuranceCompanyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsuranceCompanyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InsuranceCompanyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsuranceCompanyCountAggregateOutputType> | number
+        }
+      }
+    }
+    Broker: {
+      payload: Prisma.$BrokerPayload<ExtArgs>
+      fields: Prisma.BrokerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BrokerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BrokerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>
+        }
+        findFirst: {
+          args: Prisma.BrokerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BrokerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>
+        }
+        findMany: {
+          args: Prisma.BrokerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>[]
+        }
+        create: {
+          args: Prisma.BrokerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>
+        }
+        createMany: {
+          args: Prisma.BrokerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BrokerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>[]
+        }
+        delete: {
+          args: Prisma.BrokerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>
+        }
+        update: {
+          args: Prisma.BrokerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>
+        }
+        deleteMany: {
+          args: Prisma.BrokerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BrokerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BrokerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>[]
+        }
+        upsert: {
+          args: Prisma.BrokerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrokerPayload>
+        }
+        aggregate: {
+          args: Prisma.BrokerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBroker>
+        }
+        groupBy: {
+          args: Prisma.BrokerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BrokerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BrokerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BrokerCountAggregateOutputType> | number
+        }
+      }
+    }
     ClientFile: {
       payload: Prisma.$ClientFilePayload<ExtArgs>
       fields: Prisma.ClientFileFieldRefs
@@ -553,6 +1004,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Currency: {
+      payload: Prisma.$CurrencyPayload<ExtArgs>
+      fields: Prisma.CurrencyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CurrencyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CurrencyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>
+        }
+        findFirst: {
+          args: Prisma.CurrencyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CurrencyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>
+        }
+        findMany: {
+          args: Prisma.CurrencyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>[]
+        }
+        create: {
+          args: Prisma.CurrencyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>
+        }
+        createMany: {
+          args: Prisma.CurrencyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CurrencyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>[]
+        }
+        delete: {
+          args: Prisma.CurrencyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>
+        }
+        update: {
+          args: Prisma.CurrencyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>
+        }
+        deleteMany: {
+          args: Prisma.CurrencyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CurrencyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CurrencyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>[]
+        }
+        upsert: {
+          args: Prisma.CurrencyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CurrencyPayload>
+        }
+        aggregate: {
+          args: Prisma.CurrencyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCurrency>
+        }
+        groupBy: {
+          args: Prisma.CurrencyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CurrencyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CurrencyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CurrencyCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -591,30 +1116,114 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const ClientScalarFieldEnum = {
   id: 'id',
-  abbreviation: 'abbreviation',
+  type: 'type',
+  identity: 'identity',
   firstName: 'firstName',
   lastName: 'lastName',
   chineseName: 'chineseName',
+  phoneNumber: 'phoneNumber',
+  email: 'email',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
+
+
+export const InsurancePolicyScalarFieldEnum = {
+  id: 'id',
+  uuid: 'uuid',
+  processType: 'processType',
+  category: 'category',
+  status: 'status',
+  policyNumber: 'policyNumber',
+  quotationNumber: 'quotationNumber',
+  clientId: 'clientId',
+  insuranceCompanyId: 'insuranceCompanyId',
+  brokerId: 'brokerId',
+  effectiveDate: 'effectiveDate',
+  expiryDate: 'expiryDate',
+  premiumAmount: 'premiumAmount',
+  currency: 'currency',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InsurancePolicyScalarFieldEnum = (typeof InsurancePolicyScalarFieldEnum)[keyof typeof InsurancePolicyScalarFieldEnum]
+
+
+export const VehiclePolicyDetailScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  coverageType: 'coverageType',
+  registrationNumber: 'registrationNumber',
+  seatNumber: 'seatNumber',
+  engineNumber: 'engineNumber',
+  chassisNumber: 'chassisNumber',
+  manufacturer: 'manufacturer',
+  modelName: 'modelName',
+  yearOfManufacture: 'yearOfManufacture'
+} as const
+
+export type VehiclePolicyDetailScalarFieldEnum = (typeof VehiclePolicyDetailScalarFieldEnum)[keyof typeof VehiclePolicyDetailScalarFieldEnum]
+
+
+export const HomePolicyDetailScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  propertyAddress: 'propertyAddress',
+  propertyType: 'propertyType',
+  sumInsuredStructure: 'sumInsuredStructure',
+  isMortgaged: 'isMortgaged'
+} as const
+
+export type HomePolicyDetailScalarFieldEnum = (typeof HomePolicyDetailScalarFieldEnum)[keyof typeof HomePolicyDetailScalarFieldEnum]
+
+
+export const LifePolicyDetailScalarFieldEnum = {
+  id: 'id',
+  policyId: 'policyId',
+  beneficiaryName: 'beneficiaryName',
+  sumAssured: 'sumAssured',
+  medicalRequired: 'medicalRequired'
+} as const
+
+export type LifePolicyDetailScalarFieldEnum = (typeof LifePolicyDetailScalarFieldEnum)[keyof typeof LifePolicyDetailScalarFieldEnum]
+
+
+export const InsuranceCompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type InsuranceCompanyScalarFieldEnum = (typeof InsuranceCompanyScalarFieldEnum)[keyof typeof InsuranceCompanyScalarFieldEnum]
+
+
+export const BrokerScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type BrokerScalarFieldEnum = (typeof BrokerScalarFieldEnum)[keyof typeof BrokerScalarFieldEnum]
 
 
 export const ClientFileScalarFieldEnum = {
   id: 'id',
   name: 'name',
   path: 'path',
-  size: 'size',
-  mimeType: 'mimeType',
-  description: 'description',
-  clientId: 'clientId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  clientId: 'clientId'
 } as const
 
 export type ClientFileScalarFieldEnum = (typeof ClientFileScalarFieldEnum)[keyof typeof ClientFileScalarFieldEnum]
+
+
+export const CurrencyScalarFieldEnum = {
+  id: 'id',
+  abbr: 'abbr',
+  rate: 'rate'
+} as const
+
+export type CurrencyScalarFieldEnum = (typeof CurrencyScalarFieldEnum)[keyof typeof CurrencyScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -664,6 +1273,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 /**
@@ -762,7 +1378,14 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   client?: Prisma.ClientOmit
+  insurancePolicy?: Prisma.InsurancePolicyOmit
+  vehiclePolicyDetail?: Prisma.VehiclePolicyDetailOmit
+  homePolicyDetail?: Prisma.HomePolicyDetailOmit
+  lifePolicyDetail?: Prisma.LifePolicyDetailOmit
+  insuranceCompany?: Prisma.InsuranceCompanyOmit
+  broker?: Prisma.BrokerOmit
   clientFile?: Prisma.ClientFileOmit
+  currency?: Prisma.CurrencyOmit
 }
 
 /* Types for Logging */

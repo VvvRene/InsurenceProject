@@ -47,7 +47,42 @@ export { Prisma }
  */
 export type Client = Prisma.ClientModel
 /**
+ * Model InsurancePolicy
+ * 
+ */
+export type InsurancePolicy = Prisma.InsurancePolicyModel
+/**
+ * Model VehiclePolicyDetail
+ * 
+ */
+export type VehiclePolicyDetail = Prisma.VehiclePolicyDetailModel
+/**
+ * Model HomePolicyDetail
+ * 
+ */
+export type HomePolicyDetail = Prisma.HomePolicyDetailModel
+/**
+ * Model LifePolicyDetail
+ * 
+ */
+export type LifePolicyDetail = Prisma.LifePolicyDetailModel
+/**
+ * Model InsuranceCompany
+ * 
+ */
+export type InsuranceCompany = Prisma.InsuranceCompanyModel
+/**
+ * Model Broker
+ * 
+ */
+export type Broker = Prisma.BrokerModel
+/**
  * Model ClientFile
  * 
  */
 export type ClientFile = Prisma.ClientFileModel
+/**
+ * Model Currency
+ * 
+ */
+export type Currency = Prisma.CurrencyModel

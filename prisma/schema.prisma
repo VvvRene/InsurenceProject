@@ -11,32 +11,125 @@ datasource db {
 }
 
 model Client {
-  id            Int      @id @default(autoincrement())
-  abbreviation  String
-  firstName     String
-  lastName      String
-  chineseName   String
-  createdAt     DateTime @default(now())
-  updateAt      DateTime @updatedAt
- 
-  // Relation: A client can have many files
-  files         ClientFile[]
+  id              Int               @id @default(autoincrement())
+  type            String            // "Company" | "Individual"
+  identity        String            // BR Number | HKID 
+  firstName       String
+  lastName        String
+  chineseName     String?
+  phoneNumber     String
+  email           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // Relations
+  policies        InsurancePolicy[]
+  files           ClientFile[]
+}
+
+model InsurancePolicy {
+  id                      Int               @id @default(autoincrement())
+  uuid                    String            @unique @default(uuid())
+  
+  // 1. Process Type: "New" | "Renewal"
+  processType             String            
+  
+  // 2. Product Category: "Vehicle" | "Home" | "Life"
+  category                String            
+  
+  status                  String            // "Active" | "Lapsed" | "Pending"
+  policyNumber            String            @unique 
+  quotationNumber         String?
+
+  // Ownership Relations
+  clientId                Int
+  client                  Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)  
+  
+  insuranceCompanyId      Int
+  insuranceCompany        InsuranceCompany  @relation(fields: [insuranceCompanyId], references: [id])
+
+  brokerId                Int
+  broker                  Broker            @relation(fields: [brokerId], references: [id])
+
+  // Common Policy Data
+  effectiveDate           DateTime 
+  expiryDate              DateTime 
+  premiumAmount           Float?            
+  currency                String?           
+  
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+
+  // --- Category-Specific Details ---
+  // Only ONE of these should be populated based on the 'category' field
+  vehicleDetail           VehiclePolicyDetail?
+  homeDetail              HomePolicyDetail?
+  lifeDetail              LifePolicyDetail?
+}
+
+// 🚗 Vehicle Category
+model VehiclePolicyDetail {
+  id                  Int             @id @default(autoincrement())
+  
+  policyId            Int             @unique // Ensures 1:1
+  policy              InsurancePolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+
+  coverageType        String          // "Comprehensive" ｜ "Third Party"
+  registrationNumber  String  
+  seatNumber          String
+          
+  engineNumber        String? 
+  chassisNumber       String?   
+  manufacturer        String? 
+  modelName           String? 
+  yearOfManufacture   String?
+}
+
+// 🏠 Homeowner’s Category
+model HomePolicyDetail {
+  id                  Int             @id @default(autoincrement())
+  policyId            Int             @unique // Ensures 1:1
+  policy              InsurancePolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+
+  propertyAddress     String
+  propertyType        String          // "Apartment" | "House"
+  sumInsuredStructure Float?          
+  isMortgaged         Boolean         @default(false)
+}
+
+// 🧬 Life Category
+model LifePolicyDetail {
+  id                  Int             @id @default(autoincrement())
+  policyId            Int             @unique // Ensures 1:1
+  policy              InsurancePolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+
+  beneficiaryName     String
+  sumAssured          Float
+  medicalRequired     Boolean         @default(false)
+}
+
+model InsuranceCompany {
+  id        Int               @id @default(autoincrement())
+  name      String            @unique
+  policies  InsurancePolicy[]
+}
+
+model Broker {
+  id        Int               @id @default(autoincrement()) 
+  name      String            @unique
+  policies  InsurancePolicy[]
 }
 
 model ClientFile {
-  id           Int   @id @default(autoincrement())
-  name         String   // Original filename
-  path         String   // Where it's stored on the server (e.g., /uploads/my-file.pdf)
-  size         Int      // Size in bytes
-  mimeType     String?  // e.g., "application/pdf" or "image/png"
-  description  String?
+  id          Int      @id @default(autoincrement())
+  name        String   
+  path        String   
+  clientId    Int
+  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
 
-  // Relation: Each file belongs to one User
-  clientId     Int
-  owner        Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
-
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([clientId]) // Makes searching for a user's files much faster
+model Currency {
+  id    Int    @id @default(autoincrement())
+  abbr  String @unique 
+  rate  Float  
 }
