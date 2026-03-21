@@ -14,14 +14,29 @@ model Client {
   id              Int               @id @default(autoincrement())
   type            String            // "Company" | "Individual"
   identity        String            // BR Number | HKID 
-  firstName       String
-  lastName        String
+  
+  abbr            String            // MR, MS, MISS
+  name            String 
   chineseName     String?
-  phoneNumber     String
+
+  address1        String
+  address2        String?
+
+  phoneNumber     String 
   email           String?
+ 
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 
+  // 
+  brithDate       DateTime?
+  gender          String             // Male. Female, not applicatable
+  businessRegistrationNumber String?
+  industry        String?
+  natureOfWork    String?
+  workDescription String? 
+  remark          String?
+  
   // Relations
   policies        InsurancePolicy[]
   files           ClientFile[]
@@ -32,10 +47,10 @@ model InsurancePolicy {
   uuid                    String            @unique @default(uuid())
   
   // 1. Process Type: "New" | "Renewal"
-  processType             String            
+  processType             String            // "New" | "Renewal"
   
-  // 2. Product Category: "Vehicle" | "Home" | "Life"
-  category                String            
+  // 2. Product Category: "
+  category                String            // Vehicle" | "Home" | "Life"
   
   status                  String            // "Active" | "Lapsed" | "Pending"
   policyNumber            String            @unique 
@@ -76,13 +91,21 @@ model VehiclePolicyDetail {
 
   coverageType        String          // "Comprehensive" ｜ "Third Party"
   registrationNumber  String  
-  seatNumber          String
-          
+
+  vehicleType         String
   engineNumber        String? 
-  chassisNumber       String?   
+  chassisNumber       String?  
+  vehicleBodyType     String
   manufacturer        String? 
-  modelName           String? 
-  yearOfManufacture   String?
+  modelName           String?  
+  enginDisplacement   Float
+  totalWeight         Float
+  yearOfManufacture   Int
+  seatNumber          String
+
+  region              String        // HK | HK+SZ
+  moneyLenderLicence  String?
+
 }
 
 // 🏠 Homeowner’s Category
