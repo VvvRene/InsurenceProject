@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Card,
@@ -24,6 +24,7 @@ import { useForm, Controller } from 'react-hook-form';
 import type { Client } from '~/generated/prisma/browser'; 
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ClientCreationDialog from '../components/dialogs/ClientUpsertDialog';
 
 interface SearchFilters {
     searchQuery: string;
@@ -47,6 +48,9 @@ const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
         }
     });
 
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+     
+
     const onSearch = (data: SearchFilters) => {
         console.log('Filtering clients with:', data);
         // Trigger your data fetching logic here
@@ -55,14 +59,18 @@ const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
     const clientSearch = watch("searchQuery");
 
     const filteredClient = clients?.filter(client => {
-        const isClientNameMatched = client.chineseName.toLowerCase().includes(clientSearch.toLowerCase())
+        const isClientNameMatched = (client.chineseName || "").toLowerCase().includes(clientSearch.toLowerCase())
             || client.lastName.toLowerCase().includes(clientSearch.toLowerCase())
             || client.firstName.toLowerCase().includes(clientSearch.toLowerCase());
         return isClientNameMatched;
     }) || [];
 
     const handleAddButtonOnClicked = () => {
-        console.log( "On Client Added");
+        setIsDialogOpen(true);
+    }
+
+    const handleClientInfoSave = (client : Client)=>{
+        console.log( client );
     }
 
     return (
@@ -173,6 +181,7 @@ const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
                 </TableContainer>
             </Box>
             <FloatingButton icon={PersonAddIcon} onClicked={handleAddButtonOnClicked}/>
+            <ClientCreationDialog open={isDialogOpen} onClose={()=>setIsDialogOpen(false)} onSave={handleClientInfoSave}></ClientCreationDialog>
         </Box>
     )
 }

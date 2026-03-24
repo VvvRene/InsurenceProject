@@ -47,8 +47,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         backgroundColor: mode === ThemeMode.Light  ? '#e9f5ff' : '#1e1e1e' ,
       },
       layer:{
-        level1: mode === ThemeMode.Light  ? '#ededed' : '#191919' ,
-        level2: mode === ThemeMode.Light  ? '#DDE7EE' : '#32383E' ,
+        level1: mode === ThemeMode.Light  ? '#fcfcfc' : '#191919' ,
+        level2: mode === ThemeMode.Light  ? '#DDE7EE' : '#212121' ,
         level3: mode === ThemeMode.Light  ? '#CDD7E1' : '#555E68' ,
       }
     },

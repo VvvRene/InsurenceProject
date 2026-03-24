@@ -14,6 +14,8 @@ import { Paper } from "@mui/material";
 import TopNavBar from "./.frontend/components/TopNavBar";
 import { ErrorLayout } from "./.frontend/components/ErrorLayout";
 import { Box, height } from "@mui/system";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -51,14 +53,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-        <ThemeProvider>
-          <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0, bgcolor: "background.body"}}>
-            <TopNavBar />
-            <Box sx={{ height: '100%', width: '100%', py: 4, px:8}}  >
-              {children}
-            </Box>
-          </Paper>
-        </ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterLuxon}>
+          <ThemeProvider>
+            <Paper sx={{ minHeight: '100vh', borderRadius: 0, p: 0, bgcolor: "background.body" }}>
+              <TopNavBar />
+              <Box sx={{ height: '100%', width: '100%', py: 4, px: 8 }}  >
+                {children}
+              </Box>
+            </Paper>
+          </ThemeProvider>
+        </LocalizationProvider> 
         <ScrollRestoration />
         <Scripts />
       </body>
