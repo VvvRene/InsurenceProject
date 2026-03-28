@@ -41,7 +41,7 @@ async function fileUploadAction(formData: FormData) {
     if (!client) return { error: "Client not found" };
 
     // Generate filename and path
-    const fileName = `client_${client.id}_${client.lastName.replace(/\s+/g, '_')}_${client.firstName.replace(/\s+/g, '_')}_${Date.now()}${path.extname(file.name)}`; 
+    const fileName = `client_${client.id}_${client.name.replace(/\s+/g, '_')}_${Date.now()}${path.extname(file.name)}`; 
     const uploadDir = path.join(process.cwd(), "public", "uploads");
     const filePath = path.join(uploadDir, fileName);
 

@@ -21,10 +21,11 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm, Controller } from 'react-hook-form';
-import type { Client } from '~/generated/prisma/browser'; 
+import type { Client } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ClientCreationDialog from '../components/dialogs/ClientUpsertDialog';
+import type { ClientInfo } from '../models/ClientInfo';
 
 interface SearchFilters {
     searchQuery: string;
@@ -35,9 +36,10 @@ interface SearchFilters {
 
 interface ClientsInfoPageProps {
     clients: Client[]; // Replace with actual client type
+    onSave: (client: ClientInfo) => void
 }
 
-const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
+const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) => {
 
     const { control, handleSubmit, reset, watch } = useForm<SearchFilters>({
         defaultValues: {
@@ -48,33 +50,29 @@ const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
         }
     });
 
-      const [isDialogOpen, setIsDialogOpen] = useState(false);
-     
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 
     const onSearch = (data: SearchFilters) => {
         console.log('Filtering clients with:', data);
         // Trigger your data fetching logic here
     };
- 
+
     const clientSearch = watch("searchQuery");
 
     const filteredClient = clients?.filter(client => {
         const isClientNameMatched = (client.chineseName || "").toLowerCase().includes(clientSearch.toLowerCase())
-            || client.lastName.toLowerCase().includes(clientSearch.toLowerCase())
-            || client.firstName.toLowerCase().includes(clientSearch.toLowerCase());
+            || client.name.toLowerCase().includes(clientSearch.toLowerCase())
+            || client.chineseName?.toLowerCase().includes(clientSearch.toLowerCase());
         return isClientNameMatched;
     }) || [];
 
     const handleAddButtonOnClicked = () => {
         setIsDialogOpen(true);
     }
-
-    const handleClientInfoSave = (client : Client)=>{
-        console.log( client );
-    }
-
+ 
     return (
-        <Box sx={{  margin: '0 auto' }}>
+        <Box sx={{ margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
                 Client Directory
             </Typography>
@@ -160,7 +158,7 @@ const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
             </Paper>
 
             {/* Results Placeholder */}
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'action.hover', borderRadius: 2  }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'action.hover', borderRadius: 2 }}>
                 <TableContainer component={Paper} sx={{ width: "100%", bgcolor: "layer.level1" }}>
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
@@ -180,8 +178,8 @@ const ClientsInfoPage = ({ clients }: ClientsInfoPageProps) => {
                     </Table>
                 </TableContainer>
             </Box>
-            <FloatingButton icon={PersonAddIcon} onClicked={handleAddButtonOnClicked}/>
-            <ClientCreationDialog open={isDialogOpen} onClose={()=>setIsDialogOpen(false)} onSave={handleClientInfoSave}></ClientCreationDialog>
+            <FloatingButton icon={PersonAddIcon} onClicked={handleAddButtonOnClicked} />
+            <ClientCreationDialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} onSave={onSave}></ClientCreationDialog>
         </Box>
     )
 }

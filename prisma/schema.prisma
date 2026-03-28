@@ -29,9 +29,9 @@ model Client {
   updatedAt       DateTime          @updatedAt
 
   // 
-  brithDate       DateTime?
+  date            DateTime?
   gender          String             // Male. Female, not applicatable
-  businessRegistrationNumber String?
+  
   industry        String?
   natureOfWork    String?
   workDescription String? 

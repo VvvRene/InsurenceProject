@@ -38,39 +38,63 @@ export type ClientMinAggregateOutputType = {
   id: number | null
   type: string | null
   identity: string | null
-  firstName: string | null
-  lastName: string | null
+  abbr: string | null
+  name: string | null
   chineseName: string | null
+  address1: string | null
+  address2: string | null
   phoneNumber: string | null
   email: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  date: Date | null
+  gender: string | null
+  industry: string | null
+  natureOfWork: string | null
+  workDescription: string | null
+  remark: string | null
 }
 
 export type ClientMaxAggregateOutputType = {
   id: number | null
   type: string | null
   identity: string | null
-  firstName: string | null
-  lastName: string | null
+  abbr: string | null
+  name: string | null
   chineseName: string | null
+  address1: string | null
+  address2: string | null
   phoneNumber: string | null
   email: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  date: Date | null
+  gender: string | null
+  industry: string | null
+  natureOfWork: string | null
+  workDescription: string | null
+  remark: string | null
 }
 
 export type ClientCountAggregateOutputType = {
   id: number
   type: number
   identity: number
-  firstName: number
-  lastName: number
+  abbr: number
+  name: number
   chineseName: number
+  address1: number
+  address2: number
   phoneNumber: number
   email: number
   createdAt: number
   updatedAt: number
+  date: number
+  gender: number
+  industry: number
+  natureOfWork: number
+  workDescription: number
+  remark: number
   _all: number
 }
 
@@ -87,39 +111,63 @@ export type ClientMinAggregateInputType = {
   id?: true
   type?: true
   identity?: true
-  firstName?: true
-  lastName?: true
+  abbr?: true
+  name?: true
   chineseName?: true
+  address1?: true
+  address2?: true
   phoneNumber?: true
   email?: true
   createdAt?: true
   updatedAt?: true
+  date?: true
+  gender?: true
+  industry?: true
+  natureOfWork?: true
+  workDescription?: true
+  remark?: true
 }
 
 export type ClientMaxAggregateInputType = {
   id?: true
   type?: true
   identity?: true
-  firstName?: true
-  lastName?: true
+  abbr?: true
+  name?: true
   chineseName?: true
+  address1?: true
+  address2?: true
   phoneNumber?: true
   email?: true
   createdAt?: true
   updatedAt?: true
+  date?: true
+  gender?: true
+  industry?: true
+  natureOfWork?: true
+  workDescription?: true
+  remark?: true
 }
 
 export type ClientCountAggregateInputType = {
   id?: true
   type?: true
   identity?: true
-  firstName?: true
-  lastName?: true
+  abbr?: true
+  name?: true
   chineseName?: true
+  address1?: true
+  address2?: true
   phoneNumber?: true
   email?: true
   createdAt?: true
   updatedAt?: true
+  date?: true
+  gender?: true
+  industry?: true
+  natureOfWork?: true
+  workDescription?: true
+  remark?: true
   _all?: true
 }
 
@@ -213,13 +261,21 @@ export type ClientGroupByOutputType = {
   id: number
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName: string | null
+  address1: string
+  address2: string | null
   phoneNumber: string
   email: string | null
   createdAt: Date
   updatedAt: Date
+  date: Date | null
+  gender: string
+  industry: string | null
+  natureOfWork: string | null
+  workDescription: string | null
+  remark: string | null
   _count: ClientCountAggregateOutputType | null
   _avg: ClientAvgAggregateOutputType | null
   _sum: ClientSumAggregateOutputType | null
@@ -249,13 +305,21 @@ export type ClientWhereInput = {
   id?: Prisma.IntFilter<"Client"> | number
   type?: Prisma.StringFilter<"Client"> | string
   identity?: Prisma.StringFilter<"Client"> | string
-  firstName?: Prisma.StringFilter<"Client"> | string
-  lastName?: Prisma.StringFilter<"Client"> | string
+  abbr?: Prisma.StringFilter<"Client"> | string
+  name?: Prisma.StringFilter<"Client"> | string
   chineseName?: Prisma.StringNullableFilter<"Client"> | string | null
+  address1?: Prisma.StringFilter<"Client"> | string
+  address2?: Prisma.StringNullableFilter<"Client"> | string | null
   phoneNumber?: Prisma.StringFilter<"Client"> | string
   email?: Prisma.StringNullableFilter<"Client"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Client"> | Date | string | null
+  gender?: Prisma.StringFilter<"Client"> | string
+  industry?: Prisma.StringNullableFilter<"Client"> | string | null
+  natureOfWork?: Prisma.StringNullableFilter<"Client"> | string | null
+  workDescription?: Prisma.StringNullableFilter<"Client"> | string | null
+  remark?: Prisma.StringNullableFilter<"Client"> | string | null
   policies?: Prisma.InsurancePolicyListRelationFilter
   files?: Prisma.ClientFileListRelationFilter
 }
@@ -264,13 +328,21 @@ export type ClientOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   identity?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  abbr?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   chineseName?: Prisma.SortOrderInput | Prisma.SortOrder
+  address1?: Prisma.SortOrder
+  address2?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  industry?: Prisma.SortOrderInput | Prisma.SortOrder
+  natureOfWork?: Prisma.SortOrderInput | Prisma.SortOrder
+  workDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  remark?: Prisma.SortOrderInput | Prisma.SortOrder
   policies?: Prisma.InsurancePolicyOrderByRelationAggregateInput
   files?: Prisma.ClientFileOrderByRelationAggregateInput
 }
@@ -282,13 +354,21 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClientWhereInput | Prisma.ClientWhereInput[]
   type?: Prisma.StringFilter<"Client"> | string
   identity?: Prisma.StringFilter<"Client"> | string
-  firstName?: Prisma.StringFilter<"Client"> | string
-  lastName?: Prisma.StringFilter<"Client"> | string
+  abbr?: Prisma.StringFilter<"Client"> | string
+  name?: Prisma.StringFilter<"Client"> | string
   chineseName?: Prisma.StringNullableFilter<"Client"> | string | null
+  address1?: Prisma.StringFilter<"Client"> | string
+  address2?: Prisma.StringNullableFilter<"Client"> | string | null
   phoneNumber?: Prisma.StringFilter<"Client"> | string
   email?: Prisma.StringNullableFilter<"Client"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Client"> | Date | string | null
+  gender?: Prisma.StringFilter<"Client"> | string
+  industry?: Prisma.StringNullableFilter<"Client"> | string | null
+  natureOfWork?: Prisma.StringNullableFilter<"Client"> | string | null
+  workDescription?: Prisma.StringNullableFilter<"Client"> | string | null
+  remark?: Prisma.StringNullableFilter<"Client"> | string | null
   policies?: Prisma.InsurancePolicyListRelationFilter
   files?: Prisma.ClientFileListRelationFilter
 }, "id">
@@ -297,13 +377,21 @@ export type ClientOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   identity?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  abbr?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   chineseName?: Prisma.SortOrderInput | Prisma.SortOrder
+  address1?: Prisma.SortOrder
+  address2?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  industry?: Prisma.SortOrderInput | Prisma.SortOrder
+  natureOfWork?: Prisma.SortOrderInput | Prisma.SortOrder
+  workDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  remark?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClientCountOrderByAggregateInput
   _avg?: Prisma.ClientAvgOrderByAggregateInput
   _max?: Prisma.ClientMaxOrderByAggregateInput
@@ -318,25 +406,41 @@ export type ClientScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Client"> | number
   type?: Prisma.StringWithAggregatesFilter<"Client"> | string
   identity?: Prisma.StringWithAggregatesFilter<"Client"> | string
-  firstName?: Prisma.StringWithAggregatesFilter<"Client"> | string
-  lastName?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  abbr?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  name?: Prisma.StringWithAggregatesFilter<"Client"> | string
   chineseName?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  address1?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  address2?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   phoneNumber?: Prisma.StringWithAggregatesFilter<"Client"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
+  date?: Prisma.DateTimeNullableWithAggregatesFilter<"Client"> | Date | string | null
+  gender?: Prisma.StringWithAggregatesFilter<"Client"> | string
+  industry?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  natureOfWork?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  workDescription?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  remark?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
 }
 
 export type ClientCreateInput = {
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
   policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
 }
@@ -345,13 +449,21 @@ export type ClientUncheckedCreateInput = {
   id?: number
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
   policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
 }
@@ -359,13 +471,21 @@ export type ClientUncheckedCreateInput = {
 export type ClientUpdateInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
 }
@@ -374,13 +494,21 @@ export type ClientUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
 }
@@ -389,51 +517,83 @@ export type ClientCreateManyInput = {
   id?: number
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
 }
 
 export type ClientUpdateManyMutationInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClientUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClientCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   identity?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  abbr?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   chineseName?: Prisma.SortOrder
+  address1?: Prisma.SortOrder
+  address2?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  industry?: Prisma.SortOrder
+  natureOfWork?: Prisma.SortOrder
+  workDescription?: Prisma.SortOrder
+  remark?: Prisma.SortOrder
 }
 
 export type ClientAvgOrderByAggregateInput = {
@@ -444,26 +604,42 @@ export type ClientMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   identity?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  abbr?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   chineseName?: Prisma.SortOrder
+  address1?: Prisma.SortOrder
+  address2?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  industry?: Prisma.SortOrder
+  natureOfWork?: Prisma.SortOrder
+  workDescription?: Prisma.SortOrder
+  remark?: Prisma.SortOrder
 }
 
 export type ClientMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   type?: Prisma.SortOrder
   identity?: Prisma.SortOrder
-  firstName?: Prisma.SortOrder
-  lastName?: Prisma.SortOrder
+  abbr?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   chineseName?: Prisma.SortOrder
+  address1?: Prisma.SortOrder
+  address2?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   email?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  industry?: Prisma.SortOrder
+  natureOfWork?: Prisma.SortOrder
+  workDescription?: Prisma.SortOrder
+  remark?: Prisma.SortOrder
 }
 
 export type ClientSumOrderByAggregateInput = {
@@ -485,6 +661,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -526,13 +706,21 @@ export type ClientUpdateOneRequiredWithoutFilesNestedInput = {
 export type ClientCreateWithoutPoliciesInput = {
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
   files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
 }
 
@@ -540,13 +728,21 @@ export type ClientUncheckedCreateWithoutPoliciesInput = {
   id?: number
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
 }
 
@@ -569,13 +765,21 @@ export type ClientUpdateToOneWithWhereWithoutPoliciesInput = {
 export type ClientUpdateWithoutPoliciesInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
 }
 
@@ -583,26 +787,42 @@ export type ClientUncheckedUpdateWithoutPoliciesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
 }
 
 export type ClientCreateWithoutFilesInput = {
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
   policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
 }
 
@@ -610,13 +830,21 @@ export type ClientUncheckedCreateWithoutFilesInput = {
   id?: number
   type: string
   identity: string
-  firstName: string
-  lastName: string
+  abbr: string
+  name: string
   chineseName?: string | null
+  address1: string
+  address2?: string | null
   phoneNumber: string
   email?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
   policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
 }
 
@@ -639,13 +867,21 @@ export type ClientUpdateToOneWithWhereWithoutFilesInput = {
 export type ClientUpdateWithoutFilesInput = {
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
 }
 
@@ -653,13 +889,21 @@ export type ClientUncheckedUpdateWithoutFilesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   identity?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.StringFieldUpdateOperationsInput | string
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
 }
 
@@ -707,13 +951,21 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   type?: boolean
   identity?: boolean
-  firstName?: boolean
-  lastName?: boolean
+  abbr?: boolean
+  name?: boolean
   chineseName?: boolean
+  address1?: boolean
+  address2?: boolean
   phoneNumber?: boolean
   email?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  date?: boolean
+  gender?: boolean
+  industry?: boolean
+  natureOfWork?: boolean
+  workDescription?: boolean
+  remark?: boolean
   policies?: boolean | Prisma.Client$policiesArgs<ExtArgs>
   files?: boolean | Prisma.Client$filesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
@@ -723,42 +975,66 @@ export type ClientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   type?: boolean
   identity?: boolean
-  firstName?: boolean
-  lastName?: boolean
+  abbr?: boolean
+  name?: boolean
   chineseName?: boolean
+  address1?: boolean
+  address2?: boolean
   phoneNumber?: boolean
   email?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  date?: boolean
+  gender?: boolean
+  industry?: boolean
+  natureOfWork?: boolean
+  workDescription?: boolean
+  remark?: boolean
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   type?: boolean
   identity?: boolean
-  firstName?: boolean
-  lastName?: boolean
+  abbr?: boolean
+  name?: boolean
   chineseName?: boolean
+  address1?: boolean
+  address2?: boolean
   phoneNumber?: boolean
   email?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  date?: boolean
+  gender?: boolean
+  industry?: boolean
+  natureOfWork?: boolean
+  workDescription?: boolean
+  remark?: boolean
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectScalar = {
   id?: boolean
   type?: boolean
   identity?: boolean
-  firstName?: boolean
-  lastName?: boolean
+  abbr?: boolean
+  name?: boolean
   chineseName?: boolean
+  address1?: boolean
+  address2?: boolean
   phoneNumber?: boolean
   email?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  date?: boolean
+  gender?: boolean
+  industry?: boolean
+  natureOfWork?: boolean
+  workDescription?: boolean
+  remark?: boolean
 }
 
-export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "identity" | "firstName" | "lastName" | "chineseName" | "phoneNumber" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["client"]>
+export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "identity" | "abbr" | "name" | "chineseName" | "address1" | "address2" | "phoneNumber" | "email" | "createdAt" | "updatedAt" | "date" | "gender" | "industry" | "natureOfWork" | "workDescription" | "remark", ExtArgs["result"]["client"]>
 export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   policies?: boolean | Prisma.Client$policiesArgs<ExtArgs>
   files?: boolean | Prisma.Client$filesArgs<ExtArgs>
@@ -777,13 +1053,21 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: number
     type: string
     identity: string
-    firstName: string
-    lastName: string
+    abbr: string
+    name: string
     chineseName: string | null
+    address1: string
+    address2: string | null
     phoneNumber: string
     email: string | null
     createdAt: Date
     updatedAt: Date
+    date: Date | null
+    gender: string
+    industry: string | null
+    natureOfWork: string | null
+    workDescription: string | null
+    remark: string | null
   }, ExtArgs["result"]["client"]>
   composites: {}
 }
@@ -1212,13 +1496,21 @@ export interface ClientFieldRefs {
   readonly id: Prisma.FieldRef<"Client", 'Int'>
   readonly type: Prisma.FieldRef<"Client", 'String'>
   readonly identity: Prisma.FieldRef<"Client", 'String'>
-  readonly firstName: Prisma.FieldRef<"Client", 'String'>
-  readonly lastName: Prisma.FieldRef<"Client", 'String'>
+  readonly abbr: Prisma.FieldRef<"Client", 'String'>
+  readonly name: Prisma.FieldRef<"Client", 'String'>
   readonly chineseName: Prisma.FieldRef<"Client", 'String'>
+  readonly address1: Prisma.FieldRef<"Client", 'String'>
+  readonly address2: Prisma.FieldRef<"Client", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"Client", 'String'>
   readonly email: Prisma.FieldRef<"Client", 'String'>
   readonly createdAt: Prisma.FieldRef<"Client", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Client", 'DateTime'>
+  readonly date: Prisma.FieldRef<"Client", 'DateTime'>
+  readonly gender: Prisma.FieldRef<"Client", 'String'>
+  readonly industry: Prisma.FieldRef<"Client", 'String'>
+  readonly natureOfWork: Prisma.FieldRef<"Client", 'String'>
+  readonly workDescription: Prisma.FieldRef<"Client", 'String'>
+  readonly remark: Prisma.FieldRef<"Client", 'String'>
 }
     
 

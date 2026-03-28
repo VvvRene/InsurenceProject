@@ -1118,13 +1118,21 @@ export const ClientScalarFieldEnum = {
   id: 'id',
   type: 'type',
   identity: 'identity',
-  firstName: 'firstName',
-  lastName: 'lastName',
+  abbr: 'abbr',
+  name: 'name',
   chineseName: 'chineseName',
+  address1: 'address1',
+  address2: 'address2',
   phoneNumber: 'phoneNumber',
   email: 'email',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  date: 'date',
+  gender: 'gender',
+  industry: 'industry',
+  natureOfWork: 'natureOfWork',
+  workDescription: 'workDescription',
+  remark: 'remark'
 } as const
 
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
@@ -1157,12 +1165,18 @@ export const VehiclePolicyDetailScalarFieldEnum = {
   policyId: 'policyId',
   coverageType: 'coverageType',
   registrationNumber: 'registrationNumber',
-  seatNumber: 'seatNumber',
+  vehicleType: 'vehicleType',
   engineNumber: 'engineNumber',
   chassisNumber: 'chassisNumber',
+  vehicleBodyType: 'vehicleBodyType',
   manufacturer: 'manufacturer',
   modelName: 'modelName',
-  yearOfManufacture: 'yearOfManufacture'
+  enginDisplacement: 'enginDisplacement',
+  totalWeight: 'totalWeight',
+  yearOfManufacture: 'yearOfManufacture',
+  seatNumber: 'seatNumber',
+  region: 'region',
+  moneyLenderLicence: 'moneyLenderLicence'
 } as const
 
 export type VehiclePolicyDetailScalarFieldEnum = (typeof VehiclePolicyDetailScalarFieldEnum)[keyof typeof VehiclePolicyDetailScalarFieldEnum]

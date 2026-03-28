@@ -6,6 +6,7 @@ import { Dialog, Paper } from '@mui/material';
 import type { Client } from '~/generated/prisma/client';
 import ClientInformationForm from '../forms/ClientInformationForm';
 import { Container } from '@mui/system';
+import type { ClientInfo } from '~/.frontend/models/ClientInfo';
 
 // Define the shape of the form data
 interface FileUploadFormInputs {
@@ -16,14 +17,14 @@ interface FileUploadFormInputs {
 
 interface ClientCreationDialogProps {
   open: boolean;
-  client?: Client;
+  client?: ClientInfo;
   onClose: () => void;
-  onSave: (clients: Client) => void;
+  onSave: (client: ClientInfo) => void;
 }
 
 const ClientCreationDialog: React.FC<ClientCreationDialogProps> = ({ open, client, onClose, onSave }) => {
 
-  const { control, handleSubmit, watch, setValue, reset } = useForm<FileUploadFormInputs>({
+  const { reset } = useForm<FileUploadFormInputs>({
     defaultValues: null as unknown as FileUploadFormInputs // Initialize with null and cast to the correct type
   });
 
@@ -31,7 +32,7 @@ const ClientCreationDialog: React.FC<ClientCreationDialogProps> = ({ open, clien
     reset(); // Clear form on close
     onClose();
   };
-
+ 
   return (
     <Dialog
       fullWidth
@@ -40,13 +41,13 @@ const ClientCreationDialog: React.FC<ClientCreationDialogProps> = ({ open, clien
       slotProps={{
         paper: {
           sx: {
-            maxWidth:'80%',
-            borderRadius: 4, 
+            maxWidth: '80%',
+            borderRadius: 4,
           },
         },
       }}
     >
-      <ClientInformationForm></ClientInformationForm>
+      <ClientInformationForm client={client} onSave={onSave}></ClientInformationForm>
     </Dialog>
   );
 };
