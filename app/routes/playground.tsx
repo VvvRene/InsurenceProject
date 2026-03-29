@@ -1,15 +1,27 @@
-import type { Route } from "./+types/playground"; 
+import type { Route } from "./+types/playground";
 
-import { TabsLayout, type TabItem } from "~/.frontend/components/TabsLayout";
-import { GeneralPage } from "~/.frontend/pages/GeneralPage";
-import { DetailPage } from "~/.frontend/pages/DetailPage";
-import { OmissionPage } from "~/.frontend/pages/OmissionPage"; 
-import ClientInformationForm from "~/.frontend/components/forms/ClientInformationForm";
+import InsurancePolicyForm from "~/.frontend/components/forms/InsurancePolicyForm";
 
-export default function playground({ }: Route.ComponentProps) { 
+
+import { prisma } from '~/.server/db/prisma';
+import { useLoaderData } from "react-router";
+
+export async function loader() {
+    const clients = await prisma.client.findMany();
+    const insuranceCompanies = await prisma.insuranceCompany.findMany();
+    const brokers = await prisma.broker.findMany();
+
+    return { clients, insuranceCompanies, brokers };
+}
+
+
+export default function playground({ }: Route.ComponentProps) {
+
+    const { clients, insuranceCompanies, brokers } = useLoaderData<typeof loader>();
+
     return (
         <>
-        <ClientInformationForm></ClientInformationForm>
+            <InsurancePolicyForm clients={clients} insuranceCompanies={insuranceCompanies} brokers={brokers} />
         </>
     );
 }

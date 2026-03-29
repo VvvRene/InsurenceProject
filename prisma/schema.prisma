@@ -52,9 +52,10 @@ model InsurancePolicy {
   // 2. Product Category: "
   category                String            // Vehicle" | "Home" | "Life"
   
-  status                  String            // "Active" | "Lapsed" | "Pending"
   policyNumber            String            @unique 
   quotationNumber         String?
+
+  remark                  String?
 
   // Ownership Relations
   clientId                Int
@@ -75,11 +76,17 @@ model InsurancePolicy {
   createdAt               DateTime          @default(now())
   updatedAt               DateTime          @updatedAt
 
+  //
+  previousPolicyId        Int?              @unique // Self-referencing FK for renewal policies
+  previousPolicy          InsurancePolicy?  @relation("PolicyHistory", fields: [previousPolicyId], references: [id])
+  nextPolicy              InsurancePolicy?  @relation("PolicyHistory")
+
   // --- Category-Specific Details ---
   // Only ONE of these should be populated based on the 'category' field
   vehicleDetail           VehiclePolicyDetail?
   homeDetail              HomePolicyDetail?
   lifeDetail              LifePolicyDetail?
+  
 }
 
 // 🚗 Vehicle Category

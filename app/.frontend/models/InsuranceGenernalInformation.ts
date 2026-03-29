@@ -1,30 +1,25 @@
-// Define the interface
-export interface InsuranceGenernalInformation {
-  policyNumber: string;
-  policySuffix: string;
-  updateDate: string;
-  quoteNumber: string;
-  policyStatus: string;
-  sharedNumber: string;
-  policyCode: string;
-  policyHolder: string;
-  underwritingCompany: string;
-  agentName: string;
-  insuredAmountCurrency: string;
-  insuredAmount: string;
-  onlineNumber: string;
-  premiumCurrency: string;
-  policyPremium: string;
-  remarks: string;
-  updatedBy: string;
-  nextStep: string;
-  inputDate: string;
-  hasCancellationDate: boolean;
-  cancellationDate: string;
-  hasSubmissionDate: boolean;
-  submissionDate: string;
-  notificationDate: string;
-  noticeNumber: string;
-  receiptDate: string;
-  receiptNumber: string;
-}
+// Validation Schema based on your Prisma Model
+
+import { int, z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+export const insuranceGeneralInformationSchema = z.object({
+    uuid: z.string().min(1, 'Required'),
+    processType: z.enum(['New', 'Renewal']),
+    category: z.enum(['Vehicle', 'Home', 'Life']), 
+    policyNumber: z.string().min(1, 'Required'),
+    quotationNumber: z.string().optional(),
+    // Mapping relational fields to their respective IDs
+    clientId: z.number(),
+    insuranceCompanyId: z.number(),
+    brokerId: z.number(),
+    // Date fields
+    effectiveDate: z.date(),
+    expiryDate: z.date(),
+    premiumAmount: z.number().nonnegative(),
+    currency: z.enum(['HKD', 'USD', 'CNY']),
+    updateDate: z.date(),
+    remark: z.string().optional().nullable()
+});
+
+export type InsuranceGeneralInformation = z.infer<typeof insuranceGeneralInformationSchema>;

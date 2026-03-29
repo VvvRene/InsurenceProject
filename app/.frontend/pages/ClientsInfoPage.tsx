@@ -24,6 +24,9 @@ import { useForm, Controller } from 'react-hook-form';
 import type { Client } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import BusinessIcon from '@mui/icons-material/Business';
+import PersonIcon from '@mui/icons-material/Person';
+
 import ClientCreationDialog from '../components/dialogs/ClientUpsertDialog';
 import type { ClientInfo } from '../models/ClientInfo';
 
@@ -163,15 +166,21 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
                             <TableRow>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, fontSize: "large" }}>Name</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>Email</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Type</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Name</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Phone#</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "20%" }}>Email</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>Remark</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {filteredClient.map(client => (
                                 <TableRow key={client.id}>
+                                    <TableCell>{client.type == "Individual" ? <PersonIcon /> : <BusinessIcon />}</TableCell>
                                     <TableCell>{client.chineseName}</TableCell>
-                                    <TableCell>"TBC"</TableCell>
+                                    <TableCell>{client.phoneNumber || ""}</TableCell>
+                                    <TableCell>{client.email || "TBC"}</TableCell>
+                                    <TableCell>{client.remark || "TBC"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
