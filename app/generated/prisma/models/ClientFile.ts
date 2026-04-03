@@ -28,11 +28,13 @@ export type AggregateClientFile = {
 
 export type ClientFileAvgAggregateOutputType = {
   id: number | null
+  size: number | null
   clientId: number | null
 }
 
 export type ClientFileSumAggregateOutputType = {
   id: number | null
+  size: number | null
   clientId: number | null
 }
 
@@ -40,32 +42,46 @@ export type ClientFileMinAggregateOutputType = {
   id: number | null
   name: string | null
   path: string | null
+  description: string | null
+  size: number | null
+  mimeType: string | null
   clientId: number | null
+  uploadedAt: Date | null
 }
 
 export type ClientFileMaxAggregateOutputType = {
   id: number | null
   name: string | null
   path: string | null
+  description: string | null
+  size: number | null
+  mimeType: string | null
   clientId: number | null
+  uploadedAt: Date | null
 }
 
 export type ClientFileCountAggregateOutputType = {
   id: number
   name: number
   path: number
+  description: number
+  size: number
+  mimeType: number
   clientId: number
+  uploadedAt: number
   _all: number
 }
 
 
 export type ClientFileAvgAggregateInputType = {
   id?: true
+  size?: true
   clientId?: true
 }
 
 export type ClientFileSumAggregateInputType = {
   id?: true
+  size?: true
   clientId?: true
 }
 
@@ -73,21 +89,33 @@ export type ClientFileMinAggregateInputType = {
   id?: true
   name?: true
   path?: true
+  description?: true
+  size?: true
+  mimeType?: true
   clientId?: true
+  uploadedAt?: true
 }
 
 export type ClientFileMaxAggregateInputType = {
   id?: true
   name?: true
   path?: true
+  description?: true
+  size?: true
+  mimeType?: true
   clientId?: true
+  uploadedAt?: true
 }
 
 export type ClientFileCountAggregateInputType = {
   id?: true
   name?: true
   path?: true
+  description?: true
+  size?: true
+  mimeType?: true
   clientId?: true
+  uploadedAt?: true
   _all?: true
 }
 
@@ -181,7 +209,11 @@ export type ClientFileGroupByOutputType = {
   id: number
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
   clientId: number
+  uploadedAt: Date
   _count: ClientFileCountAggregateOutputType | null
   _avg: ClientFileAvgAggregateOutputType | null
   _sum: ClientFileSumAggregateOutputType | null
@@ -211,7 +243,11 @@ export type ClientFileWhereInput = {
   id?: Prisma.IntFilter<"ClientFile"> | number
   name?: Prisma.StringFilter<"ClientFile"> | string
   path?: Prisma.StringFilter<"ClientFile"> | string
+  description?: Prisma.StringFilter<"ClientFile"> | string
+  size?: Prisma.IntFilter<"ClientFile"> | number
+  mimeType?: Prisma.StringFilter<"ClientFile"> | string
   clientId?: Prisma.IntFilter<"ClientFile"> | number
+  uploadedAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
 }
 
@@ -219,7 +255,11 @@ export type ClientFileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  uploadedAt?: Prisma.SortOrder
   client?: Prisma.ClientOrderByWithRelationInput
 }
 
@@ -230,7 +270,11 @@ export type ClientFileWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClientFileWhereInput | Prisma.ClientFileWhereInput[]
   name?: Prisma.StringFilter<"ClientFile"> | string
   path?: Prisma.StringFilter<"ClientFile"> | string
+  description?: Prisma.StringFilter<"ClientFile"> | string
+  size?: Prisma.IntFilter<"ClientFile"> | number
+  mimeType?: Prisma.StringFilter<"ClientFile"> | string
   clientId?: Prisma.IntFilter<"ClientFile"> | number
+  uploadedAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
 }, "id">
 
@@ -238,7 +282,11 @@ export type ClientFileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  uploadedAt?: Prisma.SortOrder
   _count?: Prisma.ClientFileCountOrderByAggregateInput
   _avg?: Prisma.ClientFileAvgOrderByAggregateInput
   _max?: Prisma.ClientFileMaxOrderByAggregateInput
@@ -253,12 +301,20 @@ export type ClientFileScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"ClientFile"> | number
   name?: Prisma.StringWithAggregatesFilter<"ClientFile"> | string
   path?: Prisma.StringWithAggregatesFilter<"ClientFile"> | string
+  description?: Prisma.StringWithAggregatesFilter<"ClientFile"> | string
+  size?: Prisma.IntWithAggregatesFilter<"ClientFile"> | number
+  mimeType?: Prisma.StringWithAggregatesFilter<"ClientFile"> | string
   clientId?: Prisma.IntWithAggregatesFilter<"ClientFile"> | number
+  uploadedAt?: Prisma.DateTimeWithAggregatesFilter<"ClientFile"> | Date | string
 }
 
 export type ClientFileCreateInput = {
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
+  uploadedAt?: Date | string
   client: Prisma.ClientCreateNestedOneWithoutFilesInput
 }
 
@@ -266,12 +322,20 @@ export type ClientFileUncheckedCreateInput = {
   id?: number
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
   clientId: number
+  uploadedAt?: Date | string
 }
 
 export type ClientFileUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneRequiredWithoutFilesNestedInput
 }
 
@@ -279,26 +343,42 @@ export type ClientFileUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileCreateManyInput = {
   id?: number
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
   clientId: number
+  uploadedAt?: Date | string
 }
 
 export type ClientFileUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileListRelationFilter = {
@@ -315,11 +395,16 @@ export type ClientFileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  uploadedAt?: Prisma.SortOrder
 }
 
 export type ClientFileAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
 }
 
@@ -327,18 +412,27 @@ export type ClientFileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  uploadedAt?: Prisma.SortOrder
 }
 
 export type ClientFileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  uploadedAt?: Prisma.SortOrder
 }
 
 export type ClientFileSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
 }
 
@@ -387,12 +481,20 @@ export type ClientFileUncheckedUpdateManyWithoutClientNestedInput = {
 export type ClientFileCreateWithoutClientInput = {
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
+  uploadedAt?: Date | string
 }
 
 export type ClientFileUncheckedCreateWithoutClientInput = {
   id?: number
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
+  uploadedAt?: Date | string
 }
 
 export type ClientFileCreateOrConnectWithoutClientInput = {
@@ -427,30 +529,50 @@ export type ClientFileScalarWhereInput = {
   id?: Prisma.IntFilter<"ClientFile"> | number
   name?: Prisma.StringFilter<"ClientFile"> | string
   path?: Prisma.StringFilter<"ClientFile"> | string
+  description?: Prisma.StringFilter<"ClientFile"> | string
+  size?: Prisma.IntFilter<"ClientFile"> | number
+  mimeType?: Prisma.StringFilter<"ClientFile"> | string
   clientId?: Prisma.IntFilter<"ClientFile"> | number
+  uploadedAt?: Prisma.DateTimeFilter<"ClientFile"> | Date | string
 }
 
 export type ClientFileCreateManyClientInput = {
   id?: number
   name: string
   path: string
+  description: string
+  size: number
+  mimeType: string
+  uploadedAt?: Date | string
 }
 
 export type ClientFileUpdateWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileUncheckedUpdateWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientFileUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -459,7 +581,11 @@ export type ClientFileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   name?: boolean
   path?: boolean
+  description?: boolean
+  size?: boolean
+  mimeType?: boolean
   clientId?: boolean
+  uploadedAt?: boolean
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientFile"]>
 
@@ -467,7 +593,11 @@ export type ClientFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   path?: boolean
+  description?: boolean
+  size?: boolean
+  mimeType?: boolean
   clientId?: boolean
+  uploadedAt?: boolean
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientFile"]>
 
@@ -475,7 +605,11 @@ export type ClientFileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   name?: boolean
   path?: boolean
+  description?: boolean
+  size?: boolean
+  mimeType?: boolean
   clientId?: boolean
+  uploadedAt?: boolean
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientFile"]>
 
@@ -483,10 +617,14 @@ export type ClientFileSelectScalar = {
   id?: boolean
   name?: boolean
   path?: boolean
+  description?: boolean
+  size?: boolean
+  mimeType?: boolean
   clientId?: boolean
+  uploadedAt?: boolean
 }
 
-export type ClientFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "path" | "clientId", ExtArgs["result"]["clientFile"]>
+export type ClientFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "path" | "description" | "size" | "mimeType" | "clientId" | "uploadedAt", ExtArgs["result"]["clientFile"]>
 export type ClientFileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
@@ -506,7 +644,11 @@ export type $ClientFilePayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: number
     name: string
     path: string
+    description: string
+    size: number
+    mimeType: string
     clientId: number
+    uploadedAt: Date
   }, ExtArgs["result"]["clientFile"]>
   composites: {}
 }
@@ -934,7 +1076,11 @@ export interface ClientFileFieldRefs {
   readonly id: Prisma.FieldRef<"ClientFile", 'Int'>
   readonly name: Prisma.FieldRef<"ClientFile", 'String'>
   readonly path: Prisma.FieldRef<"ClientFile", 'String'>
+  readonly description: Prisma.FieldRef<"ClientFile", 'String'>
+  readonly size: Prisma.FieldRef<"ClientFile", 'Int'>
+  readonly mimeType: Prisma.FieldRef<"ClientFile", 'String'>
   readonly clientId: Prisma.FieldRef<"ClientFile", 'Int'>
+  readonly uploadedAt: Prisma.FieldRef<"ClientFile", 'DateTime'>
 }
     
 

@@ -7,6 +7,8 @@ import { useLoaderData, useFetcher } from "react-router";
 import type { ClientFileInformation } from "~/.frontend/models/ClientFileInformation";
 import type { Client } from "~/generated/prisma/client";
 import { prisma } from '~/.server/db/prisma';
+import { fromFormData } from "~/utils/fromFormData";
+import { fi } from "@faker-js/faker";
 
 export async function loader() {
     const clients = await prisma.client.findMany();
@@ -32,8 +34,10 @@ export async function action({ request }: Route.ActionArgs) {
 
 async function fileUploadAction(formData: FormData) { 
     
-    const file = formData.get("file") as File;
-    const clientId = Number(formData.get("clientId"));
+    const clientRaw = fromFormData(formData);
+     
+    const file = clientRaw.file as File;
+    const clientId = Number(clientRaw.clientId);
 
     if (!file || !clientId) return { error: "Missing data" };
 
@@ -53,12 +57,13 @@ async function fileUploadAction(formData: FormData) {
     // Save to Database
     await prisma.clientFile.create({
         data: {
-            name: file.name,
+            name: fileName,
             path: `/uploads/${fileName}`, // Public URL path
-            description: formData.get("description") as string || "",
+            description: clientRaw.description || "",
             size: file.size,
             mimeType: file.type,
-            clientId: client.id
+            uploadedAt: new Date(),
+            clientId: Number.parseInt(clientRaw.clientId)
         }
     });
 }

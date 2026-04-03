@@ -91,6 +91,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             label="Engine Number"
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
+                                        
                                         />
                                     )}
                                 />
@@ -180,6 +181,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             label="Engine Displacement (cc)"
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
+                                            onChange={(e)=> field.onChange(Number(e.target.value))}
                                         />
                                     )}
                                 />
@@ -196,6 +198,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             label="Total Weight (kg)"
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
+                                            onChange={(e)=> field.onChange(Number(e.target.value))}
                                         />
                                     )}
                                 />
@@ -228,6 +231,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             label="Number of Seats"
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
+                                            onChange={(e)=> field.onChange(Number(e.target.value))}
                                         />
                                     )}
                                 />

@@ -50,8 +50,9 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
     const filteredFiles = clientFiles?.filter(file => {
         const client = clients.find(c => c.id === file.clientId);
         const isFileNameMatch = file.name.toLowerCase().includes(searchTerm.toLowerCase());
-        const isClientNameMatch = client ? `${client.firstName} ${client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) : false;
-        return isFileNameMatch || isClientNameMatch;
+        const isClientNameMatch = client ? `${client.name}`.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+        const isClientChineseNameMatch = client ? `${client.chineseName}`.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+        return isFileNameMatch || isClientNameMatch || isClientChineseNameMatch;
     }) || [];
 
     return (
@@ -142,9 +143,9 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                                             {file.name}
                                         </Stack>
                                     </TableCell>
-                                    <TableCell>{clients.find(client => client.id === file.clientId)?.firstName} {clients.find(client => client.id === file.clientId)?.lastName}</TableCell>
+                                    <TableCell>{clients.find(client => client.id === file.clientId)?.name} [{clients.find(client => client.id === file.clientId)?.chineseName}]</TableCell>
                                     <TableCell>{file.size}</TableCell>
-                                    <TableCell>{new Date(file.createdAt).toLocaleDateString('en-US')}</TableCell>
+                                    <TableCell>{new Date(file.uploadedAt).toLocaleDateString('en-US')}</TableCell>
                                     <TableCell align="right">
                                         <IconButton color="primary" href={`/client/files/download/${file.id}`} download>
                                             <DownloadIcon />

@@ -108,7 +108,7 @@ model VehiclePolicyDetail {
   enginDisplacement   Float
   totalWeight         Float
   yearOfManufacture   Int
-  seatNumber          String
+  seatNumber          Float
 
   region              String        // HK | HK+SZ
   moneyLenderLicence  String?
@@ -152,8 +152,12 @@ model Broker {
 
 model ClientFile {
   id          Int      @id @default(autoincrement())
-  name        String   
-  path        String   
+  name        String
+  path        String  
+  description String    
+  size        Int
+  mimeType    String
+  uploadedAt  DateTime @default(now())
   clientId    Int
   client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }

@@ -40,6 +40,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         clientId: 0,
         insuranceCompanyId: 0,
         brokerId: 0,
+        quotationNumber: '',
         effectiveDate: DateTime.now().toJSDate(),
         expiryDate: DateTime.now().plus({ years: 1 }).toJSDate(),
         updateDate: DateTime.now().toJSDate(),
@@ -136,23 +137,19 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
 
                 <IconButton sx={{ border: 1 }} onClick={() => {
                     insuranceGeneralInformationTrigger().then((isValid) => {
-                        if( isValid ) {
-                            vehiclePolicyDetailInformationTrigger().then((isVehicleInfoValid) => {
-                                if(isVehicleInfoValid) {
-                                    if (onSave) {
-                                        onSave({
-                                            insuranceGeneralInformation,
-                                            vehiclePolicyDetailInformation
-                                        });
-                                    }
-                                } else {
-                                    console.log("Vehicle policy detail information validation failed");
+                        vehiclePolicyDetailInformationTrigger().then((isVehicleInfoValid) => {
+                            if (isValid && isVehicleInfoValid) {
+                                if (onSave) {
+                                    onSave({
+                                        insuranceGeneralInformation,
+                                        vehiclePolicyDetailInformation
+                                    });
                                 }
-                            });
-                        } else {
-                            console.log("Insurance general information validation failed");
-                        }
-                    }); 
+                            } else {
+                                console.log("Insurance general information validation failed");
+                            }
+                        });
+                    });
                 }}>
                     <SaveIcon />
                 </IconButton>

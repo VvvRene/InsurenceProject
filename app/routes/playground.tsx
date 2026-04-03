@@ -22,12 +22,12 @@ export default function playground({ }: Route.ComponentProps) {
 
     return (
         <>
-        <PolicyInfoPage 
-        clients={clients} 
-        insuranceCompanies={insuranceCompanies} 
-        brokers={brokers}
-        insurancePolicies={[]}
-        onSave={(c)=>{}} /> 
+            <PolicyInfoPage
+                clients={clients}
+                insuranceCompanies={insuranceCompanies}
+                brokers={brokers}
+                insurancePolicies={[]}
+                onSave={(c) => { }} />
         </>
     );
 }

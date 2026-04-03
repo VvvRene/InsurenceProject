@@ -25,6 +25,8 @@ import ClientCreationDialog from '../components/dialogs/ClientUpsertDialog';
 import type { ClientInfo } from '../models/ClientInfo';
 import type InsurancePolicyForm from '../components/forms/InsurancePolicyForm';
 import PolicyUpsertDialog from '../components/dialogs/PolicyUpsertDialog';
+import type { VehiclePolicyDetailInformation } from '../models/VehiclePolicyDetailInformation';
+import type { InsuranceGeneralInformation } from '../models/InsuranceGenernalInformation';
 
 interface SearchFilters {
     searchQuery: string;
@@ -38,7 +40,10 @@ interface PolicyInfoPageProps {
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[]; // Add broker type if needed
     insurancePolicies: InsurancePolicy[];
-    onSave: (client: InsurancePolicy) => void
+    onSave?: (data: { 
+        insuranceGeneralInformation: InsuranceGeneralInformation; 
+        vehiclePolicyDetailInformation: VehiclePolicyDetailInformation 
+    }) => void; // Optional onSave callback
 }
 
 const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompanies, brokers, insurancePolicies, onSave }) => {
@@ -58,11 +63,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
     const onSearch = (data: SearchFilters) => {
         console.log('Filtering clients with:', data);
         // Trigger your data fetching logic here
-    };
-
-    const clientSearch = watch("searchQuery");
-    const category = watch("categoryGroup");
-    const status = watch("status");
+    }; 
 
     const handleAddButtonOnClicked = () => {
         setIsDialogOpen(true);
@@ -71,7 +72,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
     return (
         <Box sx={{ margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                Client Directory
+                Policy Directory
             </Typography>
 
             {/* Search Header Section */}
@@ -87,7 +88,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                     <TextField
                                         {...field}
                                         fullWidth
-                                        label="TBC"
+                                        label="Client Name / Policy Number / Quotation Number"
                                         placeholder="e.g. John Doe"
                                         slotProps={{
                                             input: { startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} /> }
@@ -198,9 +199,9 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                 clients={clients}
                 insuranceCompanies={insuranceCompanies}
                 brokers={brokers}
-                open={isDialogOpen} onClose={() => setIsDialogOpen(false)} onSave={(c) => {
-                    console.log("Policy saved:", c); 
-                }} />
+                open={isDialogOpen} 
+                onClose={() => setIsDialogOpen(false)} 
+                onSave={onSave} />
 
         </Box>
     )

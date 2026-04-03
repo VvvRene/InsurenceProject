@@ -27,11 +27,11 @@ export const LeftDrawer: React.FC<LeftDrawerProps> = ({ isToolbarAdjusted = fals
         </ListItemButton>
         {/* Collapsible List Item for Data Management */}
         <CollapsibleListItem label="Data Management">
+          <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/policy'); }} >
+            <ListItemText primary="Policies" />
+          </ListItemButton>
           <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/client'); }} >
             <ListItemText primary="Clients" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/playground'); }} >
-            <ListItemText primary="Agents" />
           </ListItemButton>
         </CollapsibleListItem>
         {/* Collapsible List Item for Files Management */}
@@ -39,11 +39,7 @@ export const LeftDrawer: React.FC<LeftDrawerProps> = ({ isToolbarAdjusted = fals
           {/* Client Files */}
           <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/client/files'); }} >
             <ListItemText primary="Clients" />
-          </ListItemButton>
-          {/* Agent Files */}
-          <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/agent/files'); }} >
-            <ListItemText primary="Agents" />
-          </ListItemButton>
+          </ListItemButton> 
         </CollapsibleListItem>
         <ListItemButton onClick={() => { closeDrawer(); navigate('/about'); }}>
           <ListItemText primary="About" />

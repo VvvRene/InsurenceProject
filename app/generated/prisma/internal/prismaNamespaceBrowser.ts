@@ -104,9 +104,9 @@ export const InsurancePolicyScalarFieldEnum = {
   uuid: 'uuid',
   processType: 'processType',
   category: 'category',
-  status: 'status',
   policyNumber: 'policyNumber',
   quotationNumber: 'quotationNumber',
+  remark: 'remark',
   clientId: 'clientId',
   insuranceCompanyId: 'insuranceCompanyId',
   brokerId: 'brokerId',
@@ -115,7 +115,8 @@ export const InsurancePolicyScalarFieldEnum = {
   premiumAmount: 'premiumAmount',
   currency: 'currency',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  previousPolicyId: 'previousPolicyId'
 } as const
 
 export type InsurancePolicyScalarFieldEnum = (typeof InsurancePolicyScalarFieldEnum)[keyof typeof InsurancePolicyScalarFieldEnum]
@@ -186,7 +187,11 @@ export const ClientFileScalarFieldEnum = {
   id: 'id',
   name: 'name',
   path: 'path',
-  clientId: 'clientId'
+  description: 'description',
+  size: 'size',
+  mimeType: 'mimeType',
+  clientId: 'clientId',
+  uploadedAt: 'uploadedAt'
 } as const
 
 export type ClientFileScalarFieldEnum = (typeof ClientFileScalarFieldEnum)[keyof typeof ClientFileScalarFieldEnum]
