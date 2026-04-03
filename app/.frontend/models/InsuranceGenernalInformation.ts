@@ -10,9 +10,9 @@ export const insuranceGeneralInformationSchema = z.object({
     policyNumber: z.string().min(1, 'Required'),
     quotationNumber: z.string().optional(),
     // Mapping relational fields to their respective IDs
-    clientId: z.number(),
-    insuranceCompanyId: z.number(),
-    brokerId: z.number(),
+    clientId: z.number().min(1, "Client is required"),
+    insuranceCompanyId: z.number().min(1, "Insurance Company is required"), 
+    brokerId: z.number().min(1, "Broker is required"), 
     // Date fields
     effectiveDate: z.date(),
     expiryDate: z.date(),

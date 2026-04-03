@@ -5,50 +5,33 @@ import {
     Paper, Divider, InputAdornment,
     IconButton
 } from '@mui/material';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
 import { DateTime } from 'luxon';
 import type { Broker, Client, InsuranceCompany } from '~/generated/prisma/browser';
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { DatePicker } from '@mui/x-date-pickers';
+import { validate } from 'uuid';
 
 
 interface InsurancePolicyGeneralInformationFormProps {
-    defaultValues: InsuranceGeneralInformation; // Optional default values for editing existing policies
+    control: Control<InsuranceGeneralInformation>; // React Hook Form control object 
     clients: Client[]; // Assuming you have a list of clients to select from
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
-    brokers: Broker[]; // Add broker type if needed
-    onChange?: (data: InsuranceGeneralInformation) => void; // Optional callback to notify parent of changes
+    brokers: Broker[];  
 }
 
 const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInformationFormProps> = ({
-    defaultValues, // Optional default values for editing existing policies
+    control, 
     clients,
     insuranceCompanies,
-    brokers,
-    onChange // Optional callback to notify parent of changes
+    brokers
 }) => {
-
-    const { control, handleSubmit, watch, formState: { errors } } = useForm<InsuranceGeneralInformation>({
-        resolver: zodResolver(insuranceGeneralInformationSchema),
-        defaultValues: defaultValues
-    });
-
-    useEffect(() => {
-        const subscription = watch((value, { name, type }) => {
-            onChange?.(value as InsuranceGeneralInformation); // Notify parent of changes
-        });
-        return () => subscription.unsubscribe();
-    }, [watch]);
-
-    const onSubmit = (data: InsuranceGeneralInformation) => {
-        console.log("Form Submitted:", data);
-    };
-
+  
     return (
         <Box sx={{ overflow: 'hidden' }}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <Box sx={{ p: 4, overflowY: 'auto', height: 'fit-contant', maxHeight: "70vh" }}>
                     <Stack spacing={2.5}>
                         {/* Row 1: Type and Identity */}
@@ -177,6 +160,16 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                         <Controller
                             name="clientId"
                             control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (!value) {
+                                        return "Client is required";
+                                    }
+                                    console.log("Validating clientId:", value, "Available clients:", clients.map(c => c.id));
+                                    return true;
+                                }
+
+                            }}
                             render={({ field, fieldState }) => (
                                 <TextField
                                     {...field}

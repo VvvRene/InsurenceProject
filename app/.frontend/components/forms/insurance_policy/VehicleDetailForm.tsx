@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import {
-    Box, Grid, TextField, MenuItem, Typography, Button,
-    Paper, Divider, InputAdornment,
-    IconButton
+    Box, TextField, MenuItem, 
 } from '@mui/material'; 
-import { useForm, Controller } from 'react-hook-form'; 
+import { useForm, Controller, type Control } from 'react-hook-form'; 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
  
@@ -12,31 +10,15 @@ import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformati
 
 // Validation Schema based on your Prisma Model 
 interface VehicleDetailFormProps {
+    control: Control<VehiclePolicyDetailInformation>; // React Hook Form control object
     defaultValues: VehiclePolicyDetailInformation; // Optional default values for editing existing policies
     onChange: (data: VehiclePolicyDetailInformation) => void; // Optional callback to pass form data to parent component
 }
 
-const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, onChange }) => {
-
-    const { control, handleSubmit, watch, formState: { errors } } = useForm<VehiclePolicyDetailInformation>({
-        resolver: zodResolver(vehiclePolicyDetailInformationSchema),
-        defaultValues: defaultValues
-    });
-
-    useEffect(() => {
-        const subscription = watch((value, { name, type }) => {
-            onChange(value as VehiclePolicyDetailInformation); // Call the onChange callback with the latest form data whenever any field changes
-        });
-        return () => subscription.unsubscribe();
-    }, [watch]);
-
-    const onSubmit = (data: VehiclePolicyDetailInformation) => {
-        console.log("Form Submitted:", data);
-    };
-
+const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultValues, onChange }) => { 
     return (
         <Box sx={{ overflow: 'hidden' }}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <Box sx={{ p: 4, overflowY: 'auto', height: 'fit-contant', maxHeight: "70vh" }}>
                     <Stack >
                         <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" mb={2}>
@@ -44,14 +26,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="coverageType"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState}) => (
                                         <TextField
                                             {...field}
                                             select
                                             fullWidth
                                             label="Coverage Type"
-                                            error={!!errors.coverageType}
-                                            helperText={errors.coverageType ? errors.coverageType.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
                                             <MenuItem value="Comprehensive">Comprehensive</MenuItem>
                                             <MenuItem value="Third-Party">Third-Party</MenuItem>
@@ -63,13 +45,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="registrationNumber"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState}) => (
                                         <TextField
                                             {...field}
                                             fullWidth
                                             label="Registration Number"
-                                            error={!!errors.registrationNumber}
-                                            helperText={errors.registrationNumber ? errors.registrationNumber.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -81,14 +63,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="vehicleType"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             select
                                             fullWidth
                                             label="Vehicle Type"
-                                            error={!!errors.vehicleType}
-                                            helperText={errors.vehicleType ? errors.vehicleType.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
                                             <MenuItem value="Sedan">Sedan</MenuItem>
                                             <MenuItem value="SUV">SUV</MenuItem>
@@ -102,13 +84,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="engineNumber"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             fullWidth
                                             label="Engine Number"
-                                            error={!!errors.engineNumber}
-                                            helperText={errors.engineNumber ? errors.engineNumber.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -117,13 +99,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="chassisNumber"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             fullWidth
                                             label="Chassis Number"
-                                            error={!!errors.chassisNumber}
-                                            helperText={errors.chassisNumber ? errors.chassisNumber.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -134,14 +116,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="vehicleBodyType"
                                     control={control}
-                                    render={({ field }) => (
-                                        <TextField
+                                    render={({ field, fieldState}) => (
+                                        <TextField  
                                             {...field}
                                             select
                                             fullWidth
                                             label="Vehicle Body Type"
-                                            error={!!errors.vehicleBodyType}
-                                            helperText={errors.vehicleBodyType ? errors.vehicleBodyType.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
                                             <MenuItem value="Coupe">Coupe</MenuItem>
                                             <MenuItem value="Convertible">Convertible</MenuItem>
@@ -158,13 +140,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="manufacturer"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             fullWidth
                                             label="Manufacturer"
-                                            error={!!errors.manufacturer}
-                                            helperText={errors.manufacturer ? errors.manufacturer.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -173,13 +155,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="modelName"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             fullWidth
                                             label="Model Name"
-                                            error={!!errors.modelName}
-                                            helperText={errors.modelName ? errors.modelName.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -190,14 +172,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="enginDisplacement"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
-                                            {...field}
+                                            {...field}  
                                             type="number"
                                             fullWidth
                                             label="Engine Displacement (cc)"
-                                            error={!!errors.enginDisplacement}
-                                            helperText={errors.enginDisplacement ? errors.enginDisplacement.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -206,14 +188,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="totalWeight"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             type="number"
                                             fullWidth
                                             label="Total Weight (kg)"
-                                            error={!!errors.totalWeight}
-                                            helperText={errors.totalWeight ? errors.totalWeight.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -222,14 +204,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="yearOfManufacture"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             type="number"
                                             fullWidth
                                             label="Year of Manufacture"
-                                            error={!!errors.yearOfManufacture}
-                                            helperText={errors.yearOfManufacture ? errors.yearOfManufacture.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -238,14 +220,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="seatNumber"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             type="number"
-                                            fullWidth
+                                            fullWidth   
                                             label="Number of Seats"
-                                            error={!!errors.seatNumber}
-                                            helperText={errors.seatNumber ? errors.seatNumber.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />
@@ -256,14 +238,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="region"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState}) => (
                                         <TextField
                                             {...field}
                                             select
                                             fullWidth
                                             label="Region"
-                                            error={!!errors.region}
-                                            helperText={errors.region ? errors.region.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
                                             <MenuItem value="Hong Kong">Hong Kong</MenuItem>
                                             <MenuItem value="Mainland China">Mainland China</MenuItem>
@@ -276,13 +258,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ defaultValues, on
                                 <Controller
                                     name="moneyLenderLicenceNumber"
                                     control={control}
-                                    render={({ field }) => (
+                                    render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
                                             fullWidth
                                             label="Money Lender Licence Number (if applicable)"
-                                            error={!!errors.moneyLenderLicenceNumber}
-                                            helperText={errors.moneyLenderLicenceNumber ? errors.moneyLenderLicenceNumber.message : ''}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
                                     )}
                                 />

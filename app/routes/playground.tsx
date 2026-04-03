@@ -5,6 +5,7 @@ import InsurancePolicyForm from "~/.frontend/components/forms/InsurancePolicyFor
 
 import { prisma } from '~/.server/db/prisma';
 import { useLoaderData } from "react-router";
+import PolicyInfoPage from "~/.frontend/pages/PolicyInfoPage";
 
 export async function loader() {
     const clients = await prisma.client.findMany();
@@ -21,7 +22,12 @@ export default function playground({ }: Route.ComponentProps) {
 
     return (
         <>
-            <InsurancePolicyForm clients={clients} insuranceCompanies={insuranceCompanies} brokers={brokers} />
+        <PolicyInfoPage 
+        clients={clients} 
+        insuranceCompanies={insuranceCompanies} 
+        brokers={brokers}
+        insurancePolicies={[]}
+        onSave={(c)=>{}} /> 
         </>
     );
 }
