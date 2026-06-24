@@ -979,6 +979,7 @@ export type CurrencyCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many Currencies.
    */
   data: Prisma.CurrencyCreateManyInput | Prisma.CurrencyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -997,6 +998,7 @@ export type CurrencyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Currencies.
    */
   data: Prisma.CurrencyCreateManyInput | Prisma.CurrencyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

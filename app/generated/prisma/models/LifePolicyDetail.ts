@@ -1161,6 +1161,7 @@ export type LifePolicyDetailCreateManyArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many LifePolicyDetails.
    */
   data: Prisma.LifePolicyDetailCreateManyInput | Prisma.LifePolicyDetailCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1179,6 +1180,7 @@ export type LifePolicyDetailCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    * The data used to create many LifePolicyDetails.
    */
   data: Prisma.LifePolicyDetailCreateManyInput | Prisma.LifePolicyDetailCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

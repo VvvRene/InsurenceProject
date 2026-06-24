@@ -1539,6 +1539,7 @@ export type VehiclePolicyDetailCreateManyArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many VehiclePolicyDetails.
    */
   data: Prisma.VehiclePolicyDetailCreateManyInput | Prisma.VehiclePolicyDetailCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1557,6 +1558,7 @@ export type VehiclePolicyDetailCreateManyAndReturnArgs<ExtArgs extends runtime.T
    * The data used to create many VehiclePolicyDetails.
    */
   data: Prisma.VehiclePolicyDetailCreateManyInput | Prisma.VehiclePolicyDetailCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
