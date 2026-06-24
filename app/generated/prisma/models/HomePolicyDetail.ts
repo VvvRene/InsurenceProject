@@ -1197,6 +1197,7 @@ export type HomePolicyDetailCreateManyArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many HomePolicyDetails.
    */
   data: Prisma.HomePolicyDetailCreateManyInput | Prisma.HomePolicyDetailCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1215,6 +1216,7 @@ export type HomePolicyDetailCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    * The data used to create many HomePolicyDetails.
    */
   data: Prisma.HomePolicyDetailCreateManyInput | Prisma.HomePolicyDetailCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

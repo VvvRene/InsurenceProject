@@ -1069,6 +1069,7 @@ export type BrokerCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * The data used to create many Brokers.
    */
   data: Prisma.BrokerCreateManyInput | Prisma.BrokerCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1087,6 +1088,7 @@ export type BrokerCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many Brokers.
    */
   data: Prisma.BrokerCreateManyInput | Prisma.BrokerCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

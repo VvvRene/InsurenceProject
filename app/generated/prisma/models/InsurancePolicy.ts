@@ -980,6 +980,7 @@ export type InsurancePolicyCreateOrConnectWithoutClientInput = {
 
 export type InsurancePolicyCreateManyClientInputEnvelope = {
   data: Prisma.InsurancePolicyCreateManyClientInput | Prisma.InsurancePolicyCreateManyClientInput[]
+  skipDuplicates?: boolean
 }
 
 export type InsurancePolicyUpsertWithWhereUniqueWithoutClientInput = {
@@ -1603,6 +1604,7 @@ export type InsurancePolicyCreateOrConnectWithoutInsuranceCompanyInput = {
 
 export type InsurancePolicyCreateManyInsuranceCompanyInputEnvelope = {
   data: Prisma.InsurancePolicyCreateManyInsuranceCompanyInput | Prisma.InsurancePolicyCreateManyInsuranceCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type InsurancePolicyUpsertWithWhereUniqueWithoutInsuranceCompanyInput = {
@@ -1673,6 +1675,7 @@ export type InsurancePolicyCreateOrConnectWithoutBrokerInput = {
 
 export type InsurancePolicyCreateManyBrokerInputEnvelope = {
   data: Prisma.InsurancePolicyCreateManyBrokerInput | Prisma.InsurancePolicyCreateManyBrokerInput[]
+  skipDuplicates?: boolean
 }
 
 export type InsurancePolicyUpsertWithWhereUniqueWithoutBrokerInput = {
@@ -2774,6 +2777,7 @@ export type InsurancePolicyCreateManyArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many InsurancePolicies.
    */
   data: Prisma.InsurancePolicyCreateManyInput | Prisma.InsurancePolicyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -2792,6 +2796,7 @@ export type InsurancePolicyCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    * The data used to create many InsurancePolicies.
    */
   data: Prisma.InsurancePolicyCreateManyInput | Prisma.InsurancePolicyCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

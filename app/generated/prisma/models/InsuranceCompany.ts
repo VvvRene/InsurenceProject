@@ -1069,6 +1069,7 @@ export type InsuranceCompanyCreateManyArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many InsuranceCompanies.
    */
   data: Prisma.InsuranceCompanyCreateManyInput | Prisma.InsuranceCompanyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1087,6 +1088,7 @@ export type InsuranceCompanyCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    * The data used to create many InsuranceCompanies.
    */
   data: Prisma.InsuranceCompanyCreateManyInput | Prisma.InsuranceCompanyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
