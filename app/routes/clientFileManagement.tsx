@@ -1,6 +1,5 @@
 import FilesPage from "~/.frontend/pages/FilesPage";
 import type { Route } from "./+types/clientFileManagement";
-import { writeFile, mkdir, unlink } from "node:fs/promises";
 import path from "node:path";
 
 import { useLoaderData, useFetcher } from "react-router";
@@ -8,7 +7,7 @@ import type { ClientFileInformation } from "~/.frontend/models/ClientFileInforma
 import type { Client } from "~/generated/prisma/client";
 import { prisma } from '~/.server/db/prisma';
 import { fromFormData } from "~/utils/fromFormData";
-import { fi } from "@faker-js/faker";
+import { uploadFileToR2, deleteFileFromR2 } from "~/.server/cloudflareR2";
 
 export async function loader() {
     const clients = await prisma.client.findMany();
@@ -46,19 +45,15 @@ async function fileUploadAction(formData: FormData) {
 
     // Generate filename and path
     const fileName = `client_${client.id}_${client.name.replace(/\s+/g, '_')}_${Date.now()}${path.extname(file.name)}`; 
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    const filePath = path.join(uploadDir, fileName);
 
-    // Ensure directory exists, then save
-    await mkdir(uploadDir, { recursive: true });
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(filePath, buffer);
+    // Upload the file directly to Cloudflare R2
+    await uploadFileToR2(file, fileName);
 
-    // Save to Database
+    // Save metadata to database. The `path` field becomes the R2 object key.
     await prisma.clientFile.create({
         data: {
             name: fileName,
-            path: `/uploads/${fileName}`, // Public URL path
+            path: fileName,
             description: clientRaw.description || "",
             size: file.size,
             mimeType: file.type,
@@ -68,6 +63,7 @@ async function fileUploadAction(formData: FormData) {
     });
 }
 
+
 async function fileHandleDelete(formData: FormData) {
     const fileId = Number(formData.get("fileId"));
     if (!fileId) return { error: "Missing file ID" };
@@ -75,9 +71,8 @@ async function fileHandleDelete(formData: FormData) {
     const fileRecord = await prisma.clientFile.findUnique({ where: { id: fileId } });
     if (!fileRecord) return { error: "File not found" };
 
-    // Delete from filesystem
-    const filePath = path.join(process.cwd(), "public", fileRecord.path); 
-    await unlink(filePath);
+    // Delete from Cloudflare R2
+    await deleteFileFromR2(fileRecord.path.replace(/^\//, ""));
 
     // Delete from database
     await prisma.clientFile.delete({ where: { id: fileId } });
