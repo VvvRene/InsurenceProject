@@ -1,7 +1,6 @@
 // app/routes/download.$fileId.ts
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { prisma } from "~/.server/db/prisma";
+import { getFileFromR2 } from "~/.server/cloudflareR2";
 import type { Route } from "./+types/clientFileDownload.$fileId";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -16,15 +15,12 @@ export async function loader({ params }: Route.LoaderArgs) {
         throw new Response("File Not Found", { status: 404 });
     }
 
-    // 2. Resolve the absolute path
-    // Ensure this matches where you saved it in your upload action
-    const absolutePath = path.resolve(process.cwd(), "public", fileRecord.path.replace(/^\//, ""));
-
     try {
-        const fileBuffer = await readFile(absolutePath);
+        const objectKey = fileRecord.path.replace(/^\//, "");
+        const fileBuffer = await getFileFromR2(objectKey);
+        const responseBody = Buffer.from(fileBuffer);
 
-        // 3. Return the file with headers that force a download
-        return new Response(fileBuffer, {
+        return new Response(responseBody, {
             headers: {
                 "Content-Type": fileRecord.mimeType || "application/octet-stream",
                 "Content-Disposition": `attachment; filename="${fileRecord.name}"`,
@@ -32,6 +28,6 @@ export async function loader({ params }: Route.LoaderArgs) {
             },
         });
     } catch (error) {
-        throw new Response("Could not read file from disk", { status: 500 });
+        throw new Response("Could not read file from Cloudflare R2", { status: 500 });
     }
 }

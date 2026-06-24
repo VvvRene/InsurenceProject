@@ -53,15 +53,18 @@ async function main() {
       data: {
         type: isCompany ? 'Company' : 'Individual',
         identity: isCompany ? faker.string.alphanumeric(8).toUpperCase() : faker.string.alphanumeric(7).toUpperCase(),
-        firstName: faker.person.firstName(),
-        lastName: faker.person.lastName(),
+        abbr: faker.helpers.arrayElement(['MR', 'MS', 'MRS']),
+        name: faker.person.fullName(),
         chineseName: faker.datatype.boolean() ? faker.person.fullName() : null, // Placeholder for Chinese name logic
+        address1: faker.location.streetAddress(),
+        address2: faker.datatype.boolean() ? faker.location.secondaryAddress() : null,
         phoneNumber: faker.phone.number(),
         email: faker.internet.email(),
+        gender: faker.helpers.arrayElement(['Male', 'Female', 'Not applicable']),
         files: {
           create: [
-            { name: 'ID_Copy.pdf', path: `/uploads/clients/id_${faker.string.uuid()}.pdf` },
-            { name: 'Address_Proof.png', path: `/uploads/clients/addr_${faker.string.uuid()}.png` },
+            { name: 'ID_Copy.pdf', path: `/uploads/clients/id_${faker.string.uuid()}.pdf`, description: 'Seeded ID copy', size: 0, mimeType: 'application/pdf' },
+            { name: 'Address_Proof.png', path: `/uploads/clients/addr_${faker.string.uuid()}.png`, description: 'Seeded address proof', size: 0, mimeType: 'image/png' },
           ],
         },
       },
@@ -80,7 +83,6 @@ async function main() {
         data: {
           processType: faker.helpers.arrayElement(['New', 'Renewal']),
           category: category,
-          status: faker.helpers.arrayElement(['Active', 'Lapsed', 'Pending']),
           policyNumber: `POL-${faker.string.alphanumeric(10).toUpperCase()}`,
           quotationNumber: `QTN-${faker.string.numeric(8)}`,
           clientId: client.id,
@@ -97,12 +99,17 @@ async function main() {
               create: {
                 coverageType: faker.helpers.arrayElement(['Comprehensive', 'Third Party']),
                 registrationNumber: faker.vehicle.vrm(),
-                seatNumber: faker.helpers.arrayElement(['2', '4', '5', '7']),
+                seatNumber: faker.helpers.arrayElement([2, 4, 5, 7]),
                 engineNumber: faker.vehicle.vin().substring(0, 10),
                 chassisNumber: faker.vehicle.vin(),
                 manufacturer: faker.vehicle.manufacturer(),
                 modelName: faker.vehicle.model(),
-                yearOfManufacture: faker.date.past({ years: 10 }).getFullYear().toString(),
+                vehicleType: faker.vehicle.type(),
+                vehicleBodyType: faker.helpers.arrayElement(['Sedan', 'SUV', 'Hatchback', 'Van']),
+                enginDisplacement: faker.number.float({ min: 0.8, max: 6.0, fractionDigits: 1 }),
+                totalWeight: faker.number.float({ min: 1000, max: 3000, fractionDigits: 0 }),
+                region: faker.helpers.arrayElement(['HK', 'HK+SZ']),
+                yearOfManufacture: faker.date.past({ years: 10 }).getFullYear(),
               }
             }
           }),
