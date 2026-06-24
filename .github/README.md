@@ -17,6 +17,22 @@ cd InsurenceProject
 
 仓库包含 `setup-and-run.cmd`，该脚本会检查/安装 `winget`、WSL2 和 Docker Desktop（如可能），启动 Docker Desktop，等待 Docker 引擎就绪，然后执行 `docker compose build --pull` 和 `docker compose up -d`。
 
+> 如果你在 Windows 上运行 Docker Desktop 或 WSL2 时遇到虚拟化相关错误，请先启用 Windows PC 的虚拟化支持。
+>
+> 1. 重启电脑并进入 BIOS/UEFI 设置。
+>
+>    ``` 
+>    cmd:
+>    
+>    shutdown -r -fw -t 0
+>    ```
+> 2. 找到与虚拟化相关的选项，例如 `Intel VT-x`、`Intel Virtualization Technology`、`AMD-V`、`SVM Mode` 或 `Virtualization Technology`。
+> 3. 将其设置为启用（Enabled），保存设置并退出。
+> 4. 重新启动 Windows，然后确保在“控制面板 → 程序和功能 → 启用或关闭 Windows 功能”中启用了“适用于 Linux 的 Windows 子系统”和“虚拟机平台”。
+> 5. 如果更改后需要立即重启，请在管理员命令提示符中运行：
+>
+> 这一步通常对运行 Docker Desktop、WSL2 和基于容器的开发环境至关重要。
+
 操作步骤：
 
 1. 以管理员权限打开命令提示符（右键 → 以管理员身份运行）。
