@@ -12,11 +12,8 @@ import { prisma } from "~/.server/db/prisma";
 import type { Client } from "~/generated/prisma/browser";
  
 export async function loader() {
-    const clients = new Promise<Client[]>((resolve) => {
-        setTimeout(() => prisma.client.findMany().then((clientData) => resolve(clientData)), 5000);
-    });
+    const clients = prisma.client.findMany();
 
-    // Return the promise inside an object
     return { clients };
 }
 
