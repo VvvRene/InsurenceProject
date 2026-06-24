@@ -1,87 +1,75 @@
-# Welcome to React Router!
+# Run locally on Windows
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This project can be run locally on Windows. The recommended, easiest path is to download the repository from GitHub and use the included `setup-and-run.cmd` helper to prepare the environment and start the app using Docker Compose.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 1) Download the repository
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+- Clone using Git (replace `<owner>/<repo>` with the actual repo path):
 
 ```bash
-npm install
+git clone https://github.com/<owner>/<repo>.git
+cd InsurenceProject
 ```
 
-### Development
+- Or download the ZIP from GitHub and extract it to a folder, then open a terminal in that folder.
 
-Start the development server with HMR:
+## 2) Recommended: run the helper script (Administrator)
 
-```bash
-npm run dev
+The repository includes `setup-and-run.cmd` which checks/installs `winget`, WSL2, and Docker Desktop (when possible), launches Docker Desktop, waits for the Docker engine, then runs `docker compose build --pull` and `docker compose up -d`.
+
+Steps:
+
+1. Open an elevated Command Prompt (right-click → Run as administrator).
+2. Change to the project root (where `setup-and-run.cmd` is located).
+
+```cmd
+cd \path\to\InsurenceProject
+setup-and-run.cmd
 ```
 
-Your application will be available at `http://localhost:5173`.
+3. On success the script prints: `Success. App is running at: http://localhost:3000`.
 
-## Building for Production
+See `doc/SETUP-WINDOWS.md` for more detailed Windows-specific notes and troubleshooting.
 
-Create a production build:
+## 3) Manual alternative (if you prefer to run steps yourself)
 
-```bash
-npm run build
+If you prefer not to use the helper script, run these commands in an elevated terminal:
+
+```cmd
+:: Ensure WSL2 is enabled and updated
+wsl --set-default-version 2
+wsl --update
+
+:: Build and start the app with Docker Compose
+docker compose build --pull
+docker compose up -d
 ```
 
-## Deployment
+Open your browser at `http://localhost:3000` to access the app.
 
-### Docker Deployment
+## Useful Docker Compose commands
 
-To build and run using Docker:
+- Follow logs:
 
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+```cmd
+docker compose logs -f
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+- Stop and remove containers:
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+```cmd
+docker compose down
 ```
 
-## Styling
+## Troubleshooting hints
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+- Run `setup-and-run.cmd` as Administrator — the script will exit if not elevated.
+- If `winget` is missing, install "App Installer" from Microsoft Store or use the manual steps in `doc/SETUP-WINDOWS.md`.
+- If Docker CLI isn't available after installation, open a new terminal or sign out and sign in again.
 
----
+## References
 
-Built with ❤️ using React Router.
+- Helper script: `setup-and-run.cmd`
+- Windows guide: `doc/SETUP-WINDOWS.md`
+
+If you'd like, I can update the clone URL to the repository's real GitHub path and add a short PowerShell variant of the helper script. Tell me the repo URL or which variant you prefer.
