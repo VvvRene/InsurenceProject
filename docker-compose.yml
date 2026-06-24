@@ -1,0 +1,21 @@
+services:
+  app:
+    container_name: insuranceproject-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: insuranceproject-node:latest
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DATABASE_URL: file:/data/prod.db
+      PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING: "1"
+      PRISMA_ALLOW_INSECURE_TLS: "1"
+    ports:
+      - "3000:3000"
+    volumes:
+      - insuranceproject-db:/data
+    restart: unless-stopped
+
+volumes:
+  insuranceproject-db:
