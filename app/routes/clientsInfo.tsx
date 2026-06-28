@@ -54,8 +54,6 @@ async function clientCreateAction(formData: FormData) {
 
                 industry: result.data.industry,
                 natureOfWork: result.data.natureOfWork,
-
-                workDescription: result.data.workDescription,
                 remark: result.data.remark, 
             }
         });  

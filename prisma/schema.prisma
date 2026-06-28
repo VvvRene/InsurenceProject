@@ -14,9 +14,9 @@ model Client {
   abbr            String
   name            String
   chineseName     String?
-  address1        String
+  address1        String?
   address2        String?
-  phoneNumber     String
+  phoneNumber     String?
   email           String?
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt

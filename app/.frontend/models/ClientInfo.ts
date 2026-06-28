@@ -7,15 +7,15 @@ export const ClientInfoSchema = z.object({
     abbr: z.string().min(1, 'Title is required'),
     name: z.string().min(1, 'Name is required'),
     chineseName: z.string().nullable().optional(),
-    address1: z.string().min(1, 'Address is required'),
+    address1: z.string().nullable().optional(),
     address2: z.string().nullable().optional(),
-    phoneNumber: z.string().min(1, 'Phone is required'),
-    email: z.email(),
-    gender: z.string(),
-    businessRegistrationNumber: z.string().optional(),
+    phoneNumber: z.string().nullable().optional(),
+    email: z.string().email().nullable().optional(),
     industry: z.string().nullable().optional(),
+    gender: z.string(),
+    
     natureOfWork: z.string().nullable().optional(),
-    workDescription: z.string().nullable().optional(),
+    
     remark: z.string().nullable().optional(),
     date: z.date().nullable(),
 });

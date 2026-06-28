@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Client" ALTER COLUMN "address1" DROP NOT NULL,
+ALTER COLUMN "phoneNumber" DROP NOT NULL;
