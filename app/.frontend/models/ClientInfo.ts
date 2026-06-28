@@ -12,10 +12,9 @@ export const ClientInfoSchema = z.object({
     phoneNumber: z.string().min(1, 'Phone is required'),
     email: z.email(),
     gender: z.string(),
-    businessRegistrationNumber: z.string().optional(),
-    industry: z.string().nullable().optional(),
+    
     natureOfWork: z.string().nullable().optional(),
-    workDescription: z.string().nullable().optional(),
+    
     remark: z.string().nullable().optional(),
     date: z.date().nullable(),
 });

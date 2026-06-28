@@ -218,31 +218,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 />}
               />
 
-              {/* Conditional Fields */}
-              {clientType === 'Company' && (
-                <Stack direction="row" spacing={2}>
-                  <Controller
-                    name="businessRegistrationNumber"
-                    control={control}
-                    render={({ field }) => <TextField
-                      {...field}
-                      label="BR No."
-                      fullWidth
-                    />}
-                  />
-                  <Controller
-                    name="industry"
-                    control={control}
-                    render={({ field, fieldState }) => <TextField
-                      {...field}
-                      label="Industry"
-                      fullWidth
-                      error={!!fieldState.error}
-                      helperText={fieldState.error?.message}
-                    />}
-                  />
-                </Stack>
-              )}
+              {/* Conditional Fields: company-specific fields removed (BR No. & Industry) */}
 
               <Box sx={{ display: 'flex', gap: 2 }}>
                 <Box sx={{ width: '35%' }}>
@@ -276,22 +252,6 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
               </Box>
 
               <Box sx={{ display: 'flex', gap: 2 }}>
-                <Box sx={{ width: '40%' }}>
-                  <Controller
-                    name="industry"
-                    control={control}
-                    render={({ field, fieldState }) =>
-                      <TextField
-                        label="Industry"
-                        {...field}
-                        fullWidth
-                        required
-                        error={!!fieldState.error}
-                        helperText={fieldState.error?.message}
-                      />
-                    }
-                  />
-                </Box>
                 <Controller
                   name="natureOfWork"
                   control={control}
@@ -305,17 +265,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 />
               </Box>
 
-              <Controller
-                name="workDescription"
-                control={control}
-                render={({ field, fieldState }) => <TextField
-                  {...field}
-                  label="Work Description"
-                  fullWidth
-                  error={!!fieldState.error}
-                  helperText={fieldState.error?.message}
-                />}
-              />
+              {/* Work Description removed */}
 
               <Controller
                 name="remark"
