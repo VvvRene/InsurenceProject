@@ -27,36 +27,52 @@ export async function action({ request }: Route.ActionArgs) {
 
 async function clientCreateAction(formData: FormData) {
     const rawData = fromFormData(formData);
+    const parsedId = rawData.id ? Number(rawData.id) : undefined;
     const result = ClientInfoSchema.safeParse({
-        ...rawData, date: rawData.date ? new Date(rawData.date) : null,
+        ...rawData,
+        id: parsedId,
+        date: rawData.date ? new Date(rawData.date) : null,
     });  
     if (result.success) {
-        await prisma.client.create({
-            data: {
-                type: result.data.type,
-                identity: result.data.identity,
-                
-                abbr: result.data.abbr,
-                name: result.data.name,
-                chineseName: result.data.chineseName,
-                
-                address1: result.data.address1,
-                address2: result.data.address2,
+        const clientData = {
+            type: result.data.type,
+            identity: result.data.identity,
+            
+            abbr: result.data.abbr,
+            name: result.data.name,
+            chineseName: result.data.chineseName,
+            
+            address1: result.data.address1,
+            address2: result.data.address2,
 
-                phoneNumber: result.data.phoneNumber,
-                email: result.data.email,
+            phoneNumber: result.data.phoneNumber,
+            email: result.data.email,
 
-                createdAt: new Date(),
-                updatedAt: new Date(),
+            date: result.data.date ? new Date(result.data.date) : null,
+            gender: result.data.gender,
 
-                date: result.data.date ? new Date(result.data.date) : null,
-                gender: result.data.gender,
+            industry: result.data.industry,
+            natureOfWork: result.data.natureOfWork,
+            remark: result.data.remark, 
+        };
 
-                industry: result.data.industry,
-                natureOfWork: result.data.natureOfWork,
-                remark: result.data.remark, 
-            }
-        });  
+        if (result.data.id) {
+            await prisma.client.update({
+                where: { id: result.data.id },
+                data: {
+                    ...clientData,
+                    updatedAt: new Date(),
+                },
+            });
+        } else {
+            await prisma.client.create({
+                data: {
+                    ...clientData,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                }
+            });
+        }
     } else {
         result.error.issues.forEach((issue) => {
             console.log(`Field: ${issue.path.join(".")}`);
