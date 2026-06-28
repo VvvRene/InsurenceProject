@@ -52,6 +52,7 @@ async function clientCreateAction(formData: FormData) {
                 date: result.data.date ? new Date(result.data.date) : null,
                 gender: result.data.gender,
 
+                industry: result.data.industry,
                 natureOfWork: result.data.natureOfWork,
                 remark: result.data.remark, 
             }

@@ -177,10 +177,10 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                             {filteredClient.map(client => (
                                 <TableRow key={client.id}>
                                     <TableCell>{client.type == "Individual" ? <PersonIcon /> : <BusinessIcon />}</TableCell>
-                                    <TableCell>{client.chineseName}</TableCell>
+                                    <TableCell>{client.name}</TableCell>
                                     <TableCell>{client.phoneNumber || ""}</TableCell>
-                                    <TableCell>{client.email || "TBC"}</TableCell>
-                                    <TableCell>{client.remark || "TBC"}</TableCell>
+                                    <TableCell>{client.email || "N/A"}</TableCell>
+                                    <TableCell>{client.remark || "N/A"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

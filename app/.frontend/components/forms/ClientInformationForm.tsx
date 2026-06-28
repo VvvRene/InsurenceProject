@@ -200,7 +200,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 render={({ field, fieldState }) => <TextField
                   {...field}
                   label="Address Line 1"
-                  fullWidth required
+                  fullWidth
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
                 />}
@@ -229,7 +229,6 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                       <TextField {...field}
                         label="Phone Number"
                         fullWidth
-                        required
                         error={!!fieldState.error}
                         helperText={fieldState.error?.message}
                       />}
@@ -243,7 +242,6 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                       label="E-Mail"
                       {...field}
                       fullWidth
-                      required
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
                     />
@@ -252,6 +250,17 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
               </Box>
 
               <Box sx={{ display: 'flex', gap: 2 }}>
+                <Controller
+                  name="industry"
+                  control={control}
+                  render={({ field, fieldState }) => <TextField
+                    {...field}
+                    label="Industry"
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />}
+                />
                 <Controller
                   name="natureOfWork"
                   control={control}
