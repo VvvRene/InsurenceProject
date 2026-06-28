@@ -42,6 +42,24 @@ interface ClientsInfoPageProps {
     onSave: (client: ClientInfo) => void
 }
 
+const toClientInfo = (client: Client): ClientInfo => ({
+    id: client.id,
+    type: client.type === 'Company' ? 'Company' : 'Individual',
+    identity: client.identity ?? '',
+    abbr: client.abbr ?? 'MR',
+    name: client.name ?? '',
+    chineseName: client.chineseName ?? null,
+    address1: client.address1 ?? null,
+    address2: client.address2 ?? null,
+    phoneNumber: client.phoneNumber ?? null,
+    email: client.email ?? null,
+    industry: client.industry ?? null,
+    gender: client.gender ?? 'Not Applicable',
+    natureOfWork: client.natureOfWork ?? null,
+    remark: client.remark ?? null,
+    date: client.date ? new Date(client.date) : null,
+});
+
 const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) => {
 
     const { control, handleSubmit, reset, watch } = useForm<SearchFilters>({
@@ -54,6 +72,7 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
     });
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedClient, setSelectedClient] = useState<ClientInfo | undefined>(undefined);
 
 
     const onSearch = (data: SearchFilters) => {
@@ -71,7 +90,23 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
     }) || [];
 
     const handleAddButtonOnClicked = () => {
+        setSelectedClient(undefined);
         setIsDialogOpen(true);
+    }
+
+    const handleEditClient = (client: Client) => {
+        setSelectedClient(toClientInfo(client));
+        setIsDialogOpen(true);
+    }
+
+    const handleDialogClose = () => {
+        setIsDialogOpen(false);
+        setSelectedClient(undefined);
+    }
+
+    const handleDialogSave = (client: ClientInfo) => {
+        onSave(client);
+        handleDialogClose();
     }
  
     return (
@@ -175,7 +210,7 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                         </TableHead>
                         <TableBody>
                             {filteredClient.map(client => (
-                                <TableRow key={client.id}>
+                                <TableRow key={client.id} hover onClick={() => handleEditClient(client)} sx={{ cursor: 'pointer' }}>
                                     <TableCell>{client.type == "Individual" ? <PersonIcon /> : <BusinessIcon />}</TableCell>
                                     <TableCell>{client.name}</TableCell>
                                     <TableCell>{client.phoneNumber || ""}</TableCell>
@@ -188,7 +223,7 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                 </TableContainer>
             </Box>
             <FloatingButton icon={PersonAddIcon} onClicked={handleAddButtonOnClicked} />
-            <ClientCreationDialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} onSave={onSave}></ClientCreationDialog>
+            <ClientCreationDialog open={isDialogOpen} client={selectedClient} onClose={handleDialogClose} onSave={handleDialogSave}></ClientCreationDialog>
         </Box>
     )
 }

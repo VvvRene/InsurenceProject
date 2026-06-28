@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -21,22 +21,52 @@ interface ClientInformationFormProps {
 
 const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, onSave }) => {
  
-  const { control, handleSubmit, watch, formState: { errors } } = useForm<ClientInfo>({
+  const { control, handleSubmit, watch, reset } = useForm<ClientInfo>({
     resolver: zodResolver(ClientInfoSchema),
     defaultValues: {
+      id: undefined,
       type: 'Individual',
+      identity: '',
+      name: '',
       gender: 'Not Applicable',
       abbr: 'MR',
       chineseName: null,
+      address1: null,
+      address2: null,
+      phoneNumber: null,
+      email: null,
+      industry: null,
+      natureOfWork: null,
+      remark: null,
       date: null,
     }
   });
+
+  useEffect(() => {
+    reset({
+      id: client?.id,
+      type: client?.type ?? 'Individual',
+      identity: client?.identity ?? '',
+      abbr: client?.abbr ?? 'MR',
+      name: client?.name ?? '',
+      chineseName: client?.chineseName ?? null,
+      address1: client?.address1 ?? null,
+      address2: client?.address2 ?? null,
+      phoneNumber: client?.phoneNumber ?? null,
+      email: client?.email ?? null,
+      industry: client?.industry ?? null,
+      gender: client?.gender ?? 'Not Applicable',
+      natureOfWork: client?.natureOfWork ?? null,
+      remark: client?.remark ?? null,
+      date: client?.date ?? null,
+    });
+  }, [client, reset]);
 
   const clientType = watch('type');
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
-      <form onSubmit={handleSubmit(onSave)}>
+      <form onSubmit={handleSubmit((data: ClientInfo) => onSave(data))}>
 
         <Stack >
           <Stack
@@ -46,7 +76,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
             sx={{ bgcolor: "layer.level2", py: 2, px: 3 }}
           >
             <Typography variant="h5" sx={{ fontWeight: '700' }}>
-              Client Entry
+              {client ? 'Edit Client' : 'Create Client'}
             </Typography>
 
             <IconButton type="submit" sx={{ border: 1 }}>

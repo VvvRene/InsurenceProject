@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import z from "zod";
 
 export const ClientInfoSchema = z.object({
+    id: z.number().int().optional(),
     type: z.enum(['Company', 'Individual']),
     identity: z.string().min(1, 'Identity is required'),
     abbr: z.string().min(1, 'Title is required'),
