@@ -5,6 +5,7 @@ import {
     Paper, Divider, InputAdornment,
     IconButton
 } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { useForm, Controller, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
@@ -20,13 +21,15 @@ interface InsurancePolicyGeneralInformationFormProps {
     clients: Client[]; // Assuming you have a list of clients to select from
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[];  
+    onAddInsuranceCompany?: () => void;
 }
 
 const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInformationFormProps> = ({
     control, 
     clients,
     insuranceCompanies,
-    brokers
+    brokers,
+    onAddInsuranceCompany
 }) => {
   
     return (
@@ -191,28 +194,46 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                         />
 
                         {/* Insurance Company */}
-                        <Controller
-                            name="insuranceCompanyId"
-                            control={control}
-                            render={({ field, fieldState }) => (
-                                <TextField
-                                    {...field}
-                                    select
-                                    label="Insurance Company"
-                                    error={!!fieldState.error}
-                                    helperText={fieldState.error?.message}
-                                    value={field.value || ''}
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Controller
+                                    name="insuranceCompanyId"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <TextField
+                                            {...field}
+                                            select
+                                            label="Insurance Company"
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error?.message}
+                                            value={field.value || ''}
+                                            fullWidth
+                                        >
+                                            {
+                                                insuranceCompanies.map(insuranceCompany => (
+                                                    <MenuItem key={insuranceCompany.id} value={insuranceCompany.id}>
+                                                        {insuranceCompany.name}
+                                                    </MenuItem>
+                                                ))
+                                            }
+                                        </TextField>
+                                    )}
+                                />
+                            </Box>
+                            {onAddInsuranceCompany ? (
+                                <IconButton
+                                    color="primary"
+                                    sx={{ mt: 1, border: 1, borderColor: 'divider' }}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        onAddInsuranceCompany();
+                                    }}
+                                    aria-label="Add insurance company"
                                 >
-                                    {
-                                        insuranceCompanies.map(insuranceCompany => (
-                                            <MenuItem key={insuranceCompany.id} value={insuranceCompany.id}>
-                                                {insuranceCompany.name}
-                                            </MenuItem>
-                                        ))
-                                    }
-                                </TextField>
-                            )}
-                        />
+                                    <AddIcon />
+                                </IconButton>
+                            ) : null}
+                        </Box>
 
                         {/* Broker Information */}
                         <Controller

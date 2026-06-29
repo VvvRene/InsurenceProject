@@ -10,6 +10,7 @@ import PolicyInfoPage from "~/.frontend/pages/PolicyInfoPage";
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from "~/.frontend/models/InsuranceGenernalInformation";
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from "~/.frontend/models/VehiclePolicyDetailInformation";
 import { InsuranceGeneralInformationForm } from "~/.frontend/components/forms/InsuranceGenernalInformationForm";
+import { InsuranceCompanyInfoSchema, type InsuranceCompanyInfo } from "~/.frontend/models/InsuranceCompanyInfo";
 
 export async function loader() {
     const clients = await prisma.client.findMany();
@@ -26,8 +27,44 @@ export async function action({ request }: Route.ActionArgs) {
     switch (intent) {
         case "policy_upsert":
             return policyCreateAction(formData);
+        case "insurance_company_upsert":
+            return insuranceCompanyUpsertAction(formData);
         default:
             throw new Response("Invalid Intent", { status: 400 });
+    }
+}
+
+async function insuranceCompanyUpsertAction(formData: FormData) {
+    const rawData = fromFormData(formData);
+    const parsedId = rawData.id !== undefined && rawData.id !== '' ? Number(rawData.id) : undefined;
+    const result = InsuranceCompanyInfoSchema.safeParse({ ...rawData, id: parsedId });
+
+    if (result.success) {
+        const insuranceCompanyData = {
+            name: result.data.name,
+        };
+
+        if (result.data.id) {
+            const existingCompany = await prisma.insuranceCompany.findUnique({
+                where: { id: result.data.id },
+            });
+
+            if (existingCompany) {
+                await prisma.insuranceCompany.update({
+                    where: { id: result.data.id },
+                    data: insuranceCompanyData,
+                });
+            } else {
+                await prisma.insuranceCompany.create({ data: insuranceCompanyData });
+            }
+        } else {
+            await prisma.insuranceCompany.create({ data: insuranceCompanyData });
+        }
+    } else {
+        result.error.issues.forEach((issue) => {
+            console.log(`Field: ${issue.path.join(".")}`);
+            console.log(`Error: ${issue.message}`);
+        });
     }
 }
 
