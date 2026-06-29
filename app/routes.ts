@@ -12,6 +12,7 @@ export default [
         // route("agent/files/download/:fileId", "routes/agentFileDownload.$fileId.ts"),
         route("client", "routes/clientsInfo.tsx"),
         route("insurance-companies", "routes/insuranceCompanies.tsx"),
+        route("brokers", "routes/brokers.tsx"),
         route("policy", "routes/policyInfo.tsx"),
         // --- ADD THIS TO SILENCE THE CHROME ERROR ---
         route(".well-known/appspecific/com.chrome.devtools.json", "routes/chrome-devtools.ts"),
