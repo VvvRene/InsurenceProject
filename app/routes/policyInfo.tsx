@@ -11,6 +11,7 @@ import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } f
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from "~/.frontend/models/VehiclePolicyDetailInformation";
 import { InsuranceGeneralInformationForm } from "~/.frontend/components/forms/InsuranceGenernalInformationForm";
 import { InsuranceCompanyInfoSchema, type InsuranceCompanyInfo } from "~/.frontend/models/InsuranceCompanyInfo";
+import { BrokerInfoSchema, type BrokerInfo } from "~/.frontend/models/BrokerInfo";
 
 export async function loader() {
     const clients = await prisma.client.findMany();
@@ -29,6 +30,8 @@ export async function action({ request }: Route.ActionArgs) {
             return policyCreateAction(formData);
         case "insurance_company_upsert":
             return insuranceCompanyUpsertAction(formData);
+        case "broker_upsert":
+            return brokerUpsertAction(formData);
         default:
             throw new Response("Invalid Intent", { status: 400 });
     }
@@ -59,6 +62,38 @@ async function insuranceCompanyUpsertAction(formData: FormData) {
             }
         } else {
             await prisma.insuranceCompany.create({ data: insuranceCompanyData });
+        }
+    } else {
+        result.error.issues.forEach((issue) => {
+            console.log(`Field: ${issue.path.join(".")}`);
+            console.log(`Error: ${issue.message}`);
+        });
+    }
+}
+
+async function brokerUpsertAction(formData: FormData) {
+    const rawData = fromFormData(formData);
+    const parsedId = rawData.id !== undefined && rawData.id !== '' ? Number(rawData.id) : undefined;
+    const result = BrokerInfoSchema.safeParse({ ...rawData, id: parsedId });
+
+    if (result.success) {
+        const brokerData = { name: result.data.name };
+
+        if (result.data.id) {
+            const existingBroker = await prisma.broker.findUnique({
+                where: { id: result.data.id },
+            });
+
+            if (existingBroker) {
+                await prisma.broker.update({
+                    where: { id: result.data.id },
+                    data: brokerData,
+                });
+            } else {
+                await prisma.broker.create({ data: brokerData });
+            }
+        } else {
+            await prisma.broker.create({ data: brokerData });
         }
     } else {
         result.error.issues.forEach((issue) => {

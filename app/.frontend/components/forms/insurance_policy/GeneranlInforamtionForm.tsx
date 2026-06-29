@@ -22,6 +22,7 @@ interface InsurancePolicyGeneralInformationFormProps {
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[];  
     onAddInsuranceCompany?: () => void;
+    onAddBroker?: () => void;
 }
 
 const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInformationFormProps> = ({
@@ -29,7 +30,8 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
     clients,
     insuranceCompanies,
     brokers,
-    onAddInsuranceCompany
+    onAddInsuranceCompany,
+    onAddBroker
 }) => {
   
     return (
@@ -236,28 +238,46 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                         </Box>
 
                         {/* Broker Information */}
-                        <Controller
-                            name="brokerId"
-                            control={control}
-                            render={({ field, fieldState }) => (
-                                <TextField
-                                    {...field}
-                                    select
-                                    label="Broker"
-                                    error={!!fieldState.error}
-                                    helperText={fieldState.error?.message}
-                                    value={field.value || ''}
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Controller
+                                    name="brokerId"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <TextField
+                                            {...field}
+                                            select
+                                            label="Broker"
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error?.message}
+                                            value={field.value || ''}
+                                            fullWidth
+                                        >
+                                            {
+                                                brokers.map(broker => (
+                                                    <MenuItem key={broker.id} value={broker.id}>
+                                                        {broker.name}
+                                                    </MenuItem>
+                                                ))
+                                            }
+                                        </TextField>
+                                    )}
+                                />
+                            </Box>
+                            {onAddBroker ? (
+                                <IconButton
+                                    color="primary"
+                                    sx={{ mt: 1, border: 1, borderColor: 'divider' }}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        onAddBroker();
+                                    }}
+                                    aria-label="Add broker"
                                 >
-                                    {
-                                        brokers.map(broker => (
-                                            <MenuItem key={broker.id} value={broker.id}>
-                                                {broker.name}
-                                            </MenuItem>
-                                        ))
-                                    }
-                                </TextField>
-                            )}
-                        />
+                                    <AddIcon />
+                                </IconButton>
+                            ) : null}
+                        </Box>
 
                         <Stack direction="row" spacing={2} justifyContent="flex-end" sx={{ mt: 3 }}>
                             <Box sx={{ width: '50%', minWidth: '120px' }} >

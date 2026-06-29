@@ -21,7 +21,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { is } from 'zod/v4/locales';
 import { useFetcher } from 'react-router';
 import InsuranceCompanyUpsertDialog from '../dialogs/InsuranceCompanyUpsertDialog';
+import BrokerUpsertDialog from '../dialogs/BrokerUpsertDialog';
 import type { InsuranceCompanyInfo } from '~/.frontend/models/InsuranceCompanyInfo';
+import type { BrokerInfo } from '~/.frontend/models/BrokerInfo';
 import { toFormData } from '~/utils/toFormData';
 
 
@@ -36,7 +38,9 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
     const fetcher = useFetcher();
 
     const [availableInsuranceCompanies, setAvailableInsuranceCompanies] = useState<InsuranceCompany[]>(insuranceCompanies);
+    const [availableBrokers, setAvailableBrokers] = useState<Broker[]>(brokers);
     const [isInsuranceCompanyDialogOpen, setIsInsuranceCompanyDialogOpen] = useState(false);
+    const [isBrokerDialogOpen, setIsBrokerDialogOpen] = useState(false);
 
     const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>({
         uuid: uuidv4(),
@@ -95,7 +99,8 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
 
     useEffect(() => {
         setAvailableInsuranceCompanies(insuranceCompanies);
-    }, [insuranceCompanies]);
+        setAvailableBrokers(brokers);
+    }, [insuranceCompanies, brokers]);
 
     useEffect(() => {
         const subscription = insuranceGeneralInformationWatch((value, { name, type }) => {
@@ -120,8 +125,9 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                 control={insuranceGeneralInformationControl}
                 clients={clients}
                 insuranceCompanies={availableInsuranceCompanies}
-                brokers={brokers}
-                onAddInsuranceCompany={() => setIsInsuranceCompanyDialogOpen(true)} />
+                brokers={availableBrokers}
+                onAddInsuranceCompany={() => setIsInsuranceCompanyDialogOpen(true)}
+                onAddBroker={() => setIsBrokerDialogOpen(true)} />
         },
         {
             label: 'Detail',
@@ -157,6 +163,30 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         fetcher.submit(formData, { method: 'post', encType: 'multipart/form-data' });
 
         setIsInsuranceCompanyDialogOpen(false);
+    };
+
+    const handleBrokerDialogSave = (data: BrokerInfo) => {
+        const nextBrokerId = availableBrokers.length > 0
+            ? Math.max(...availableBrokers.map((broker) => broker.id)) + 1
+            : 1;
+
+        const newBroker: Broker = {
+            id: data.id ?? nextBrokerId,
+            name: data.name,
+        } as Broker;
+
+        setAvailableBrokers((current) => {
+            const alreadyExists = current.some((broker) => broker.id === newBroker.id || broker.name === newBroker.name);
+            return alreadyExists ? current : [...current, newBroker];
+        });
+        setInsuranceGeneralInformation((current) => ({ ...current, brokerId: newBroker.id }));
+        setInsuranceGeneralInformationValue('brokerId', newBroker.id);
+
+        const formData = toFormData({ name: data.name });
+        formData.append('intent', 'broker_upsert');
+        fetcher.submit(formData, { method: 'post', encType: 'multipart/form-data' });
+
+        setIsBrokerDialogOpen(false);
     };
 
     return <>
@@ -202,6 +232,12 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                 open={isInsuranceCompanyDialogOpen}
                 onClose={() => setIsInsuranceCompanyDialogOpen(false)}
                 onSave={handleInsuranceCompanyDialogSave}
+            />
+
+            <BrokerUpsertDialog
+                open={isBrokerDialogOpen}
+                onClose={() => setIsBrokerDialogOpen(false)}
+                onSave={handleBrokerDialogSave}
             />
 
         </Grid>
