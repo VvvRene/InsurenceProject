@@ -28,6 +28,14 @@
     - Newly created insurance companies, brokers, and clients are submitted to the relevant route actions and available immediately in the form dropdowns.
     - Effective Date and Expiry Date fields are editable and initialized with sensible defaults in the policy form.
     - Client, Insurance Company, and Broker selectors in the policy form now use searchable autocomplete controls for faster selection.
+    - **i18n / Multi-language Support:**
+      - Added `i18next`, `react-i18next`, and `i18next-browser-languagedetector` dependencies.
+      - i18n infrastructure in `app/.frontend/i18n/` with `i18n.ts` initialization and locale files (`en.json`, `zh-TW.json`).
+      - Default language is Traditional Chinese (`zh-TW`); falls back to `zh-TW` if no saved preference.
+      - Language auto-detected from browser settings and saved to `localStorage`.
+      - Language switcher component (`LanguageSwitcher.tsx`) in the top navigation bar (shows "EN" or "繁").
+      - All UI text across pages, forms, dialogs, and navigation uses `useTranslation()` hook with `t('key')` instead of hardcoded English.
+      - Dynamic `<html lang>` attribute set based on active language.
   - In progress / Needs verification:
     - Database integration and migrations: `prisma/migrations` exists but verify the development database and migrations applied.
     - API routes and server endpoints: several route files exist (e.g., `clientFileDownload.$fileId.ts`) and may need full implementation and tests.
