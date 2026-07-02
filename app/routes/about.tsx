@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next';
+
 export default function About() {
+    const { t } = useTranslation();
     return (
         <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-            <h1>About Us</h1>
+            <h1>{t('nav.about')}</h1>
             <p>
                 This is a simple about page. You can use this spot to describe your
                 project, team, or any information you'd like visitors to know.

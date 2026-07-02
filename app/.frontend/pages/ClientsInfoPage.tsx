@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import type { Client } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -61,7 +62,7 @@ const toClientInfo = (client: Client): ClientInfo => ({
 });
 
 const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) => {
-
+    const { t } = useTranslation();
     const { control, handleSubmit, reset, watch } = useForm<SearchFilters>({
         defaultValues: {
             searchQuery: '',
@@ -112,7 +113,7 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
     return (
         <Box sx={{ margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                Client Directory
+                {t('client.directory')}
             </Typography>
 
             {/* Search Header Section */}
@@ -128,8 +129,8 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                                     <TextField
                                         {...field}
                                         fullWidth
-                                        label="Search by Name or Email"
-                                        placeholder="e.g. John Doe"
+                                        label={t('client.searchByNameOrEmail')}
+                                        placeholder={t('client.searchPlaceholder')}
                                         slotProps={{
                                             input: { startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} /> }
                                         }}
@@ -144,11 +145,11 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                                 name="gender"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField {...field} select fullWidth label="Gender">
-                                        <MenuItem value="">All</MenuItem>
-                                        <MenuItem value="male">Male</MenuItem>
-                                        <MenuItem value="female">Female</MenuItem>
-                                        <MenuItem value="other">Other</MenuItem>
+                                    <TextField {...field} select fullWidth label={t('client.gender')}>
+                                        <MenuItem value="">{t('client.all')}</MenuItem>
+                                        <MenuItem value="male">{t('client.male')}</MenuItem>
+                                        <MenuItem value="female">{t('client.female')}</MenuItem>
+                                        <MenuItem value="other">{t('client.other')}</MenuItem>
                                     </TextField>
                                 )}
                             />
@@ -160,12 +161,12 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                                 name="ageRange"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField {...field} select fullWidth label="Age Group">
-                                        <MenuItem value="">All Ages</MenuItem>
-                                        <MenuItem value="18-25">18 - 25</MenuItem>
-                                        <MenuItem value="26-40">26 - 40</MenuItem>
-                                        <MenuItem value="41-60">41 - 60</MenuItem>
-                                        <MenuItem value="60+">60+</MenuItem>
+                                    <TextField {...field} select fullWidth label={t('client.ageGroup')}>
+                                        <MenuItem value="">{t('client.allAges')}</MenuItem>
+                                        <MenuItem value="18-25">{t('client.age18_25')}</MenuItem>
+                                        <MenuItem value="26-40">{t('client.age26_40')}</MenuItem>
+                                        <MenuItem value="41-60">{t('client.age41_60')}</MenuItem>
+                                        <MenuItem value="60+">{t('client.age60plus')}</MenuItem>
                                     </TextField>
                                 )}
                             />
@@ -180,14 +181,14 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                                     disableElevation
                                     startIcon={<SearchIcon />}
                                 >
-                                    Apply Filters
+                                    {t('client.applyFilters')}
                                 </Button>
                                 <Button
                                     variant="outlined"
                                     onClick={() => reset()}
                                     color="inherit"
                                 >
-                                    Reset
+                                    {t('client.reset')}
                                 </Button>
                             </Stack>
                         </Grid>
@@ -201,11 +202,11 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
                             <TableRow>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Type</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Name</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Phone#</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "20%" }}>Email</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>Remark</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.type')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.name')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.phone')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "20%" }}>{t('client.email')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>{t('client.remark')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -214,8 +215,8 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                                     <TableCell>{client.type == "Individual" ? <PersonIcon /> : <BusinessIcon />}</TableCell>
                                     <TableCell>{client.name}</TableCell>
                                     <TableCell>{client.phoneNumber || ""}</TableCell>
-                                    <TableCell>{client.email || "N/A"}</TableCell>
-                                    <TableCell>{client.remark || "N/A"}</TableCell>
+                                    <TableCell>{client.email || t('client.nA')}</TableCell>
+                                    <TableCell>{client.remark || t('client.nA')}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

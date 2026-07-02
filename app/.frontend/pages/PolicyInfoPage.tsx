@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import type { Broker, Client, InsuranceCompany, InsurancePolicy } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -47,7 +48,7 @@ interface PolicyInfoPageProps {
 }
 
 const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompanies, brokers, insurancePolicies, onSave }) => {
-
+    const { t } = useTranslation();
     const { control, handleSubmit, reset, watch } = useForm<SearchFilters>({
         defaultValues: {
             searchQuery: '',
@@ -72,7 +73,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
     return (
         <Box sx={{ margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                Policy Directory
+                {t('policy.directory')}
             </Typography>
 
             {/* Search Header Section */}
@@ -88,8 +89,8 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                     <TextField
                                         {...field}
                                         fullWidth
-                                        label="Client Name / Policy Number / Quotation Number"
-                                        placeholder="e.g. John Doe"
+                                        label={t('policy.searchHint')}
+                                        placeholder={t('policy.searchPlaceholder')}
                                         slotProps={{
                                             input: { startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} /> }
                                         }}
@@ -104,10 +105,10 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                 name="categoryGroup"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField {...field} select fullWidth label="Category">
-                                        <MenuItem value="">All</MenuItem>
-                                        <MenuItem value="individual">Individual</MenuItem>
-                                        <MenuItem value="company">Company</MenuItem>
+                                    <TextField {...field} select fullWidth label={t('policy.category')}>
+                                        <MenuItem value="">{t('client.all')}</MenuItem>
+                                        <MenuItem value="individual">{t('client.individual')}</MenuItem>
+                                        <MenuItem value="company">{t('client.company')}</MenuItem>
                                     </TextField>
                                 )}
                             />
@@ -119,10 +120,10 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                 name="status"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField {...field} select fullWidth label="Status">
-                                        <MenuItem value="">All</MenuItem>
-                                        <MenuItem value="active">Active</MenuItem>
-                                        <MenuItem value="inactive">Inactive</MenuItem>
+                                    <TextField {...field} select fullWidth label={t('policy.status')}>
+                                        <MenuItem value="">{t('client.all')}</MenuItem>
+                                        <MenuItem value="active">{t('policy.active')}</MenuItem>
+                                        <MenuItem value="inactive">{t('policy.inactive')}</MenuItem>
                                     </TextField>
                                 )}
                             />
@@ -134,11 +135,11 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                 name="expiryDateRange"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField {...field} select fullWidth label="Expiry Date">
-                                        <MenuItem value="">All Dates</MenuItem>
-                                        <MenuItem value="within-30-days">Within 30 Days</MenuItem>
-                                        <MenuItem value="within-90-days">Within 90 Days</MenuItem>
-                                        <MenuItem value="past-expiry">Past Expiry</MenuItem>
+                                    <TextField {...field} select fullWidth label={t('policy.expiryDate')}>
+                                        <MenuItem value="">{t('policy.allDates')}</MenuItem>
+                                        <MenuItem value="within-30-days">{t('policy.within30Days')}</MenuItem>
+                                        <MenuItem value="within-90-days">{t('policy.within90Days')}</MenuItem>
+                                        <MenuItem value="past-expiry">{t('policy.pastExpiry')}</MenuItem>
                                     </TextField>
                                 )}
                             />
@@ -153,14 +154,14 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                     disableElevation
                                     startIcon={<SearchIcon />}
                                 >
-                                    Apply Filters
+                                    {t('client.applyFilters')}
                                 </Button>
                                 <Button
                                     variant="outlined"
                                     onClick={() => reset()}
                                     color="inherit"
                                 >
-                                    Reset
+                                    {t('client.reset')}
                                 </Button>
                             </Stack>
                         </Grid>
@@ -174,11 +175,11 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
                             <TableRow>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Category</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Client Name</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>Expiry Date</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "20%" }}>Quotation Number</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>Remark</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.category')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.clientName')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.expiryDate')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "20%" }}>{t('policy.quotationNumber')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>{t('client.remark')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

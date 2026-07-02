@@ -16,6 +16,8 @@ import { ErrorLayout } from "./.frontend/components/ErrorLayout";
 import { Box, height } from "@mui/system";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
+import './.frontend/i18n/i18n';
+import { useTranslation } from 'react-i18next';
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -25,6 +27,10 @@ export function meta({ }: Route.MetaArgs) {
     { name: "description", content: "A modern insurance management system built with Remix and Material-UI." },
     { name: "copyright", content: "© 2026 Insurance Management System. All rights reserved." },
   ];
+}
+
+export function clientLoader() {
+  return {};
 }
 
 export const links: Route.LinksFunction = () => [
@@ -44,8 +50,10 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language === 'zh-TW' ? 'zh-HK' : 'en';
   return (
-    <html lang="en">
+    <html lang={lang}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,4 +101,4 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   return (
     <ErrorLayout title={message} description={details} error={stack} />
   );
-} 
+}

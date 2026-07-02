@@ -15,6 +15,7 @@ import {
     Download as DownloadIcon,
     InsertDriveFile as FileIcon
 } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import type { Client, ClientFile } from '~/generated/prisma/browser';
 import type { ClientFileInformation } from '../models/ClientFileInformation';
 import FileUploadDialog from '../components/dialogs/FileUploadDialog';
@@ -34,6 +35,7 @@ interface FileFormInputs {
 
 const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUpload, onFileDelete }) => {
 
+    const { t } = useTranslation();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     // Initialize React Hook Form
@@ -58,7 +60,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
     return (
         <Box sx={{  margin: '0 auto' }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
-                Client File Management
+                {t('file.title')}
             </Typography>
 
             <Paper sx={{ p: 2, mb: 3, bgcolor: 'layer.level1' }}>
@@ -72,7 +74,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                                 {...field}
                                 id="file-search-input"
                                 suppressHydrationWarning
-                                placeholder="Search files..."
+                                placeholder={t('file.searchFiles')}
                                 variant="outlined"
                                 size="small"
                                 sx={{ flexGrow: 1 }}
@@ -95,7 +97,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                         sx={{ textTransform: 'none' }}
                         onClick={() => setIsDialogOpen(true)}
                     >
-                        Upload
+                        {t('file.upload')}
                     </Button>
                     <FileUploadDialog
                         open={isDialogOpen}
@@ -108,7 +110,7 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                 {/* Helper text to show selected file name */}
                 {watch('fileUpload') && (
                     <Typography variant="caption" sx={{ mt: 1, display: 'block', color: 'green' }}>
-                        Selected: {watch('fileUpload')?.[0]?.name}
+                        {t('file.selected', { fileName: watch('fileUpload')?.[0]?.name })}
                     </Typography>
                 )}
             </Paper>
@@ -118,16 +120,16 @@ const FilesPage: React.FC<FilesPageProps> = ({ clients, clientFiles, onFileUploa
                 <Table>
                     <TableHead sx={{ backgroundColor: "primary.main" }}>
                         <TableRow>
-                            <TableCell sx={{ color: "primary.contrastText", width: '40%' }}>File Name</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", width: 'auto' }}>User</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>Size</TableCell> 
-                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>Date</TableCell>
-                            <TableCell sx={{ color: "primary.contrastText", pr: 4, width: '120px' }} align="right">Actions</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: '40%' }}>{t('file.fileName')}</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: 'auto' }}>{t('file.user')}</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>{t('file.size')}</TableCell> 
+                            <TableCell sx={{ color: "primary.contrastText", width: '10%' }}>{t('file.date')}</TableCell>
+                            <TableCell sx={{ color: "primary.contrastText", pr: 4, width: '120px' }} align="right">{t('file.actions')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {filteredFiles.map((file) => (
-                            <Tooltip key={file.id} title={file.description || "No description provided"} arrow
+                            <Tooltip key={file.id} title={file.description || t('file.noDescription')} arrow
                                 slotProps={{
                                     popper: {
                                         sx: {

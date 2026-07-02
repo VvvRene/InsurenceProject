@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslation } from 'react-i18next';
 import type { Broker } from '~/generated/prisma/browser';
 import type { BrokerInfo } from '../models/BrokerInfo';
 import BrokerUpsertDialog from '../components/dialogs/BrokerUpsertDialog';
@@ -25,6 +26,7 @@ interface BrokersPageProps {
 }
 
 const BrokersPage: React.FC<BrokersPageProps> = ({ brokers, onSave }) => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedBroker, setSelectedBroker] = useState<BrokerInfo | undefined>(undefined);
@@ -56,7 +58,7 @@ const BrokersPage: React.FC<BrokersPageProps> = ({ brokers, onSave }) => {
   return (
     <Box sx={{ margin: '0 auto' }}>
       <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-        Brokers
+        {t('broker.title')}
       </Typography>
 
       <Paper sx={{ p: 2, mb: 3 }}>
@@ -64,13 +66,13 @@ const BrokersPage: React.FC<BrokersPageProps> = ({ brokers, onSave }) => {
           <TextField
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            label="Search by name"
-            placeholder="e.g. John Doe"
+            label={t('broker.searchByName')}
+            placeholder={t('broker.searchPlaceholder')}
             slotProps={{ input: { startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} /> } }}
             fullWidth
           />
           <Button variant="contained" startIcon={<AddIcon />} onClick={handleAdd}>
-            Add Broker
+            {t('broker.addBroker')}
           </Button>
         </Stack>
       </Paper>
@@ -79,7 +81,7 @@ const BrokersPage: React.FC<BrokersPageProps> = ({ brokers, onSave }) => {
         <Table>
           <TableHead sx={{ backgroundColor: 'primary.main' }}>
             <TableRow>
-              <TableCell sx={{ color: 'primary.contrastText', fontWeight: 800 }}>Name</TableCell>
+              <TableCell sx={{ color: 'primary.contrastText', fontWeight: 800 }}>{t('broker.name')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

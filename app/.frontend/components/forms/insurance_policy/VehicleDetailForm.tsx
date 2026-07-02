@@ -5,7 +5,7 @@ import {
 import { useForm, Controller, type Control } from 'react-hook-form'; 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
- 
+import { useTranslation } from 'react-i18next';
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation'; 
 
 // Validation Schema based on your Prisma Model 
@@ -16,6 +16,7 @@ interface VehicleDetailFormProps {
 }
 
 const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultValues, onChange }) => { 
+    const { t } = useTranslation();
     return (
         <Box sx={{ overflow: 'hidden' }}>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -31,12 +32,12 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             select
                                             fullWidth
-                                            label="Coverage Type"
+                                            label={t('policy.coverageType')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
-                                            <MenuItem value="Comprehensive">Comprehensive</MenuItem>
-                                            <MenuItem value="Third-Party">Third-Party</MenuItem>
+                                            <MenuItem value="Comprehensive">{t('policy.comprehensive')}</MenuItem>
+                                            <MenuItem value="Third-Party">{t('policy.thirdParty')}</MenuItem>
                                         </TextField>
                                     )}
                                 />
@@ -49,7 +50,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            label="Registration Number"
+                                            label={t('policy.registrationNumber')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
@@ -68,14 +69,14 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             select
                                             fullWidth
-                                            label="Vehicle Type"
+                                            label={t('policy.vehicleType')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
-                                            <MenuItem value="Sedan">Sedan</MenuItem>
-                                            <MenuItem value="SUV">SUV</MenuItem>
-                                            <MenuItem value="Truck">Truck</MenuItem>
-                                            <MenuItem value="Motorcycle">Motorcycle</MenuItem>
+                                            <MenuItem value="Sedan">{t('policy.sedan')}</MenuItem>
+                                            <MenuItem value="SUV">{t('policy.suv')}</MenuItem>
+                                            <MenuItem value="Truck">{t('policy.truck')}</MenuItem>
+                                            <MenuItem value="Motorcycle">{t('policy.motorcycle')}</MenuItem>
                                         </TextField>
                                     )}
                                 />
@@ -88,7 +89,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            label="Engine Number"
+                                            label={t('policy.engineNumber')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         
@@ -104,7 +105,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            label="Chassis Number"
+                                            label={t('policy.chassisNumber')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
@@ -122,17 +123,17 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             select
                                             fullWidth
-                                            label="Vehicle Body Type"
+                                            label={t('policy.vehicleBodyType')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
-                                            <MenuItem value="Coupe">Coupe</MenuItem>
-                                            <MenuItem value="Convertible">Convertible</MenuItem>
-                                            <MenuItem value="Hatchback">Hatchback</MenuItem>
-                                            <MenuItem value="Minivan">Minivan</MenuItem>
-                                            <MenuItem value="Pickup">Pickup</MenuItem>
-                                            <MenuItem value="Van">Van</MenuItem>
-                                            <MenuItem value="Wagon">Wagon</MenuItem>
+                                            <MenuItem value="Coupe">{t('policy.coupe')}</MenuItem>
+                                            <MenuItem value="Convertible">{t('policy.convertible')}</MenuItem>
+                                            <MenuItem value="Hatchback">{t('policy.hatchback')}</MenuItem>
+                                            <MenuItem value="Minivan">{t('policy.minivan')}</MenuItem>
+                                            <MenuItem value="Pickup">{t('policy.pickup')}</MenuItem>
+                                            <MenuItem value="Van">{t('policy.van')}</MenuItem>
+                                            <MenuItem value="Wagon">{t('policy.wagon')}</MenuItem>
                                         </TextField>
                                     )}
                                 />
@@ -145,7 +146,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            label="Manufacturer"
+                                            label={t('policy.manufacturer')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
@@ -160,7 +161,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            label="Model Name"
+                                            label={t('policy.modelName')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
@@ -178,7 +179,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}  
                                             type="number"
                                             fullWidth
-                                            label="Engine Displacement (cc)"
+                                            label={t('policy.engineDisplacement')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                             onChange={(e)=> field.onChange(Number(e.target.value))}
@@ -195,7 +196,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             type="number"
                                             fullWidth
-                                            label="Total Weight (kg)"
+                                            label={t('policy.totalWeight')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                             onChange={(e)=> field.onChange(Number(e.target.value))}
@@ -212,7 +213,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             type="number"
                                             fullWidth
-                                            label="Year of Manufacture"
+                                            label={t('policy.yearOfManufacture')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
@@ -228,7 +229,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             type="number"
                                             fullWidth   
-                                            label="Number of Seats"
+                                            label={t('policy.numberOfSeats')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                             onChange={(e)=> field.onChange(Number(e.target.value))}
@@ -247,13 +248,13 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             {...field}
                                             select
                                             fullWidth
-                                            label="Region"
+                                            label={t('policy.region')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         >
-                                            <MenuItem value="Hong Kong">Hong Kong</MenuItem>
-                                            <MenuItem value="Mainland China">Mainland China</MenuItem>
-                                            <MenuItem value="Overseas">Overseas</MenuItem>
+                                            <MenuItem value="Hong Kong">{t('policy.hongKong')}</MenuItem>
+                                            <MenuItem value="Mainland China">{t('policy.mainlandChina')}</MenuItem>
+                                            <MenuItem value="Overseas">{t('policy.overseas')}</MenuItem>
                                         </TextField>
                                     )}
                                 />
@@ -266,7 +267,7 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                         <TextField
                                             {...field}
                                             fullWidth
-                                            label="Money Lender Licence Number (if applicable)"
+                                            label={t('policy.moneyLenderLicence')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                         />
