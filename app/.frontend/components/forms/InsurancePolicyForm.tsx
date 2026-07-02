@@ -54,7 +54,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         brokerId: 0,
         quotationNumber: '',
         effectiveDate: DateTime.now().toJSDate(),
-        expiryDate: DateTime.now().plus({ years: 1 }).toJSDate(),
+        expiryDate: DateTime.now().plus({years:1}).minus({days:1}).toJSDate(),
         updateDate: DateTime.now().toJSDate(),
     });
 

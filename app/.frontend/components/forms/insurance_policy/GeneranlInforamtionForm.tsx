@@ -288,9 +288,8 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         <DatePicker
                                             {...fieldProps}
                                             label="Effective Date"
-                                            disabled={true}
-                                            value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))} // Always show current date
-                                            onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
+                                            value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))}
+                                            onChange={(newValue) => onChange(newValue?.toJSDate())}
                                             slotProps={{
                                                 textField: {
                                                     fullWidth: true,
@@ -310,9 +309,8 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         <DatePicker
                                             {...fieldProps}
                                             label="Expiry Date"
-                                            disabled={true}
-                                            value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))} // Always show current date
-                                            onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
+                                            value={value == null ? DateTime.now().endOf('year') : DateTime.fromJSDate(new Date(value))}
+                                            onChange={(newValue) => onChange(newValue?.toJSDate())}
                                             slotProps={{
                                                 textField: {
                                                     fullWidth: true,
