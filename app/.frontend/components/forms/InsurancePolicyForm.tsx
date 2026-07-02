@@ -24,9 +24,11 @@ import { useFetcher } from 'react-router';
 import InsuranceCompanyUpsertDialog from '../dialogs/InsuranceCompanyUpsertDialog';
 import BrokerUpsertDialog from '../dialogs/BrokerUpsertDialog';
 import ClientUpsertDialog from '../dialogs/ClientUpsertDialog';
+import OptionUpsertDialog from '../dialogs/OptionUpsertDialog';
 import type { InsuranceCompanyInfo } from '~/.frontend/models/InsuranceCompanyInfo';
 import type { BrokerInfo } from '~/.frontend/models/BrokerInfo';
 import type { ClientInfo } from '~/.frontend/models/ClientInfo';
+import type { VehicleOptionInfo } from '~/.frontend/models/VehicleOptionInfo';
 import { toFormData } from '~/utils/toFormData';
 
 
@@ -47,6 +49,23 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
     const [isInsuranceCompanyDialogOpen, setIsInsuranceCompanyDialogOpen] = useState(false);
     const [isBrokerDialogOpen, setIsBrokerDialogOpen] = useState(false);
     const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
+    const [isVehicleTypeDialogOpen, setIsVehicleTypeDialogOpen] = useState(false);
+    const [isVehicleBodyTypeDialogOpen, setIsVehicleBodyTypeDialogOpen] = useState(false);
+    const [availableVehicleTypes, setAvailableVehicleTypes] = useState<VehicleOptionInfo[]>([
+        { name: 'Sedan' },
+        { name: 'SUV' },
+        { name: 'Truck' },
+        { name: 'Motorcycle' },
+    ]);
+    const [availableVehicleBodyTypes, setAvailableVehicleBodyTypes] = useState<VehicleOptionInfo[]>([
+        { name: 'Coupe' },
+        { name: 'Convertible' },
+        { name: 'Hatchback' },
+        { name: 'Minivan' },
+        { name: 'Pickup' },
+        { name: 'Van' },
+        { name: 'Wagon' },
+    ]);
 
     const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>({
         uuid: uuidv4(),
@@ -142,7 +161,11 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
             content: <VehicleDetailForm
                 control={vehiclePolicyDetailInformationControl}
                 defaultValues={vehiclePolicyDetailInformation}
-                onChange={setVehiclePolicyDetailInformation} />
+                onChange={setVehiclePolicyDetailInformation}
+                vehicleTypes={availableVehicleTypes}
+                vehicleBodyTypes={availableVehicleBodyTypes}
+                onAddVehicleType={() => setIsVehicleTypeDialogOpen(true)}
+                onAddVehicleBodyType={() => setIsVehicleBodyTypeDialogOpen(true)} />
         },
         // { label: 'Omission', content: <OmissionPage /> },
         // { label: 'Accounting Info', content: <OmissionPage /> },
@@ -195,6 +218,34 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         fetcher.submit(formData, { method: 'post', encType: 'multipart/form-data' });
 
         setIsBrokerDialogOpen(false);
+    };
+
+    const handleVehicleTypeDialogSave = (data: VehicleOptionInfo) => {
+        const newOption: VehicleOptionInfo = {
+            id: data.id,
+            name: data.name,
+        };
+
+        setAvailableVehicleTypes((current) => {
+            const alreadyExists = current.some((vt) => vt.name === newOption.name);
+            return alreadyExists ? current : [...current, newOption];
+        });
+        setVehiclePolicyDetailInformation((current) => ({ ...current, vehicleType: newOption.name }));
+        setIsVehicleTypeDialogOpen(false);
+    };
+
+    const handleVehicleBodyTypeDialogSave = (data: VehicleOptionInfo) => {
+        const newOption: VehicleOptionInfo = {
+            id: data.id,
+            name: data.name,
+        };
+
+        setAvailableVehicleBodyTypes((current) => {
+            const alreadyExists = current.some((vt) => vt.name === newOption.name);
+            return alreadyExists ? current : [...current, newOption];
+        });
+        setVehiclePolicyDetailInformation((current) => ({ ...current, vehicleBodyType: newOption.name }));
+        setIsVehicleBodyTypeDialogOpen(false);
     };
 
     const handleClientDialogSave = (data: ClientInfo) => {
@@ -280,6 +331,20 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                 open={isClientDialogOpen}
                 onClose={() => setIsClientDialogOpen(false)}
                 onSave={handleClientDialogSave}
+            />
+
+            <OptionUpsertDialog
+                open={isVehicleTypeDialogOpen}
+                labelKey="policy.addVehicleType"
+                onClose={() => setIsVehicleTypeDialogOpen(false)}
+                onSave={handleVehicleTypeDialogSave}
+            />
+
+            <OptionUpsertDialog
+                open={isVehicleBodyTypeDialogOpen}
+                labelKey="policy.addVehicleBodyType"
+                onClose={() => setIsVehicleBodyTypeDialogOpen(false)}
+                onSave={handleVehicleBodyTypeDialogSave}
             />
 
         </Grid>

@@ -1,22 +1,31 @@
 import React, { useEffect } from 'react';
 import {
-    Box, TextField, MenuItem, 
-} from '@mui/material'; 
+    Autocomplete, Box, TextField, MenuItem, IconButton
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { useForm, Controller, type Control } from 'react-hook-form'; 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation'; 
+import type { VehicleOptionInfo } from '~/.frontend/models/VehicleOptionInfo';
 
 // Validation Schema based on your Prisma Model 
 interface VehicleDetailFormProps {
     control: Control<VehiclePolicyDetailInformation>; // React Hook Form control object
     defaultValues: VehiclePolicyDetailInformation; // Optional default values for editing existing policies
     onChange: (data: VehiclePolicyDetailInformation) => void; // Optional callback to pass form data to parent component
+    vehicleTypes?: VehicleOptionInfo[];
+    vehicleBodyTypes?: VehicleOptionInfo[];
+    onAddVehicleType?: () => void;
+    onAddVehicleBodyType?: () => void;
 }
 
-const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultValues, onChange }) => { 
+const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultValues, onChange, vehicleTypes, vehicleBodyTypes, onAddVehicleType, onAddVehicleBodyType }) => { 
     const { t } = useTranslation();
+    const currentVehicleTypes = vehicleTypes ?? [];
+    const currentVehicleBodyTypes = vehicleBodyTypes ?? [];
+
     return (
         <Box sx={{ overflow: 'hidden' }}>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -60,26 +69,63 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                         </Stack>
 
                         <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" mb={2}>
-                            <Box sx={{ width: '50%' }}>
-                                <Controller
-                                    name="vehicleType"
-                                    control={control}
-                                    render={({ field, fieldState }) => (
-                                        <TextField
-                                            {...field}
-                                            select
-                                            fullWidth
-                                            label={t('policy.vehicleType')}
-                                            error={!!fieldState.error}
-                                            helperText={fieldState.error ? fieldState.error.message : ''}
-                                        >
-                                            <MenuItem value="Sedan">{t('policy.sedan')}</MenuItem>
-                                            <MenuItem value="SUV">{t('policy.suv')}</MenuItem>
-                                            <MenuItem value="Truck">{t('policy.truck')}</MenuItem>
-                                            <MenuItem value="Motorcycle">{t('policy.motorcycle')}</MenuItem>
-                                        </TextField>
-                                    )}
-                                />
+                            <Box sx={{ display: 'flex', width: '50%', alignItems: 'flex-start', gap: 1 }}>
+                                <Box sx={{ flex: 1 }}>
+                                    <Controller
+                                        name="vehicleType"
+                                        control={control}
+                                        render={({ field, fieldState }) => {
+                                            const selected = currentVehicleTypes.find((vt) => vt.name === field.value) ?? null;
+                                            return (
+                                                <Autocomplete
+                                                    freeSolo
+                                                    options={currentVehicleTypes}
+                                                    value={selected}
+                                                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                                                    getOptionLabel={(option: string | VehicleOptionInfo) => {
+                                                        if (typeof option === 'string') return option;
+                                                        return option?.name ?? '';
+                                                    }}
+                                                    onChange={(_, newValue) => {
+                                                        if (typeof newValue === 'string') {
+                                                            field.onChange(newValue);
+                                                        } else if (newValue && 'name' in newValue) {
+                                                            field.onChange(newValue.name);
+                                                        } else {
+                                                            field.onChange('');
+                                                        }
+                                                    }}
+                                                    onInputChange={(_, newInputValue) => {
+                                                        field.onChange(newInputValue);
+                                                    }}
+                                                    renderInput={(params) => (
+                                                        <TextField
+                                                            {...params}
+                                                            label={t('policy.vehicleType')}
+                                                            error={!!fieldState.error}
+                                                            helperText={fieldState.error ? fieldState.error.message : ''}
+                                                            fullWidth
+                                                            onBlur={field.onBlur}
+                                                        />
+                                                    )}
+                                                />
+                                            );
+                                        }}
+                                    />
+                                </Box>
+                                {onAddVehicleType ? (
+                                    <IconButton
+                                        color="primary"
+                                        sx={{ mt: 0.5, border: 1, borderColor: 'divider' }}
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            onAddVehicleType();
+                                        }}
+                                        aria-label={t('policy.addVehicleType')}
+                                    >
+                                        <AddIcon />
+                                    </IconButton>
+                                ) : null}
                             </Box>
                             <Box sx={{ width: '50%' }}>
                                 <Controller
@@ -114,29 +160,63 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                             </Box>
                         </Stack>
                         <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" mb={2}>
-                            <Box sx={{ width: '50%' }}>
-                                <Controller
-                                    name="vehicleBodyType"
-                                    control={control}
-                                    render={({ field, fieldState}) => (
-                                        <TextField  
-                                            {...field}
-                                            select
-                                            fullWidth
-                                            label={t('policy.vehicleBodyType')}
-                                            error={!!fieldState.error}
-                                            helperText={fieldState.error ? fieldState.error.message : ''}
-                                        >
-                                            <MenuItem value="Coupe">{t('policy.coupe')}</MenuItem>
-                                            <MenuItem value="Convertible">{t('policy.convertible')}</MenuItem>
-                                            <MenuItem value="Hatchback">{t('policy.hatchback')}</MenuItem>
-                                            <MenuItem value="Minivan">{t('policy.minivan')}</MenuItem>
-                                            <MenuItem value="Pickup">{t('policy.pickup')}</MenuItem>
-                                            <MenuItem value="Van">{t('policy.van')}</MenuItem>
-                                            <MenuItem value="Wagon">{t('policy.wagon')}</MenuItem>
-                                        </TextField>
-                                    )}
-                                />
+                            <Box sx={{ display: 'flex', width: '50%', alignItems: 'flex-start', gap: 1 }}>
+                                <Box sx={{ flex: 1 }}>
+                                    <Controller
+                                        name="vehicleBodyType"
+                                        control={control}
+                                        render={({ field, fieldState }) => {
+                                            const selected = currentVehicleBodyTypes.find((vt) => vt.name === field.value) ?? null;
+                                            return (
+                                                <Autocomplete
+                                                    freeSolo
+                                                    options={currentVehicleBodyTypes}
+                                                    value={selected}
+                                                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                                                    getOptionLabel={(option: string | VehicleOptionInfo) => {
+                                                        if (typeof option === 'string') return option;
+                                                        return option?.name ?? '';
+                                                    }}
+                                                    onChange={(_, newValue) => {
+                                                        if (typeof newValue === 'string') {
+                                                            field.onChange(newValue);
+                                                        } else if (newValue && 'name' in newValue) {
+                                                            field.onChange(newValue.name);
+                                                        } else {
+                                                            field.onChange('');
+                                                        }
+                                                    }}
+                                                    onInputChange={(_, newInputValue) => {
+                                                        field.onChange(newInputValue);
+                                                    }}
+                                                    renderInput={(params) => (
+                                                        <TextField
+                                                            {...params}
+                                                            label={t('policy.vehicleBodyType')}
+                                                            error={!!fieldState.error}
+                                                            helperText={fieldState.error ? fieldState.error.message : ''}
+                                                            fullWidth
+                                                            onBlur={field.onBlur}
+                                                        />
+                                                    )}
+                                                />
+                                            );
+                                        }}
+                                    />
+                                </Box>
+                                {onAddVehicleBodyType ? (
+                                    <IconButton
+                                        color="primary"
+                                        sx={{ mt: 0.5, border: 1, borderColor: 'divider' }}
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            onAddVehicleBodyType();
+                                        }}
+                                        aria-label={t('policy.addVehicleBodyType')}
+                                    >
+                                        <AddIcon />
+                                    </IconButton>
+                                ) : null}
                             </Box>
                             <Box sx={{ width: '50%' }}>
                                 <Controller

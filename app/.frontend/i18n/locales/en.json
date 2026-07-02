@@ -92,6 +92,8 @@
     "addClient": "Add client",
     "addInsuranceCompany": "Add insurance company",
     "addBroker": "Add broker",
+    "addVehicleType": "Add Vehicle Type",
+    "addVehicleBodyType": "Add Vehicle Body Type",
     "coverageType": "Coverage Type",
     "comprehensive": "Comprehensive",
     "thirdParty": "Third-Party",

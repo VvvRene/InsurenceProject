@@ -92,6 +92,8 @@
     "addClient": "新增客戶",
     "addInsuranceCompany": "新增保險公司",
     "addBroker": "新增經紀",
+    "addVehicleType": "新增車輛類型",
+    "addVehicleBodyType": "新增車身類型",
     "coverageType": "保障類型",
     "comprehensive": "綜合保險",
     "thirdParty": "第三者保險",
