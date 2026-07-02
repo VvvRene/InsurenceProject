@@ -22,8 +22,10 @@ import { is } from 'zod/v4/locales';
 import { useFetcher } from 'react-router';
 import InsuranceCompanyUpsertDialog from '../dialogs/InsuranceCompanyUpsertDialog';
 import BrokerUpsertDialog from '../dialogs/BrokerUpsertDialog';
+import ClientUpsertDialog from '../dialogs/ClientUpsertDialog';
 import type { InsuranceCompanyInfo } from '~/.frontend/models/InsuranceCompanyInfo';
 import type { BrokerInfo } from '~/.frontend/models/BrokerInfo';
+import type { ClientInfo } from '~/.frontend/models/ClientInfo';
 import { toFormData } from '~/utils/toFormData';
 
 
@@ -39,8 +41,10 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
 
     const [availableInsuranceCompanies, setAvailableInsuranceCompanies] = useState<InsuranceCompany[]>(insuranceCompanies);
     const [availableBrokers, setAvailableBrokers] = useState<Broker[]>(brokers);
+    const [availableClients, setAvailableClients] = useState<Client[]>(clients);
     const [isInsuranceCompanyDialogOpen, setIsInsuranceCompanyDialogOpen] = useState(false);
     const [isBrokerDialogOpen, setIsBrokerDialogOpen] = useState(false);
+    const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
 
     const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>({
         uuid: uuidv4(),
@@ -100,7 +104,8 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
     useEffect(() => {
         setAvailableInsuranceCompanies(insuranceCompanies);
         setAvailableBrokers(brokers);
-    }, [insuranceCompanies, brokers]);
+        setAvailableClients(clients);
+    }, [insuranceCompanies, brokers, clients]);
 
     useEffect(() => {
         const subscription = insuranceGeneralInformationWatch((value, { name, type }) => {
@@ -123,11 +128,12 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
             label: 'General',
             content: <InsurancePolicyGeneralInformationForm
                 control={insuranceGeneralInformationControl}
-                clients={clients}
+                clients={availableClients}
                 insuranceCompanies={availableInsuranceCompanies}
                 brokers={availableBrokers}
                 onAddInsuranceCompany={() => setIsInsuranceCompanyDialogOpen(true)}
-                onAddBroker={() => setIsBrokerDialogOpen(true)} />
+                onAddBroker={() => setIsBrokerDialogOpen(true)}
+                onAddClient={() => setIsClientDialogOpen(true)} />
         },
         {
             label: 'Detail',
@@ -189,6 +195,34 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         setIsBrokerDialogOpen(false);
     };
 
+    const handleClientDialogSave = (data: ClientInfo) => {
+        const nextClientId = availableClients.length > 0
+            ? Math.max(...availableClients.map((client) => client.id)) + 1
+            : 1;
+
+        const newClient: Client = {
+            id: data.id ?? nextClientId,
+            name: data.name,
+            chineseName: data.chineseName,
+        } as Client;
+
+        setAvailableClients((current) => {
+            const alreadyExists = current.some((client) => client.id === newClient.id || client.name === newClient.name);
+            return alreadyExists ? current : [...current, newClient];
+        });
+        setInsuranceGeneralInformation((current) => ({ ...current, clientId: newClient.id }));
+        setInsuranceGeneralInformationValue('clientId', newClient.id);
+
+        const formData = toFormData({
+            ...data,
+            date: data.date ? new Date(data.date).toISOString() : null,
+        });
+        formData.append('intent', 'client_upsert');
+        fetcher.submit(formData, { method: 'post', encType: 'multipart/form-data' });
+
+        setIsClientDialogOpen(false);
+    };
+
     return <>
 
         <Grid sx={{ overflow: "hidden" }}>
@@ -238,6 +272,12 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                 open={isBrokerDialogOpen}
                 onClose={() => setIsBrokerDialogOpen(false)}
                 onSave={handleBrokerDialogSave}
+            />
+
+            <ClientUpsertDialog
+                open={isClientDialogOpen}
+                onClose={() => setIsClientDialogOpen(false)}
+                onSave={handleClientDialogSave}
             />
 
         </Grid>

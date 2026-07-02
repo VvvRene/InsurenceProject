@@ -24,6 +24,10 @@
     - React app structure with routes and pages in `app/routes` and `app/` (client/server entries present).
     - Prisma schema and generated client exist under `prisma/` and `app/generated/prisma`.
     - Dockerfile and project config files (`tsconfig.json`, `vite.config.ts`, `package.json`).
+    - Insurance policy creation flow now supports inline add actions for insurance companies, brokers, and clients from the policy dialog.
+    - Newly created insurance companies, brokers, and clients are submitted to the relevant route actions and available immediately in the form dropdowns.
+    - Effective Date and Expiry Date fields are editable and initialized with sensible defaults in the policy form.
+    - Client, Insurance Company, and Broker selectors in the policy form now use searchable autocomplete controls for faster selection.
   - In progress / Needs verification:
     - Database integration and migrations: `prisma/migrations` exists but verify the development database and migrations applied.
     - API routes and server endpoints: several route files exist (e.g., `clientFileDownload.$fileId.ts`) and may need full implementation and tests.
