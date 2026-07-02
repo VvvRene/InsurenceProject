@@ -77,6 +77,16 @@ export type InsuranceCompany = Prisma.InsuranceCompanyModel
  */
 export type Broker = Prisma.BrokerModel
 /**
+ * Model VehicleType
+ * 
+ */
+export type VehicleType = Prisma.VehicleTypeModel
+/**
+ * Model VehicleBodyType
+ * 
+ */
+export type VehicleBodyType = Prisma.VehicleBodyTypeModel
+/**
  * Model ClientFile
  * 
  */

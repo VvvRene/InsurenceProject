@@ -18,6 +18,8 @@ async function main() {
   await prisma.client.deleteMany();
   await prisma.broker.deleteMany();
   await prisma.insuranceCompany.deleteMany();
+  await prisma.vehicleType.deleteMany();
+  await prisma.vehicleBodyType.deleteMany();
   await prisma.currency.deleteMany();
 
   console.log('Seeding reference data...');
@@ -29,7 +31,21 @@ async function main() {
     prisma.currency.create({ data: { abbr: 'GBP', rate: 10.2 } }),
   ]);
 
-  // 2. Seed Insurance Companies
+  // 2. Seed Vehicle Types
+  const vehicleTypes = await Promise.all(
+    ['Sedan', 'SUV', 'Truck', 'Motorcycle'].map((name) =>
+      prisma.vehicleType.create({ data: { name } })
+    )
+  );
+
+  // 3. Seed Vehicle Body Types
+  const vehicleBodyTypes = await Promise.all(
+    ['Coupe', 'Convertible', 'Hatchback', 'Minivan', 'Pickup', 'Van', 'Wagon'].map((name) =>
+      prisma.vehicleBodyType.create({ data: { name } })
+    )
+  );
+
+  // 4. Seed Insurance Companies
   const companies = await Promise.all(
     ['AXA', 'Allianz', 'Prudential', 'AIA', 'Zurich'].map((name) =>
       prisma.insuranceCompany.create({ data: { name } })

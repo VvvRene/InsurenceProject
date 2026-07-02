@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Dialog, IconButton, Paper, Typography } from '@mui/material';
-import type { Client } from '~/generated/prisma/client'; 
+import type { Client, VehicleType, VehicleBodyType } from '~/generated/prisma/client'; 
 import InsurancePolicyForm from '../forms/InsurancePolicyForm';
 import type { InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import type { VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation';
@@ -20,11 +20,13 @@ interface PolicyUpsertDialogProps {
   clients?: Client[]; // Assuming you have a list of clients to select from
   insuranceCompanies?: any[]; // Assuming insurance companies are also clients, adjust as needed
   brokers?: any[]; // Add broker type if needed
+  vehicleTypes?: VehicleType[];
+  vehicleBodyTypes?: VehicleBodyType[];
   onClose: () => void;
   onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void; // Optional onSave callback
 }
 
-const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, insuranceCompanies, brokers, onClose, onSave }) => {
+const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, onClose, onSave }) => {
 
   const { reset } = useForm<FileUploadFormInputs>({
     defaultValues: null as unknown as FileUploadFormInputs // Initialize with null and cast to the correct type
@@ -53,7 +55,9 @@ const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, 
         <InsurancePolicyForm
           clients={clients || []} // Provide an empty array as a fallback
           insuranceCompanies={insuranceCompanies || []} // Provide an empty array as a fallback
-          brokers={brokers || []} // Provide an empty array as a fallback 
+          brokers={brokers || []} // Provide an empty array as a fallback
+          vehicleTypes={vehicleTypes || []}
+          vehicleBodyTypes={vehicleBodyTypes || []}
           onSave={onSave}
         ></InsurancePolicyForm> 
     </Dialog>

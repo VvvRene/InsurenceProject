@@ -36,10 +36,12 @@ interface InsurancePolicyFormProps {
     clients: Client[]; // Assuming you have a list of clients to select from
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[]; // Add broker type if needed
+    vehicleTypes: VehicleOptionInfo[];
+    vehicleBodyTypes: VehicleOptionInfo[];
     onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void; // Optional onSave callback
 }
 
-const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insuranceCompanies, brokers, onSave }) => {
+const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, onSave }) => {
     const { t } = useTranslation();
     const fetcher = useFetcher();
 
@@ -51,21 +53,8 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
     const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
     const [isVehicleTypeDialogOpen, setIsVehicleTypeDialogOpen] = useState(false);
     const [isVehicleBodyTypeDialogOpen, setIsVehicleBodyTypeDialogOpen] = useState(false);
-    const [availableVehicleTypes, setAvailableVehicleTypes] = useState<VehicleOptionInfo[]>([
-        { name: 'Sedan' },
-        { name: 'SUV' },
-        { name: 'Truck' },
-        { name: 'Motorcycle' },
-    ]);
-    const [availableVehicleBodyTypes, setAvailableVehicleBodyTypes] = useState<VehicleOptionInfo[]>([
-        { name: 'Coupe' },
-        { name: 'Convertible' },
-        { name: 'Hatchback' },
-        { name: 'Minivan' },
-        { name: 'Pickup' },
-        { name: 'Van' },
-        { name: 'Wagon' },
-    ]);
+    const [availableVehicleTypes, setAvailableVehicleTypes] = useState<VehicleOptionInfo[]>(vehicleTypes);
+    const [availableVehicleBodyTypes, setAvailableVehicleBodyTypes] = useState<VehicleOptionInfo[]>(vehicleBodyTypes);
 
     const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>({
         uuid: uuidv4(),
@@ -231,6 +220,11 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
             return alreadyExists ? current : [...current, newOption];
         });
         setVehiclePolicyDetailInformation((current) => ({ ...current, vehicleType: newOption.name }));
+
+        const formData = toFormData({ name: data.name });
+        formData.append('intent', 'vehicle_type_upsert');
+        fetcher.submit(formData, { method: 'post', encType: 'multipart/form-data' });
+
         setIsVehicleTypeDialogOpen(false);
     };
 
@@ -245,6 +239,11 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
             return alreadyExists ? current : [...current, newOption];
         });
         setVehiclePolicyDetailInformation((current) => ({ ...current, vehicleBodyType: newOption.name }));
+
+        const formData = toFormData({ name: data.name });
+        formData.append('intent', 'vehicle_body_type_upsert');
+        fetcher.submit(formData, { method: 'post', encType: 'multipart/form-data' });
+
         setIsVehicleBodyTypeDialogOpen(false);
     };
 
