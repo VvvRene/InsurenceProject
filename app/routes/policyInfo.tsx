@@ -120,7 +120,10 @@ async function policyCreateAction(formData: FormData) {
     const vehiclePolicyDetailInformationRaw = JSON.parse(rawData.vehiclePolicyDetailInformation);
     const vehiclePolicyDetailInformation = vehiclePolicyDetailInformationSchema.safeParse({
         ...vehiclePolicyDetailInformationRaw,
-        yearOfManufacture: new Date(vehiclePolicyDetailInformationRaw.yearOfManufacture).getFullYear(), // Assuming yearOfManufacture is a date string, convert it to a year
+        totalWeight: vehiclePolicyDetailInformationRaw.totalWeight ?? 0,
+        yearOfManufacture: vehiclePolicyDetailInformationRaw.yearOfManufacture == null || vehiclePolicyDetailInformationRaw.yearOfManufacture === ''
+            ? new Date().getFullYear()
+            : Number(vehiclePolicyDetailInformationRaw.yearOfManufacture),
     }); // Validate vehicle policy detail information   
    
     if (insuranceGeneralInformation.success && vehiclePolicyDetailInformation.success) {
@@ -160,7 +163,7 @@ async function policyCreateAction(formData: FormData) {
                         modelName: vehiclePolicyDetailInformation.data.modelName,
                         enginDisplacement: vehiclePolicyDetailInformation.data.enginDisplacement,
                         totalWeight: vehiclePolicyDetailInformation.data.totalWeight,
-                        yearOfManufacture: new Date(vehiclePolicyDetailInformation.data.yearOfManufacture).getFullYear(), // Assuming yearOfManufacture is a date string, convert it to a year
+                        yearOfManufacture: vehiclePolicyDetailInformation.data.yearOfManufacture,
                         seatNumber: vehiclePolicyDetailInformation.data.seatNumber,
                         region: vehiclePolicyDetailInformation.data.region,
                     }
