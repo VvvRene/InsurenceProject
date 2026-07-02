@@ -3,8 +3,9 @@ import React, { useEffect } from 'react';
 import {
     Box, Grid, TextField, MenuItem, Typography, Button,
     Paper, Divider, InputAdornment,
-    IconButton
+    IconButton, Autocomplete
 } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { useForm, Controller, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
@@ -20,13 +21,19 @@ interface InsurancePolicyGeneralInformationFormProps {
     clients: Client[]; // Assuming you have a list of clients to select from
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[];  
+    onAddInsuranceCompany?: () => void;
+    onAddBroker?: () => void;
+    onAddClient?: () => void;
 }
 
 const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInformationFormProps> = ({
     control, 
     clients,
     insuranceCompanies,
-    brokers
+    brokers,
+    onAddInsuranceCompany,
+    onAddBroker,
+    onAddClient
 }) => {
   
     return (
@@ -157,86 +164,150 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                         </Box>
 
                         {/* Client Information */}
-                        <Controller
-                            name="clientId"
-                            control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (!value) {
-                                        return "Client is required";
-                                    }
-                                    console.log("Validating clientId:", value, "Available clients:", clients.map(c => c.id));
-                                    return true;
-                                }
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Controller
+                                    name="clientId"
+                                    control={control}
+                                    rules={{
+                                        validate: (value) => {
+                                            if (!value) {
+                                                return "Client is required";
+                                            }
+                                            return true;
+                                        }
+                                    }}
+                                    render={({ field, fieldState }) => {
+                                        const selectedClient = clients.find((client) => client.id === field.value) ?? null;
 
-                            }}
-                            render={({ field, fieldState }) => (
-                                <TextField
-                                    {...field}
-                                    select
-                                    label="Client"
-                                    error={!!fieldState.error}
-                                    helperText={fieldState.error?.message}
-                                    value={field.value || ''}
+                                        return (
+                                            <Autocomplete
+                                                options={clients}
+                                                value={selectedClient}
+                                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                                getOptionLabel={(option) => option?.name ?? ''}
+                                                onChange={(_, newValue) => field.onChange(newValue?.id ?? null)}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Client"
+                                                        error={!!fieldState.error}
+                                                        helperText={fieldState.error?.message}
+                                                        fullWidth
+                                                        onBlur={field.onBlur}
+                                                    />
+                                                )}
+                                            />
+                                        );
+                                    }}
+                                />
+                            </Box>
+                            {onAddClient ? (
+                                <IconButton
+                                    color="primary"
+                                    sx={{ mt: 1, border: 1, borderColor: 'divider' }}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        onAddClient();
+                                    }}
+                                    aria-label="Add client"
                                 >
-                                    {
-                                        clients.map(client => (
-                                            <MenuItem key={client.id} value={client.id}>
-                                                {client.name}
-                                            </MenuItem>
-                                        ))
-                                    }
-                                </TextField>
-                            )}
-                        />
+                                    <AddIcon />
+                                </IconButton>
+                            ) : null}
+                        </Box>
 
                         {/* Insurance Company */}
-                        <Controller
-                            name="insuranceCompanyId"
-                            control={control}
-                            render={({ field, fieldState }) => (
-                                <TextField
-                                    {...field}
-                                    select
-                                    label="Insurance Company"
-                                    error={!!fieldState.error}
-                                    helperText={fieldState.error?.message}
-                                    value={field.value || ''}
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Controller
+                                    name="insuranceCompanyId"
+                                    control={control}
+                                    render={({ field, fieldState }) => {
+                                        const selectedInsuranceCompany = insuranceCompanies.find((insuranceCompany) => insuranceCompany.id === field.value) ?? null;
+
+                                        return (
+                                            <Autocomplete
+                                                options={insuranceCompanies}
+                                                value={selectedInsuranceCompany}
+                                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                                getOptionLabel={(option) => option?.name ?? ''}
+                                                onChange={(_, newValue) => field.onChange(newValue?.id ?? null)}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Insurance Company"
+                                                        error={!!fieldState.error}
+                                                        helperText={fieldState.error?.message}
+                                                        fullWidth
+                                                        onBlur={field.onBlur}
+                                                    />
+                                                )}
+                                            />
+                                        );
+                                    }}
+                                />
+                            </Box>
+                            {onAddInsuranceCompany ? (
+                                <IconButton
+                                    color="primary"
+                                    sx={{ mt: 1, border: 1, borderColor: 'divider' }}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        onAddInsuranceCompany();
+                                    }}
+                                    aria-label="Add insurance company"
                                 >
-                                    {
-                                        insuranceCompanies.map(insuranceCompany => (
-                                            <MenuItem key={insuranceCompany.id} value={insuranceCompany.id}>
-                                                {insuranceCompany.name}
-                                            </MenuItem>
-                                        ))
-                                    }
-                                </TextField>
-                            )}
-                        />
+                                    <AddIcon />
+                                </IconButton>
+                            ) : null}
+                        </Box>
 
                         {/* Broker Information */}
-                        <Controller
-                            name="brokerId"
-                            control={control}
-                            render={({ field, fieldState }) => (
-                                <TextField
-                                    {...field}
-                                    select
-                                    label="Broker"
-                                    error={!!fieldState.error}
-                                    helperText={fieldState.error?.message}
-                                    value={field.value || ''}
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                            <Box sx={{ flex: 1 }}>
+                                <Controller
+                                    name="brokerId"
+                                    control={control}
+                                    render={({ field, fieldState }) => {
+                                        const selectedBroker = brokers.find((broker) => broker.id === field.value) ?? null;
+
+                                        return (
+                                            <Autocomplete
+                                                options={brokers}
+                                                value={selectedBroker}
+                                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                                getOptionLabel={(option) => option?.name ?? ''}
+                                                onChange={(_, newValue) => field.onChange(newValue?.id ?? null)}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Broker"
+                                                        error={!!fieldState.error}
+                                                        helperText={fieldState.error?.message}
+                                                        fullWidth
+                                                        onBlur={field.onBlur}
+                                                    />
+                                                )}
+                                            />
+                                        );
+                                    }}
+                                />
+                            </Box>
+                            {onAddBroker ? (
+                                <IconButton
+                                    color="primary"
+                                    sx={{ mt: 1, border: 1, borderColor: 'divider' }}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        onAddBroker();
+                                    }}
+                                    aria-label="Add broker"
                                 >
-                                    {
-                                        brokers.map(broker => (
-                                            <MenuItem key={broker.id} value={broker.id}>
-                                                {broker.name}
-                                            </MenuItem>
-                                        ))
-                                    }
-                                </TextField>
-                            )}
-                        />
+                                    <AddIcon />
+                                </IconButton>
+                            ) : null}
+                        </Box>
 
                         <Stack direction="row" spacing={2} justifyContent="flex-end" sx={{ mt: 3 }}>
                             <Box sx={{ width: '50%', minWidth: '120px' }} >
@@ -247,9 +318,8 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         <DatePicker
                                             {...fieldProps}
                                             label="Effective Date"
-                                            disabled={true}
-                                            value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))} // Always show current date
-                                            onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
+                                            value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))}
+                                            onChange={(newValue) => onChange(newValue?.toJSDate())}
                                             slotProps={{
                                                 textField: {
                                                     fullWidth: true,
@@ -269,9 +339,8 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         <DatePicker
                                             {...fieldProps}
                                             label="Expiry Date"
-                                            disabled={true}
-                                            value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))} // Always show current date
-                                            onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
+                                            value={value == null ? DateTime.now().endOf('year') : DateTime.fromJSDate(new Date(value))}
+                                            onChange={(newValue) => onChange(newValue?.toJSDate())}
                                             slotProps={{
                                                 textField: {
                                                     fullWidth: true,
