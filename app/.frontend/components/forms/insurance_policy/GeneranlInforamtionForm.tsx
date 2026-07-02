@@ -10,6 +10,7 @@ import { useForm, Controller, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
 import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 import type { Broker, Client, InsuranceCompany } from '~/generated/prisma/browser';
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -35,7 +36,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
     onAddBroker,
     onAddClient
 }) => {
-  
+    const { t } = useTranslation();
     return (
         <Box sx={{ overflow: 'hidden' }}>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -52,7 +53,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         select
                                         disabled
                                         hidden
-                                        label="Client Type"
+                                        label={t('policy.category')}
                                         fullWidth
                                         error={!!fieldState.error}
                                         helperText={fieldState.error?.message}
@@ -75,7 +76,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         <TextField
                                             disabled
                                             {...field}
-                                            label="Policy Number"
+                                            label={t('policy.policyNumber')}
                                             fullWidth
                                             error={!!fieldState.error}
                                             helperText={fieldState.error?.message}
@@ -93,7 +94,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                             {...field}
                                             select
                                             fullWidth
-                                            label="Process Type"
+                                            label={t('policy.processType')}
                                             error={!!fieldState.error}
                                             helperText={fieldState.error?.message}
                                             value={field.value || ''}
@@ -112,7 +113,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                     render={({ field: { onChange, value, ...fieldProps }, fieldState: { error } }) => (
                                         <DatePicker
                                             {...fieldProps}
-                                            label="Update Date"
+                                            label={t('policy.updateDate')}
                                             disabled={true}
                                             value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))} // Always show current date
                                             onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
@@ -138,7 +139,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                     render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
-                                            label="Quotation Number"
+                                            label={t('policy.quotationNumber')}
                                             fullWidth
                                             error={!!fieldState.error}
                                             helperText={fieldState.error?.message}
@@ -153,7 +154,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                     render={({ field, fieldState }) => (
                                         <TextField
                                             {...field}
-                                            label="Policy Number"
+                                            label={t('policy.policyNumber')}
                                             fullWidth
                                             error={!!fieldState.error}
                                             helperText={fieldState.error?.message}
@@ -190,7 +191,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                                 renderInput={(params) => (
                                                     <TextField
                                                         {...params}
-                                                        label="Client"
+                                                        label={t('policy.client')}
                                                         error={!!fieldState.error}
                                                         helperText={fieldState.error?.message}
                                                         fullWidth
@@ -210,7 +211,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         event.stopPropagation();
                                         onAddClient();
                                     }}
-                                    aria-label="Add client"
+                                                    aria-label={t('policy.addClient')}
                                 >
                                     <AddIcon />
                                 </IconButton>
@@ -236,7 +237,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                                 renderInput={(params) => (
                                                     <TextField
                                                         {...params}
-                                                        label="Insurance Company"
+                                                        label={t('policy.insuranceCompany')}
                                                         error={!!fieldState.error}
                                                         helperText={fieldState.error?.message}
                                                         fullWidth
@@ -256,7 +257,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         event.stopPropagation();
                                         onAddInsuranceCompany();
                                     }}
-                                    aria-label="Add insurance company"
+                                                    aria-label={t('policy.addInsuranceCompany')}
                                 >
                                     <AddIcon />
                                 </IconButton>
@@ -282,7 +283,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                                 renderInput={(params) => (
                                                     <TextField
                                                         {...params}
-                                                        label="Broker"
+                                                        label={t('policy.broker')}
                                                         error={!!fieldState.error}
                                                         helperText={fieldState.error?.message}
                                                         fullWidth
@@ -302,7 +303,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         event.stopPropagation();
                                         onAddBroker();
                                     }}
-                                    aria-label="Add broker"
+                                                    aria-label={t('policy.addBroker')}
                                 >
                                     <AddIcon />
                                 </IconButton>
@@ -317,7 +318,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                     render={({ field: { onChange, value, ...fieldProps }, fieldState: { error } }) => (
                                         <DatePicker
                                             {...fieldProps}
-                                            label="Effective Date"
+                                            label={t('policy.effectiveDate')}
                                             value={value == null ? DateTime.now() : DateTime.fromJSDate(new Date(value))}
                                             onChange={(newValue) => onChange(newValue?.toJSDate())}
                                             slotProps={{
@@ -338,7 +339,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                     render={({ field: { onChange, value, ...fieldProps }, fieldState: { error } }) => (
                                         <DatePicker
                                             {...fieldProps}
-                                            label="Expiry Date"
+                                            label={t('policy.expiryDate')}
                                             value={value == null ? DateTime.now().endOf('year') : DateTime.fromJSDate(new Date(value))}
                                             onChange={(newValue) => onChange(newValue?.toJSDate())}
                                             slotProps={{
@@ -359,7 +360,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                             render={({ field, fieldState }) => (
                                 <TextField
                                     {...field}
-                                    label="Remark"
+                                    label={t('client.remark')}
                                     error={!!fieldState.error}
                                     helperText={fieldState.error?.message}
                                     value={field.value || ''}

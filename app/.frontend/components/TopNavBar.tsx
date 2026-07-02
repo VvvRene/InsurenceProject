@@ -10,10 +10,13 @@ import {
 
 import MenuIcon from '@mui/icons-material/Menu'
 import ThemeToggle from './ThemeToggle';
+import LanguageSwitcher from './LanguageSwitcher';
 import useLeftDrawerStore from '~/.frontend/hooks/userLeftDrawerStore';
 import { LeftDrawer } from './LeftDrawer';
+import { useTranslation } from 'react-i18next';
 
 const TopNavBar: React.FC = () => {
+  const { t } = useTranslation();
   const { toggleDrawer } = useLeftDrawerStore();
   return (
     <>
@@ -21,13 +24,11 @@ const TopNavBar: React.FC = () => {
         <Toolbar>
           <IconButton onClick={toggleDrawer}><MenuIcon className="text-gray-100" /></IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-            Insurance Management System
+            {t('app.title')}
           </Typography>
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             <Stack direction="row" spacing={2}>
-              {/* <Button color="inherit">Home</Button>
-            <Button color="inherit">Products</Button>
-            <Button color="inherit">About</Button>  */}
+              <LanguageSwitcher />
               <ThemeToggle />
             </Stack>
           </Box>

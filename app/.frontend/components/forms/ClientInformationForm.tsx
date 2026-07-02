@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import SaveIcon from '@mui/icons-material/Save';
+import { useTranslation } from 'react-i18next';
 import { ClientInfoSchema, type ClientInfo } from '~/.frontend/models/ClientInfo';
 import { DateTime } from 'luxon';
 
@@ -20,7 +21,7 @@ interface ClientInformationFormProps {
 }
 
 const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, onSave }) => {
- 
+  const { t } = useTranslation();
   const { control, handleSubmit, watch, reset } = useForm<ClientInfo>({
     resolver: zodResolver(ClientInfoSchema),
     defaultValues: {
@@ -76,7 +77,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
             sx={{ bgcolor: "layer.level2", py: 2, px: 3 }}
           >
             <Typography variant="h5" sx={{ fontWeight: '700' }}>
-              {client ? 'Edit Client' : 'Create Client'}
+              {client ? t('client.editClient') : t('client.createClient')}
             </Typography>
 
             <IconButton type="submit" sx={{ border: 1 }}>
@@ -95,13 +96,13 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                     <TextField
                       {...field}
                       select
-                      label="Client Type"
+                      label={t('client.clientType')}
                       fullWidth
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
                     >
-                      <MenuItem value="Individual">Individual</MenuItem>
-                      <MenuItem value="Company">Company</MenuItem>
+                      <MenuItem value="Individual">{t('client.individual')}</MenuItem>
+                      <MenuItem value="Company">{t('client.company')}</MenuItem>
                     </TextField>
                   )}
                 />
@@ -119,7 +120,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                         <TextField
                           {...field}
                           select
-                          label="Title"
+                          label={t('client.title')}
                           fullWidth
                           error={!!fieldState.error}
                           helperText={fieldState.error?.message}
@@ -139,7 +140,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   render={({ field, fieldState }) => (
                     <TextField
                       {...field}
-                      label={clientType === 'Company' ? "Company Name" : "Full Name"}
+                      label={clientType === 'Company' ? t('client.companyName') : t('client.fullName')}
                       fullWidth
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
@@ -159,14 +160,14 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                         <TextField
                           {...field}
                           select
-                          label="Gender"
+                          label={t('client.gender')}
                           fullWidth
                           error={!!fieldState.error}
                           helperText={fieldState.error?.message}
                         >
-                          <MenuItem value="Male">Male</MenuItem>
-                          <MenuItem value="Female">Female</MenuItem>
-                          <MenuItem value="Not Applicable">N/A</MenuItem>
+                          <MenuItem value="Male">{t('client.male')}</MenuItem>
+                          <MenuItem value="Female">{t('client.female')}</MenuItem>
+                          <MenuItem value="Not Applicable">{t('client.nA')}</MenuItem>
                         </TextField>
                       )}
                     />
@@ -178,7 +179,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   render={({ field, fieldState }) =>
                     <TextField
                       {...field}
-                      label="Chinese Name (Optional)"
+                      label={t('client.chineseName')}
                       fullWidth
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
@@ -194,7 +195,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   render={({ field, fieldState }) => (
                     <TextField
                       {...field}
-                      label={clientType === 'Company' ? "BR Number" : "HKID"}
+                      label={clientType === 'Company' ? t('client.brNumber') : t('client.hkid')}
                       fullWidth
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
@@ -208,7 +209,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   render={({ field: { onChange, value, ...fieldProps }, fieldState: { error } }) => (
                     <DatePicker
                       {...fieldProps}
-                      label="Date"
+                      label={t('client.date')}
                       value={value ? DateTime.fromJSDate(new Date(value)) : null}
                       onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
                       slotProps={{
@@ -229,7 +230,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 control={control}
                 render={({ field, fieldState }) => <TextField
                   {...field}
-                  label="Address Line 1"
+                  label={t('client.addressLine1')}
                   fullWidth
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
@@ -241,7 +242,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 control={control}
                 render={({ field, fieldState }) => <TextField
                   {...field}
-                  label="Address Line 2 (Optional)"
+                  label={t('client.addressLine2')}
                   fullWidth
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
@@ -257,7 +258,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                     control={control}
                     render={({ field, fieldState }) =>
                       <TextField {...field}
-                        label="Phone Number"
+                        label={t('client.phoneNumber')}
                         fullWidth
                         error={!!fieldState.error}
                         helperText={fieldState.error?.message}
@@ -269,7 +270,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   control={control}
                   render={({ field, fieldState }) =>
                     <TextField
-                      label="E-Mail"
+                      label={t('client.eMail')}
                       {...field}
                       fullWidth
                       error={!!fieldState.error}
@@ -285,7 +286,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   control={control}
                   render={({ field, fieldState }) => <TextField
                     {...field}
-                    label="Industry"
+                    label={t('client.industry')}
                     fullWidth
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
@@ -296,7 +297,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   control={control}
                   render={({ field, fieldState }) => <TextField
                     {...field}
-                    label="Nature Of Work"
+                    label={t('client.natureOfWork')}
                     fullWidth
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
@@ -311,7 +312,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 control={control}
                 render={({ field, fieldState }) => <TextField
                   {...field}
-                  label="Remark"
+                  label={t('client.remark')}
                   multiline
                   rows={3}
                   fullWidth

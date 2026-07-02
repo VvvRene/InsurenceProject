@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslation } from 'react-i18next';
 import type { InsuranceCompany } from '~/generated/prisma/browser';
 import type { InsuranceCompanyInfo } from '../models/InsuranceCompanyInfo';
 import InsuranceCompanyUpsertDialog from '../components/dialogs/InsuranceCompanyUpsertDialog';
@@ -25,6 +26,7 @@ interface InsuranceCompaniesPageProps {
 }
 
 const InsuranceCompaniesPage: React.FC<InsuranceCompaniesPageProps> = ({ insuranceCompanies, onSave }) => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedInsuranceCompany, setSelectedInsuranceCompany] = useState<InsuranceCompanyInfo | undefined>(undefined);
@@ -57,7 +59,7 @@ const InsuranceCompaniesPage: React.FC<InsuranceCompaniesPageProps> = ({ insuran
   return (
     <Box sx={{ margin: '0 auto' }}>
       <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-        Insurance Companies
+        {t('insuranceCompany.title')}
       </Typography>
 
       <Paper sx={{ p: 2, mb: 3 }}>
@@ -65,13 +67,13 @@ const InsuranceCompaniesPage: React.FC<InsuranceCompaniesPageProps> = ({ insuran
           <TextField
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            label="Search by name"
-            placeholder="e.g. Allianz"
+            label={t('insuranceCompany.searchByName')}
+            placeholder={t('insuranceCompany.searchPlaceholder')}
             slotProps={{ input: { startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} /> } }}
             fullWidth
           />
           <Button variant="contained" startIcon={<AddIcon />} onClick={handleAdd}>
-            Add Insurance Company
+            {t('insuranceCompany.addCompany')}
           </Button>
         </Stack>
       </Paper>
@@ -80,7 +82,7 @@ const InsuranceCompaniesPage: React.FC<InsuranceCompaniesPageProps> = ({ insuran
         <Table>
           <TableHead sx={{ backgroundColor: 'primary.main' }}>
             <TableRow>
-              <TableCell sx={{ color: 'primary.contrastText', fontWeight: 800 }}>Name</TableCell>
+              <TableCell sx={{ color: 'primary.contrastText', fontWeight: 800 }}>{t('insuranceCompany.name')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

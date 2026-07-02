@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 
 import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 import type { Broker, Client, InsuranceCompany } from '~/generated/prisma/browser';
 import { TabsLayout, type TabItem } from '../TabsLayout';
 import InsurancePolicyGeneralInformationForm from './insurance_policy/GeneranlInforamtionForm';
@@ -37,6 +38,7 @@ interface InsurancePolicyFormProps {
 }
 
 const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insuranceCompanies, brokers, onSave }) => {
+    const { t } = useTranslation();
     const fetcher = useFetcher();
 
     const [availableInsuranceCompanies, setAvailableInsuranceCompanies] = useState<InsuranceCompany[]>(insuranceCompanies);
@@ -125,7 +127,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
 
     const myTabs: TabItem[] = [
         {
-            label: 'General',
+            label: t('policy.general'),
             content: <InsurancePolicyGeneralInformationForm
                 control={insuranceGeneralInformationControl}
                 clients={availableClients}
@@ -136,7 +138,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                 onAddClient={() => setIsClientDialogOpen(true)} />
         },
         {
-            label: 'Detail',
+            label: t('policy.detail'),
             content: <VehicleDetailForm
                 control={vehiclePolicyDetailInformationControl}
                 defaultValues={vehiclePolicyDetailInformation}
@@ -234,7 +236,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                 sx={{ bgcolor: "layer.level2", py: 2, px: 3 }}
             >
                 <Typography variant="h5" sx={{ fontWeight: '700' }}>
-                    Policy Entry
+                    {t('policy.policyEntry')}
                 </Typography>
 
                 <IconButton sx={{ border: 1 }} onClick={() => {
