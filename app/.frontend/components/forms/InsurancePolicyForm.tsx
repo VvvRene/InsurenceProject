@@ -36,10 +36,12 @@ interface InsurancePolicyFormProps {
     brokers: Broker[]; // Add broker type if needed
     vehicleTypes: VehicleOptionInfo[];
     vehicleBodyTypes: VehicleOptionInfo[];
+    initialGeneralInfo?: InsuranceGeneralInformation;
+    initialVehicleDetail?: VehiclePolicyDetailInformation;
     onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void; // Optional onSave callback
 }
 
-const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, onSave }) => {
+const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, initialGeneralInfo, initialVehicleDetail, onSave }) => {
     const { t } = useTranslation();
     const fetcher = useFetcher();
 
@@ -54,36 +56,42 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
     const [availableVehicleTypes, setAvailableVehicleTypes] = useState<VehicleOptionInfo[]>(vehicleTypes);
     const [availableVehicleBodyTypes, setAvailableVehicleBodyTypes] = useState<VehicleOptionInfo[]>(vehicleBodyTypes);
 
-    const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>({
-        uuid: uuidv4(),
-        processType: 'New',
-        category: 'Vehicle',
-        currency: 'HKD',
-        premiumAmount: 0,
-        policyNumber: '',
-        clientId: 0,
-        insuranceCompanyId: 0,
-        brokerId: 0,
-        quotationNumber: '',
-        effectiveDate: DateTime.now().toJSDate(),
-        expiryDate: DateTime.now().plus({years:1}).minus({days:1}).toJSDate(),
-        updateDate: DateTime.now().toJSDate(),
+    const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>(() => {
+        if (initialGeneralInfo) return initialGeneralInfo;
+        return {
+            uuid: uuidv4(),
+            processType: 'New',
+            category: 'Vehicle',
+            currency: 'HKD',
+            premiumAmount: 0,
+            policyNumber: '',
+            clientId: 0,
+            insuranceCompanyId: 0,
+            brokerId: 0,
+            quotationNumber: '',
+            effectiveDate: DateTime.now().toJSDate(),
+            expiryDate: DateTime.now().plus({years:1}).minus({days:1}).toJSDate(),
+            updateDate: DateTime.now().toJSDate(),
+        };
     });
 
-    const [vehiclePolicyDetailInformation, setVehiclePolicyDetailInformation] = React.useState<VehiclePolicyDetailInformation>({
-        coverageType: 'Comprehensive',
-        registrationNumber: 'New',
-        vehicleType: 'Sedan',
-        engineNumber: '',
-        chassisNumber: '',
-        vehicleBodyType: 'Coupe',
-        manufacturer: '',
-        modelName: '',
-        enginDisplacement: 0,
-        totalWeight: 0,
-        yearOfManufacture: 1900,
-        seatNumber: 0,
-        region: 'Hong Kong',
+    const [vehiclePolicyDetailInformation, setVehiclePolicyDetailInformation] = React.useState<VehiclePolicyDetailInformation>(() => {
+        if (initialVehicleDetail) return initialVehicleDetail;
+        return {
+            coverageType: 'Comprehensive',
+            registrationNumber: 'New',
+            vehicleType: 'Sedan',
+            engineNumber: '',
+            chassisNumber: '',
+            vehicleBodyType: 'Coupe',
+            manufacturer: '',
+            modelName: '',
+            enginDisplacement: 0,
+            totalWeight: 0,
+            yearOfManufacture: 1900,
+            seatNumber: 0,
+            region: 'Hong Kong',
+        };
     });
 
     const {
@@ -292,10 +300,11 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                         vehiclePolicyDetailInformationTrigger().then((isVehicleInfoValid) => {
                             if (isValid && isVehicleInfoValid) {
                                 if (onSave) {
-                                    // Generate a fresh UUID to avoid unique constraint violations on re-save
-                                    const freshUuid = uuidv4();
+                                    // When creating a new policy (no initialGeneralInfo), generate fresh UUID.
+                                    // When editing, keep the existing UUID so the DB update matches.
+                                    const effectiveUuid = initialGeneralInfo ? insuranceGeneralInformation.uuid : uuidv4();
                                     onSave({
-                                        insuranceGeneralInformation: { ...insuranceGeneralInformation, uuid: freshUuid },
+                                        insuranceGeneralInformation: { ...insuranceGeneralInformation, uuid: effectiveUuid },
                                         vehiclePolicyDetailInformation
                                     });
                                 }

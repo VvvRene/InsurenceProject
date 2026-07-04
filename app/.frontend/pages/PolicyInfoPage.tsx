@@ -18,7 +18,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { Broker, Client, InsuranceCompany, InsurancePolicy, VehicleType, VehicleBodyType } from '~/generated/prisma/browser';
+import type { Broker, Client, InsuranceCompany, InsurancePolicy, VehicleType, VehicleBodyType, VehiclePolicyDetail } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
@@ -61,7 +61,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
     });
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+    const [selectedPolicy, setSelectedPolicy] = useState<InsurancePolicy | null>(null);
 
     const onSearch = (data: SearchFilters) => {
         console.log('Filtering clients with:', data);
@@ -69,8 +69,19 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
     }; 
 
     const handleAddButtonOnClicked = () => {
+        setSelectedPolicy(null);
         setIsDialogOpen(true);
-    }
+    };
+
+    const handleRowClick = (policy: InsurancePolicy) => {
+        setSelectedPolicy(policy);
+        setIsDialogOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setIsDialogOpen(false);
+        setSelectedPolicy(null);
+    };
 
     return (
         <Box sx={{ margin: '0 auto' }}>
@@ -186,7 +197,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                         </TableHead>
                         <TableBody>
                             {insurancePolicies.map(policy => (
-                                <TableRow key={policy.id}>
+                                <TableRow key={policy.id} hover onClick={() => handleRowClick(policy)} sx={{ cursor: 'pointer' }}>
                                     <TableCell>{policy.category}</TableCell>
                                     <TableCell>{clients.find(client => client.id === policy.clientId)?.chineseName || "N/A"}</TableCell>
                                     <TableCell>{policy.expiryDate ? policy.expiryDate.toDateString() : "N/A"}</TableCell>
@@ -204,8 +215,9 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                 brokers={brokers}
                 vehicleTypes={vehicleTypes}
                 vehicleBodyTypes={vehicleBodyTypes}
+                policy={selectedPolicy}
                 open={isDialogOpen} 
-                onClose={() => setIsDialogOpen(false)} 
+                onClose={handleDialogClose} 
                 onSave={onSave} />
 
         </Box>
