@@ -188,7 +188,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
                             <TableRow>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "15%" }}>UUID</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "25%" }}>UUID</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.category')}</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.clientName')}</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.expiryDate')}</TableCell>
