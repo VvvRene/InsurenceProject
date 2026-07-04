@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Box, Grid, TextField, MenuItem, Typography, Button,
-    Paper, Divider, InputAdornment,
+    Grid, Typography,
+    Paper, 
     IconButton,
     Stack
 } from '@mui/material';
@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import type { Broker, Client, InsuranceCompany } from '~/generated/prisma/browser';
 import { TabsLayout, type TabItem } from '../TabsLayout';
 import InsurancePolicyGeneralInformationForm from './insurance_policy/GeneranlInforamtionForm';
-import { OmissionPage } from '~/.frontend/pages/OmissionPage';
 import VehicleDetailForm from './insurance_policy/VehicleDetailForm';
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation';
@@ -19,7 +18,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { is } from 'zod/v4/locales';
 import { useFetcher } from 'react-router';
 import InsuranceCompanyUpsertDialog from '../dialogs/InsuranceCompanyUpsertDialog';
 import BrokerUpsertDialog from '../dialogs/BrokerUpsertDialog';
@@ -294,8 +292,10 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                         vehiclePolicyDetailInformationTrigger().then((isVehicleInfoValid) => {
                             if (isValid && isVehicleInfoValid) {
                                 if (onSave) {
+                                    // Generate a fresh UUID to avoid unique constraint violations on re-save
+                                    const freshUuid = uuidv4();
                                     onSave({
-                                        insuranceGeneralInformation,
+                                        insuranceGeneralInformation: { ...insuranceGeneralInformation, uuid: freshUuid },
                                         vehiclePolicyDetailInformation
                                     });
                                 }
