@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-    Autocomplete, Box, TextField, MenuItem, IconButton
+    Autocomplete, Box, TextField, MenuItem, IconButton, InputAdornment
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm, Controller, type Control } from 'react-hook-form'; 
@@ -25,6 +25,18 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
     const { t } = useTranslation();
     const currentVehicleTypes = vehicleTypes ?? [];
     const currentVehicleBodyTypes = vehicleBodyTypes ?? [];
+
+    const formatCurrencyValue = (value: number | string | null | undefined) => {
+        const numericValue = typeof value === 'number' ? value : Number(value ?? 0);
+        return Number.isFinite(numericValue) ? numericValue.toFixed(2) : '0.00';
+    };
+
+    const parseCurrencyValue = (value: string) => {
+        const cleanedValue = value.replace(/[^0-9.]/g, '');
+        if (cleanedValue === '') return 0;
+        const numericValue = Number(cleanedValue);
+        return Number.isFinite(numericValue) ? numericValue : 0;
+    };
 
     return (
         <Box sx={{ overflow: 'hidden' }}>
@@ -313,6 +325,74 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
                                             onChange={(e)=> field.onChange(Number(e.target.value))}
+                                        />
+                                    )}
+                                />
+                            </Box>
+                        </Stack>
+                        <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="space-between" mb={2}>
+                            <Box sx={{ width: '33.33%' }}>
+                                <Controller
+                                    name="gp"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <TextField
+                                            value={formatCurrencyValue(field.value)}
+                                            onChange={(event) => field.onChange(parseCurrencyValue(event.target.value))}
+                                            onBlur={field.onBlur}
+                                            fullWidth
+                                            type="text"
+                                            label={t('policy.gp')}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">HK$</InputAdornment>,
+                                            }}
+                                            inputProps={{ inputMode: 'decimal' }}
+                                        />
+                                    )}
+                                />
+                            </Box>
+                            <Box sx={{ width: '33.33%' }}>
+                                <Controller
+                                    name="an"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <TextField
+                                            value={formatCurrencyValue(field.value)}
+                                            onChange={(event) => field.onChange(parseCurrencyValue(event.target.value))}
+                                            onBlur={field.onBlur}
+                                            fullWidth
+                                            type="text"
+                                            label={t('policy.an')}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">HK$</InputAdornment>,
+                                            }}
+                                            inputProps={{ inputMode: 'decimal' }}
+                                        />
+                                    )}
+                                />
+                            </Box>
+                            <Box sx={{ width: '33.33%' }}>
+                                <Controller
+                                    name="san"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <TextField
+                                            value={formatCurrencyValue(field.value)}
+                                            onChange={(event) => field.onChange(parseCurrencyValue(event.target.value))}
+                                            onBlur={field.onBlur}
+                                            fullWidth
+                                            type="text"
+                                            label={t('policy.san')}
+                                            error={!!fieldState.error}
+                                            helperText={fieldState.error ? fieldState.error.message : ''}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">HK$</InputAdornment>,
+                                            }}
+                                            inputProps={{ inputMode: 'decimal' }}
                                         />
                                     )}
                                 />

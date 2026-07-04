@@ -91,6 +91,9 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
             yearOfManufacture: 1900,
             seatNumber: 0,
             region: 'Hong Kong',
+            gp: 0,
+            an: 0,
+            san: 0,
         };
     });
 

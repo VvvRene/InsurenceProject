@@ -16,6 +16,9 @@ export const vehiclePolicyDetailInformationSchema = z.object({
     seatNumber: z.number().int().nonnegative().min(1, 'There must be at least 1 seat'),
     region: z.enum(['Hong Kong', 'Mainland China', 'Overseas']),
     moneyLenderLicenceNumber: z.string().optional().nullable(),
+    gp: z.number().or(z.string()).optional().nullable().transform((value) => value == null || value === '' ? 0 : Number(value)),
+    an: z.number().or(z.string()).optional().nullable().transform((value) => value == null || value === '' ? 0 : Number(value)),
+    san: z.number().or(z.string()).optional().nullable().transform((value) => value == null || value === '' ? 0 : Number(value)),
 });
 
 export type VehiclePolicyDetailInformation = z.infer<typeof vehiclePolicyDetailInformationSchema>;

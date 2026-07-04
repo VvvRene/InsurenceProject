@@ -66,6 +66,9 @@ const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, 
       seatNumber: vd.seatNumber,
       region: vd.region as 'Hong Kong' | 'Mainland China' | 'Overseas',
       moneyLenderLicenceNumber: vd.moneyLenderLicence || undefined,
+      gp: 0,
+      an: 0,
+      san: 0,
     };
   };
 

@@ -33,6 +33,9 @@ export type VehiclePolicyDetailAvgAggregateOutputType = {
   totalWeight: number | null
   yearOfManufacture: number | null
   seatNumber: number | null
+  gp: number | null
+  an: number | null
+  san: number | null
 }
 
 export type VehiclePolicyDetailSumAggregateOutputType = {
@@ -42,6 +45,9 @@ export type VehiclePolicyDetailSumAggregateOutputType = {
   totalWeight: number | null
   yearOfManufacture: number | null
   seatNumber: number | null
+  gp: number | null
+  an: number | null
+  san: number | null
 }
 
 export type VehiclePolicyDetailMinAggregateOutputType = {
@@ -61,6 +67,9 @@ export type VehiclePolicyDetailMinAggregateOutputType = {
   seatNumber: number | null
   region: string | null
   moneyLenderLicence: string | null
+  gp: number | null
+  an: number | null
+  san: number | null
 }
 
 export type VehiclePolicyDetailMaxAggregateOutputType = {
@@ -80,6 +89,9 @@ export type VehiclePolicyDetailMaxAggregateOutputType = {
   seatNumber: number | null
   region: string | null
   moneyLenderLicence: string | null
+  gp: number | null
+  an: number | null
+  san: number | null
 }
 
 export type VehiclePolicyDetailCountAggregateOutputType = {
@@ -99,6 +111,9 @@ export type VehiclePolicyDetailCountAggregateOutputType = {
   seatNumber: number
   region: number
   moneyLenderLicence: number
+  gp: number
+  an: number
+  san: number
   _all: number
 }
 
@@ -110,6 +125,9 @@ export type VehiclePolicyDetailAvgAggregateInputType = {
   totalWeight?: true
   yearOfManufacture?: true
   seatNumber?: true
+  gp?: true
+  an?: true
+  san?: true
 }
 
 export type VehiclePolicyDetailSumAggregateInputType = {
@@ -119,6 +137,9 @@ export type VehiclePolicyDetailSumAggregateInputType = {
   totalWeight?: true
   yearOfManufacture?: true
   seatNumber?: true
+  gp?: true
+  an?: true
+  san?: true
 }
 
 export type VehiclePolicyDetailMinAggregateInputType = {
@@ -138,6 +159,9 @@ export type VehiclePolicyDetailMinAggregateInputType = {
   seatNumber?: true
   region?: true
   moneyLenderLicence?: true
+  gp?: true
+  an?: true
+  san?: true
 }
 
 export type VehiclePolicyDetailMaxAggregateInputType = {
@@ -157,6 +181,9 @@ export type VehiclePolicyDetailMaxAggregateInputType = {
   seatNumber?: true
   region?: true
   moneyLenderLicence?: true
+  gp?: true
+  an?: true
+  san?: true
 }
 
 export type VehiclePolicyDetailCountAggregateInputType = {
@@ -176,6 +203,9 @@ export type VehiclePolicyDetailCountAggregateInputType = {
   seatNumber?: true
   region?: true
   moneyLenderLicence?: true
+  gp?: true
+  an?: true
+  san?: true
   _all?: true
 }
 
@@ -282,6 +312,9 @@ export type VehiclePolicyDetailGroupByOutputType = {
   seatNumber: number
   region: string
   moneyLenderLicence: string | null
+  gp: number | null
+  an: number | null
+  san: number | null
   _count: VehiclePolicyDetailCountAggregateOutputType | null
   _avg: VehiclePolicyDetailAvgAggregateOutputType | null
   _sum: VehiclePolicyDetailSumAggregateOutputType | null
@@ -324,6 +357,9 @@ export type VehiclePolicyDetailWhereInput = {
   seatNumber?: Prisma.FloatFilter<"VehiclePolicyDetail"> | number
   region?: Prisma.StringFilter<"VehiclePolicyDetail"> | string
   moneyLenderLicence?: Prisma.StringNullableFilter<"VehiclePolicyDetail"> | string | null
+  gp?: Prisma.FloatNullableFilter<"VehiclePolicyDetail"> | number | null
+  an?: Prisma.FloatNullableFilter<"VehiclePolicyDetail"> | number | null
+  san?: Prisma.FloatNullableFilter<"VehiclePolicyDetail"> | number | null
   policy?: Prisma.XOR<Prisma.InsurancePolicyScalarRelationFilter, Prisma.InsurancePolicyWhereInput>
 }
 
@@ -344,6 +380,9 @@ export type VehiclePolicyDetailOrderByWithRelationInput = {
   seatNumber?: Prisma.SortOrder
   region?: Prisma.SortOrder
   moneyLenderLicence?: Prisma.SortOrderInput | Prisma.SortOrder
+  gp?: Prisma.SortOrderInput | Prisma.SortOrder
+  an?: Prisma.SortOrderInput | Prisma.SortOrder
+  san?: Prisma.SortOrderInput | Prisma.SortOrder
   policy?: Prisma.InsurancePolicyOrderByWithRelationInput
 }
 
@@ -367,6 +406,9 @@ export type VehiclePolicyDetailWhereUniqueInput = Prisma.AtLeast<{
   seatNumber?: Prisma.FloatFilter<"VehiclePolicyDetail"> | number
   region?: Prisma.StringFilter<"VehiclePolicyDetail"> | string
   moneyLenderLicence?: Prisma.StringNullableFilter<"VehiclePolicyDetail"> | string | null
+  gp?: Prisma.FloatNullableFilter<"VehiclePolicyDetail"> | number | null
+  an?: Prisma.FloatNullableFilter<"VehiclePolicyDetail"> | number | null
+  san?: Prisma.FloatNullableFilter<"VehiclePolicyDetail"> | number | null
   policy?: Prisma.XOR<Prisma.InsurancePolicyScalarRelationFilter, Prisma.InsurancePolicyWhereInput>
 }, "id" | "policyId">
 
@@ -387,6 +429,9 @@ export type VehiclePolicyDetailOrderByWithAggregationInput = {
   seatNumber?: Prisma.SortOrder
   region?: Prisma.SortOrder
   moneyLenderLicence?: Prisma.SortOrderInput | Prisma.SortOrder
+  gp?: Prisma.SortOrderInput | Prisma.SortOrder
+  an?: Prisma.SortOrderInput | Prisma.SortOrder
+  san?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.VehiclePolicyDetailCountOrderByAggregateInput
   _avg?: Prisma.VehiclePolicyDetailAvgOrderByAggregateInput
   _max?: Prisma.VehiclePolicyDetailMaxOrderByAggregateInput
@@ -414,6 +459,9 @@ export type VehiclePolicyDetailScalarWhereWithAggregatesInput = {
   seatNumber?: Prisma.FloatWithAggregatesFilter<"VehiclePolicyDetail"> | number
   region?: Prisma.StringWithAggregatesFilter<"VehiclePolicyDetail"> | string
   moneyLenderLicence?: Prisma.StringNullableWithAggregatesFilter<"VehiclePolicyDetail"> | string | null
+  gp?: Prisma.FloatNullableWithAggregatesFilter<"VehiclePolicyDetail"> | number | null
+  an?: Prisma.FloatNullableWithAggregatesFilter<"VehiclePolicyDetail"> | number | null
+  san?: Prisma.FloatNullableWithAggregatesFilter<"VehiclePolicyDetail"> | number | null
 }
 
 export type VehiclePolicyDetailCreateInput = {
@@ -431,6 +479,9 @@ export type VehiclePolicyDetailCreateInput = {
   seatNumber: number
   region: string
   moneyLenderLicence?: string | null
+  gp?: number | null
+  an?: number | null
+  san?: number | null
   policy: Prisma.InsurancePolicyCreateNestedOneWithoutVehicleDetailInput
 }
 
@@ -451,6 +502,9 @@ export type VehiclePolicyDetailUncheckedCreateInput = {
   seatNumber: number
   region: string
   moneyLenderLicence?: string | null
+  gp?: number | null
+  an?: number | null
+  san?: number | null
 }
 
 export type VehiclePolicyDetailUpdateInput = {
@@ -468,6 +522,9 @@ export type VehiclePolicyDetailUpdateInput = {
   seatNumber?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.StringFieldUpdateOperationsInput | string
   moneyLenderLicence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gp?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  an?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  san?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   policy?: Prisma.InsurancePolicyUpdateOneRequiredWithoutVehicleDetailNestedInput
 }
 
@@ -488,6 +545,9 @@ export type VehiclePolicyDetailUncheckedUpdateInput = {
   seatNumber?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.StringFieldUpdateOperationsInput | string
   moneyLenderLicence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gp?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  an?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  san?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type VehiclePolicyDetailCreateManyInput = {
@@ -507,6 +567,9 @@ export type VehiclePolicyDetailCreateManyInput = {
   seatNumber: number
   region: string
   moneyLenderLicence?: string | null
+  gp?: number | null
+  an?: number | null
+  san?: number | null
 }
 
 export type VehiclePolicyDetailUpdateManyMutationInput = {
@@ -524,6 +587,9 @@ export type VehiclePolicyDetailUpdateManyMutationInput = {
   seatNumber?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.StringFieldUpdateOperationsInput | string
   moneyLenderLicence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gp?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  an?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  san?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type VehiclePolicyDetailUncheckedUpdateManyInput = {
@@ -543,6 +609,9 @@ export type VehiclePolicyDetailUncheckedUpdateManyInput = {
   seatNumber?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.StringFieldUpdateOperationsInput | string
   moneyLenderLicence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gp?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  an?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  san?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type VehiclePolicyDetailNullableScalarRelationFilter = {
@@ -567,6 +636,9 @@ export type VehiclePolicyDetailCountOrderByAggregateInput = {
   seatNumber?: Prisma.SortOrder
   region?: Prisma.SortOrder
   moneyLenderLicence?: Prisma.SortOrder
+  gp?: Prisma.SortOrder
+  an?: Prisma.SortOrder
+  san?: Prisma.SortOrder
 }
 
 export type VehiclePolicyDetailAvgOrderByAggregateInput = {
@@ -576,6 +648,9 @@ export type VehiclePolicyDetailAvgOrderByAggregateInput = {
   totalWeight?: Prisma.SortOrder
   yearOfManufacture?: Prisma.SortOrder
   seatNumber?: Prisma.SortOrder
+  gp?: Prisma.SortOrder
+  an?: Prisma.SortOrder
+  san?: Prisma.SortOrder
 }
 
 export type VehiclePolicyDetailMaxOrderByAggregateInput = {
@@ -595,6 +670,9 @@ export type VehiclePolicyDetailMaxOrderByAggregateInput = {
   seatNumber?: Prisma.SortOrder
   region?: Prisma.SortOrder
   moneyLenderLicence?: Prisma.SortOrder
+  gp?: Prisma.SortOrder
+  an?: Prisma.SortOrder
+  san?: Prisma.SortOrder
 }
 
 export type VehiclePolicyDetailMinOrderByAggregateInput = {
@@ -614,6 +692,9 @@ export type VehiclePolicyDetailMinOrderByAggregateInput = {
   seatNumber?: Prisma.SortOrder
   region?: Prisma.SortOrder
   moneyLenderLicence?: Prisma.SortOrder
+  gp?: Prisma.SortOrder
+  an?: Prisma.SortOrder
+  san?: Prisma.SortOrder
 }
 
 export type VehiclePolicyDetailSumOrderByAggregateInput = {
@@ -623,6 +704,9 @@ export type VehiclePolicyDetailSumOrderByAggregateInput = {
   totalWeight?: Prisma.SortOrder
   yearOfManufacture?: Prisma.SortOrder
   seatNumber?: Prisma.SortOrder
+  gp?: Prisma.SortOrder
+  an?: Prisma.SortOrder
+  san?: Prisma.SortOrder
 }
 
 export type VehiclePolicyDetailCreateNestedOneWithoutPolicyInput = {
@@ -680,6 +764,9 @@ export type VehiclePolicyDetailCreateWithoutPolicyInput = {
   seatNumber: number
   region: string
   moneyLenderLicence?: string | null
+  gp?: number | null
+  an?: number | null
+  san?: number | null
 }
 
 export type VehiclePolicyDetailUncheckedCreateWithoutPolicyInput = {
@@ -698,6 +785,9 @@ export type VehiclePolicyDetailUncheckedCreateWithoutPolicyInput = {
   seatNumber: number
   region: string
   moneyLenderLicence?: string | null
+  gp?: number | null
+  an?: number | null
+  san?: number | null
 }
 
 export type VehiclePolicyDetailCreateOrConnectWithoutPolicyInput = {
@@ -731,6 +821,9 @@ export type VehiclePolicyDetailUpdateWithoutPolicyInput = {
   seatNumber?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.StringFieldUpdateOperationsInput | string
   moneyLenderLicence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gp?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  an?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  san?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type VehiclePolicyDetailUncheckedUpdateWithoutPolicyInput = {
@@ -749,6 +842,9 @@ export type VehiclePolicyDetailUncheckedUpdateWithoutPolicyInput = {
   seatNumber?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.StringFieldUpdateOperationsInput | string
   moneyLenderLicence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gp?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  an?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  san?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 
@@ -770,6 +866,9 @@ export type VehiclePolicyDetailSelect<ExtArgs extends runtime.Types.Extensions.I
   seatNumber?: boolean
   region?: boolean
   moneyLenderLicence?: boolean
+  gp?: boolean
+  an?: boolean
+  san?: boolean
   policy?: boolean | Prisma.InsurancePolicyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehiclePolicyDetail"]>
 
@@ -790,6 +889,9 @@ export type VehiclePolicyDetailSelectCreateManyAndReturn<ExtArgs extends runtime
   seatNumber?: boolean
   region?: boolean
   moneyLenderLicence?: boolean
+  gp?: boolean
+  an?: boolean
+  san?: boolean
   policy?: boolean | Prisma.InsurancePolicyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehiclePolicyDetail"]>
 
@@ -810,6 +912,9 @@ export type VehiclePolicyDetailSelectUpdateManyAndReturn<ExtArgs extends runtime
   seatNumber?: boolean
   region?: boolean
   moneyLenderLicence?: boolean
+  gp?: boolean
+  an?: boolean
+  san?: boolean
   policy?: boolean | Prisma.InsurancePolicyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehiclePolicyDetail"]>
 
@@ -830,9 +935,12 @@ export type VehiclePolicyDetailSelectScalar = {
   seatNumber?: boolean
   region?: boolean
   moneyLenderLicence?: boolean
+  gp?: boolean
+  an?: boolean
+  san?: boolean
 }
 
-export type VehiclePolicyDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "policyId" | "coverageType" | "registrationNumber" | "vehicleType" | "engineNumber" | "chassisNumber" | "vehicleBodyType" | "manufacturer" | "modelName" | "enginDisplacement" | "totalWeight" | "yearOfManufacture" | "seatNumber" | "region" | "moneyLenderLicence", ExtArgs["result"]["vehiclePolicyDetail"]>
+export type VehiclePolicyDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "policyId" | "coverageType" | "registrationNumber" | "vehicleType" | "engineNumber" | "chassisNumber" | "vehicleBodyType" | "manufacturer" | "modelName" | "enginDisplacement" | "totalWeight" | "yearOfManufacture" | "seatNumber" | "region" | "moneyLenderLicence" | "gp" | "an" | "san", ExtArgs["result"]["vehiclePolicyDetail"]>
 export type VehiclePolicyDetailInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   policy?: boolean | Prisma.InsurancePolicyDefaultArgs<ExtArgs>
 }
@@ -865,6 +973,9 @@ export type $VehiclePolicyDetailPayload<ExtArgs extends runtime.Types.Extensions
     seatNumber: number
     region: string
     moneyLenderLicence: string | null
+    gp: number | null
+    an: number | null
+    san: number | null
   }, ExtArgs["result"]["vehiclePolicyDetail"]>
   composites: {}
 }
@@ -1305,6 +1416,9 @@ export interface VehiclePolicyDetailFieldRefs {
   readonly seatNumber: Prisma.FieldRef<"VehiclePolicyDetail", 'Float'>
   readonly region: Prisma.FieldRef<"VehiclePolicyDetail", 'String'>
   readonly moneyLenderLicence: Prisma.FieldRef<"VehiclePolicyDetail", 'String'>
+  readonly gp: Prisma.FieldRef<"VehiclePolicyDetail", 'Float'>
+  readonly an: Prisma.FieldRef<"VehiclePolicyDetail", 'Float'>
+  readonly san: Prisma.FieldRef<"VehiclePolicyDetail", 'Float'>
 }
     
 

@@ -160,7 +160,7 @@ async function policyUpsertAction(formData: FormData) {
    
     if (insuranceGeneralInformation.success && vehiclePolicyDetailInformation.success) {
         const { uuid, processType, category, policyNumber, quotationNumber, remark, clientId, insuranceCompanyId, brokerId, effectiveDate, expiryDate, premiumAmount, currency, previousPolicyId } = insuranceGeneralInformation.data;
-        const { coverageType, registrationNumber, vehicleType, engineNumber, chassisNumber, vehicleBodyType, manufacturer, modelName, enginDisplacement, totalWeight, yearOfManufacture, seatNumber, region, moneyLenderLicenceNumber } = vehiclePolicyDetailInformation.data;
+        const { coverageType, registrationNumber, vehicleType, engineNumber, chassisNumber, vehicleBodyType, manufacturer, modelName, enginDisplacement, totalWeight, yearOfManufacture, seatNumber, region, moneyLenderLicenceNumber, gp, an, san } = vehiclePolicyDetailInformation.data;
 
         const insurancePolicyData = {
             processType,
@@ -192,6 +192,9 @@ async function policyUpsertAction(formData: FormData) {
             yearOfManufacture,
             seatNumber,
             region,
+            gp,
+            an,
+            san,
         };
 
         const existingPolicy = await prisma.insurancePolicy.findUnique({
