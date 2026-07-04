@@ -188,6 +188,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
                             <TableRow>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "15%" }}>UUID</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.category')}</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.clientName')}</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('policy.expiryDate')}</TableCell>
@@ -198,10 +199,12 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                         <TableBody>
                             {insurancePolicies.map(policy => (
                                 <TableRow key={policy.id} hover onClick={() => handleRowClick(policy)} sx={{ cursor: 'pointer' }}>
+                                    <TableCell>{policy.uuid || "N/A"}</TableCell>
                                     <TableCell>{policy.category}</TableCell>
                                     <TableCell>{clients.find(client => client.id === policy.clientId)?.chineseName || "N/A"}</TableCell>
                                     <TableCell>{policy.expiryDate ? policy.expiryDate.toDateString() : "N/A"}</TableCell>
                                     <TableCell>{policy.quotationNumber || "TBC"}</TableCell>
+                                    <TableCell>{policy.remark || ""}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

@@ -15,3 +15,6 @@
   - `vehiclePolicyDetailInformation`
 - The current implementation is a create-oriented flow. It initializes with fresh default values and does not yet appear to support editing an existing policy by pre-filling the dialog.
 - This page is currently wired for creating a new insurance policy from the add action, while the table displays the existing policies from the parent props.
+- Added UUID column to the policy listing table on the Policy Info page.
+- UUID is displayed as the first column in the table.
+- The table rows continue to open the policy dialog on click.
