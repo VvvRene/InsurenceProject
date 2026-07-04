@@ -75,6 +75,9 @@ model VehiclePolicyDetail {
   seatNumber         Float
   region             String
   moneyLenderLicence String?
+  gp                 Float?
+  an                 Float?
+  san                Float?
   policy             InsurancePolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
 }
 

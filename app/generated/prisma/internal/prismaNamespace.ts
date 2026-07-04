@@ -1330,7 +1330,10 @@ export const VehiclePolicyDetailScalarFieldEnum = {
   yearOfManufacture: 'yearOfManufacture',
   seatNumber: 'seatNumber',
   region: 'region',
-  moneyLenderLicence: 'moneyLenderLicence'
+  moneyLenderLicence: 'moneyLenderLicence',
+  gp: 'gp',
+  an: 'an',
+  san: 'san'
 } as const
 
 export type VehiclePolicyDetailScalarFieldEnum = (typeof VehiclePolicyDetailScalarFieldEnum)[keyof typeof VehiclePolicyDetailScalarFieldEnum]

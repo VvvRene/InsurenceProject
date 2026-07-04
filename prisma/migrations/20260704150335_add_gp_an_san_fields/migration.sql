@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "VehiclePolicyDetail" ADD COLUMN     "an" DOUBLE PRECISION,
+ADD COLUMN     "gp" DOUBLE PRECISION,
+ADD COLUMN     "san" DOUBLE PRECISION;
