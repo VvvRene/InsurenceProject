@@ -10,6 +10,7 @@
     "clients": "Clients",
     "insuranceCompanies": "Insurance Companies",
     "brokers": "Brokers",
+    "vehicleInfo": "Vehicle Info",
     "filesManagement": "Files Management",
     "about": "About"
   },
@@ -124,6 +125,18 @@
     "mainlandChina": "Mainland China",
     "overseas": "Overseas",
     "moneyLenderLicence": "Money Lender Licence Number (if applicable)"
+  },
+  "vehicleInfo": {
+    "title": "Vehicle Info",
+    "vehicleTypes": "Vehicle Types",
+    "vehicleBodyTypes": "Vehicle Body Types",
+    "searchType": "Search vehicle types",
+    "searchTypePlaceholder": "e.g. Sedan",
+    "searchBodyType": "Search body types",
+    "searchBodyTypePlaceholder": "e.g. Coupe",
+    "addVehicleType": "Add Vehicle Type",
+    "addVehicleBodyType": "Add Vehicle Body Type",
+    "name": "Name"
   },
   "broker": {
     "title": "Brokers",

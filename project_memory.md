@@ -40,6 +40,14 @@
     - Database integration and migrations: `prisma/migrations` exists but verify the development database and migrations applied.
     - API routes and server endpoints: several route files exist (e.g., `clientFileDownload.$fileId.ts`) and may need full implementation and tests.
     - Static assets/uploads: `public/uploads` and `public/` content exist; verify upload handling and permissions.
+  - Newly added features:
+    - Vehicle Type and Vehicle Body Type tables added to database (`VehicleType`, `VehicleBodyType`) with migration `20260702172801`.
+    - Vehicle Type and Vehicle Body Type are now stored in the DB and fetched via loader, seeded with defaults.
+    - Policy upsert dialog now has create buttons (+) for Vehicle Type and Vehicle Body Type fields, using Autocomplete (freeSolo with dropdown).
+    - A reusable `OptionInformationForm` and `OptionUpsertDialog` were created for managing simple name-based option entries.
+    - Vehicle Info management page at `/vehicle-info` with search, add, edit capabilities for both Vehicle Types and Vehicle Body Types — mirrors the Brokers page pattern.
+    - Navigation link "Vehicle Info / 車輛資訊" added to the sidebar under Data Management.
+    - All text is translated in both `en.json` and `zh-TW.json`.
   - Next steps / Suggestions:
     - Run `npm install` and `npx prisma migrate dev` to verify database connectivity and apply migrations.
     - Start the dev server (`npm run dev` or equivalent) to confirm build and routing behavior.
