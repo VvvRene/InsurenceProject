@@ -23,7 +23,7 @@ export async function loader() {
             homeDetail: true,
             lifeDetail: true,
         },
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
     });
     const vehicleTypes = await prisma.vehicleType.findMany();
     const vehicleBodyTypes = await prisma.vehicleBodyType.findMany();

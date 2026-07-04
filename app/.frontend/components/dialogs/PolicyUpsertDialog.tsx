@@ -15,7 +15,7 @@ interface PolicyUpsertDialogProps {
   brokers?: any[];
   vehicleTypes?: VehicleType[];
   vehicleBodyTypes?: VehicleBodyType[];
-  policy?: (InsurancePolicy & { vehicleDetail?: { coverageType: string; registrationNumber: string; vehicleType: string; engineNumber?: string | null; chassisNumber?: string | null; vehicleBodyType: string; manufacturer?: string | null; modelName?: string | null; enginDisplacement: number; totalWeight: number; yearOfManufacture: number; seatNumber: number; region: string; moneyLenderLicence?: string | null; } | null }) | null;
+  policy?: (InsurancePolicy & { vehicleDetail?: { coverageType: string; registrationNumber: string; vehicleType: string; engineNumber?: string | null; chassisNumber?: string | null; vehicleBodyType: string; manufacturer?: string | null; modelName?: string | null; enginDisplacement: number; totalWeight: number; yearOfManufacture: number; seatNumber: number; region: string; moneyLenderLicence?: string | null; gp?: number | null; an?: number | null; san?: number | null; } | null }) | null;
   onClose: () => void;
   onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void;
 }
@@ -50,7 +50,11 @@ const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, 
 
   const getInitialVehicleDetail = (): VehiclePolicyDetailInformation | undefined => {
     if (!policy?.vehicleDetail) return undefined;
-    const vd = policy.vehicleDetail;
+    const vd = policy.vehicleDetail as typeof policy.vehicleDetail & {
+      gp?: number | null;
+      an?: number | null;
+      san?: number | null;
+    };
     return {
       coverageType: vd.coverageType as 'Comprehensive' | 'Third-Party',
       registrationNumber: vd.registrationNumber,
@@ -66,9 +70,9 @@ const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, 
       seatNumber: vd.seatNumber,
       region: vd.region as 'Hong Kong' | 'Mainland China' | 'Overseas',
       moneyLenderLicenceNumber: vd.moneyLenderLicence || undefined,
-      gp: 0,
-      an: 0,
-      san: 0,
+      gp: vd.gp ?? 0,
+      an: vd.an ?? 0,
+      san: vd.san ?? 0,
     };
   };
 

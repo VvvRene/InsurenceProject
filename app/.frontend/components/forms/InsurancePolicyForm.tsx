@@ -103,7 +103,8 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         watch: insuranceGeneralInformationWatch,
         formState: { errors: insuranceGeneralInformationErrors },
         trigger: insuranceGeneralInformationTrigger,
-        setValue: setInsuranceGeneralInformationValue
+        setValue: setInsuranceGeneralInformationValue,
+        getValues: getInsuranceGeneralInformationValues
     } = useForm<InsuranceGeneralInformation>({
         resolver: zodResolver(insuranceGeneralInformationSchema),
         defaultValues: insuranceGeneralInformation
@@ -114,7 +115,8 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
         handleSubmit: vehiclePolicyDetailInformationHandleSubmit,
         watch: vehiclePolicyDetailInformationWatch,
         formState: { errors: vehiclePolicyDetailInformationErrors },
-        trigger: vehiclePolicyDetailInformationTrigger
+        trigger: vehiclePolicyDetailInformationTrigger,
+        getValues: getVehiclePolicyDetailInformationValues
     } = useForm<VehiclePolicyDetailInformation>({
         resolver: zodResolver(vehiclePolicyDetailInformationSchema),
         defaultValues: vehiclePolicyDetailInformation
@@ -303,12 +305,18 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                         vehiclePolicyDetailInformationTrigger().then((isVehicleInfoValid) => {
                             if (isValid && isVehicleInfoValid) {
                                 if (onSave) {
+                                    const latestInsuranceGeneralInformation = getInsuranceGeneralInformationValues() as InsuranceGeneralInformation;
+                                    const latestVehiclePolicyDetailInformation = getVehiclePolicyDetailInformationValues() as VehiclePolicyDetailInformation;
+
+                                    setInsuranceGeneralInformation(latestInsuranceGeneralInformation);
+                                    setVehiclePolicyDetailInformation(latestVehiclePolicyDetailInformation);
+
                                     // When creating a new policy (no initialGeneralInfo), generate fresh UUID.
                                     // When editing, keep the existing UUID so the DB update matches.
-                                    const effectiveUuid = initialGeneralInfo ? insuranceGeneralInformation.uuid : uuidv4();
+                                    const effectiveUuid = initialGeneralInfo ? latestInsuranceGeneralInformation.uuid : uuidv4();
                                     onSave({
-                                        insuranceGeneralInformation: { ...insuranceGeneralInformation, uuid: effectiveUuid },
-                                        vehiclePolicyDetailInformation
+                                        insuranceGeneralInformation: { ...latestInsuranceGeneralInformation, uuid: effectiveUuid },
+                                        vehiclePolicyDetailInformation: latestVehiclePolicyDetailInformation
                                     });
                                 }
                             } else {
