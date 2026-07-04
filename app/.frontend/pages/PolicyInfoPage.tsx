@@ -201,7 +201,7 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                                 <TableRow key={policy.id} hover onClick={() => handleRowClick(policy)} sx={{ cursor: 'pointer' }}>
                                     <TableCell>{policy.uuid || "N/A"}</TableCell>
                                     <TableCell>{policy.category}</TableCell>
-                                    <TableCell>{clients.find(client => client.id === policy.clientId)?.chineseName || "N/A"}</TableCell>
+                                    <TableCell>{clients.find(client => client.id === policy.clientId)?.name || "N/A"}</TableCell>
                                     <TableCell>{policy.expiryDate ? policy.expiryDate.toDateString() : "N/A"}</TableCell>
                                     <TableCell>{policy.quotationNumber || "TBC"}</TableCell>
                                     <TableCell>{policy.remark || ""}</TableCell>
