@@ -294,8 +294,10 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
                         vehiclePolicyDetailInformationTrigger().then((isVehicleInfoValid) => {
                             if (isValid && isVehicleInfoValid) {
                                 if (onSave) {
+                                    // Generate a fresh UUID to avoid unique constraint violations on re-save
+                                    const freshUuid = uuidv4();
                                     onSave({
-                                        insuranceGeneralInformation,
+                                        insuranceGeneralInformation: { ...insuranceGeneralInformation, uuid: freshUuid },
                                         vehiclePolicyDetailInformation
                                     });
                                 }
