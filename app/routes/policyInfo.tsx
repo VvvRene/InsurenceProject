@@ -17,7 +17,14 @@ export async function loader() {
     const clients = await prisma.client.findMany();
     const insuranceCompanies = await prisma.insuranceCompany.findMany();
     const brokers = await prisma.broker.findMany();
-    const insurancePolicies = await prisma.insurancePolicy.findMany();
+    const insurancePolicies = await prisma.insurancePolicy.findMany({
+        include: {
+            vehicleDetail: true,
+            homeDetail: true,
+            lifeDetail: true,
+        },
+        orderBy: { updatedAt: 'desc' },
+    });
     const vehicleTypes = await prisma.vehicleType.findMany();
     const vehicleBodyTypes = await prisma.vehicleBodyType.findMany();
     return { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes };
@@ -29,7 +36,7 @@ export async function action({ request }: Route.ActionArgs) {
     const intent = formData.get("intent");
     switch (intent) {
         case "policy_upsert":
-            return policyCreateAction(formData);
+            return policyUpsertAction(formData);
         case "insurance_company_upsert":
             return insuranceCompanyUpsertAction(formData);
         case "broker_upsert":
@@ -131,12 +138,9 @@ async function vehicleBodyTypeUpsertAction(formData: FormData) {
     }
 }
 
-async function policyCreateAction(formData: FormData) {
+async function policyUpsertAction(formData: FormData) {
 
     const rawData = fromFormData(formData);
-    console.log("Parsed Client Info:", rawData.insuranceGeneralInformation);
-    console.log("Parsed Vehicle Info:", rawData.vehiclePolicyDetailInformation);
-    console.log(typeof rawData.insuranceGeneralInformation);
     const insuranceGeneralInformationRaw = JSON.parse(rawData.insuranceGeneralInformation);
     const insuranceGeneralInformation = insuranceGeneralInformationSchema.safeParse({
         ...insuranceGeneralInformationRaw,
@@ -155,55 +159,76 @@ async function policyCreateAction(formData: FormData) {
     }); // Validate vehicle policy detail information   
    
     if (insuranceGeneralInformation.success && vehiclePolicyDetailInformation.success) {
+        const { uuid, processType, category, policyNumber, quotationNumber, remark, clientId, insuranceCompanyId, brokerId, effectiveDate, expiryDate, premiumAmount, currency, previousPolicyId } = insuranceGeneralInformation.data;
+        const { coverageType, registrationNumber, vehicleType, engineNumber, chassisNumber, vehicleBodyType, manufacturer, modelName, enginDisplacement, totalWeight, yearOfManufacture, seatNumber, region, moneyLenderLicenceNumber } = vehiclePolicyDetailInformation.data;
 
-        await prisma.insurancePolicy.create({
-            data: {
-                uuid: insuranceGeneralInformation.data.uuid,
-                processType: insuranceGeneralInformation.data.processType,
-                category: insuranceGeneralInformation.data.category,
-                policyNumber: insuranceGeneralInformation.data.policyNumber,
-                quotationNumber: insuranceGeneralInformation.data.quotationNumber,
+        const insurancePolicyData = {
+            processType,
+            category,
+            policyNumber,
+            quotationNumber,
+            remark: remark || '',
+            clientId,
+            insuranceCompanyId,
+            brokerId,
+            effectiveDate: new Date(effectiveDate),
+            expiryDate: new Date(expiryDate),
+            premiumAmount,
+            currency,
+            previousPolicyId,
+        };
 
-                remark: insuranceGeneralInformation.data.remark || '',
+        const vehicleDetailData = {
+            coverageType,
+            registrationNumber,
+            vehicleType,
+            engineNumber,
+            chassisNumber,
+            vehicleBodyType,
+            manufacturer,
+            modelName,
+            enginDisplacement,
+            totalWeight,
+            yearOfManufacture,
+            seatNumber,
+            region,
+        };
 
-                clientId: insuranceGeneralInformation.data.clientId,
-                insuranceCompanyId: insuranceGeneralInformation.data.insuranceCompanyId,
-                brokerId: insuranceGeneralInformation.data.brokerId,
-
-
-                effectiveDate: new Date(insuranceGeneralInformation.data.effectiveDate),
-                expiryDate: new Date(insuranceGeneralInformation.data.expiryDate),
-
-                premiumAmount: insuranceGeneralInformation.data.premiumAmount,
-                currency: insuranceGeneralInformation.data.currency,
-
-                previousPolicyId: insuranceGeneralInformation.data.previousPolicyId,
-
-                vehicleDetail: {
-                    create: { 
-                        coverageType: vehiclePolicyDetailInformation.data.coverageType,
-                        registrationNumber: vehiclePolicyDetailInformation.data.registrationNumber,
-                        vehicleType: vehiclePolicyDetailInformation.data.vehicleType,
-                        engineNumber: vehiclePolicyDetailInformation.data.engineNumber,
-                        chassisNumber: vehiclePolicyDetailInformation.data.chassisNumber,
-                        vehicleBodyType: vehiclePolicyDetailInformation.data.vehicleBodyType,
-                        manufacturer: vehiclePolicyDetailInformation.data.manufacturer,
-                        modelName: vehiclePolicyDetailInformation.data.modelName,
-                        enginDisplacement: vehiclePolicyDetailInformation.data.enginDisplacement,
-                        totalWeight: vehiclePolicyDetailInformation.data.totalWeight,
-                        yearOfManufacture: vehiclePolicyDetailInformation.data.yearOfManufacture,
-                        seatNumber: vehiclePolicyDetailInformation.data.seatNumber,
-                        region: vehiclePolicyDetailInformation.data.region,
-                    }
-                },
-
-                homeDetail: {},
-
-                lifeDetail: {},
-
-            }
+        const existingPolicy = await prisma.insurancePolicy.findUnique({
+            where: { uuid },
+            include: { vehicleDetail: true },
         });
 
+        if (existingPolicy) {
+            // UPDATE existing policy
+            await prisma.insurancePolicy.update({
+                where: { uuid },
+                data: insurancePolicyData,
+            });
+            if (existingPolicy.vehicleDetail) {
+                await prisma.vehiclePolicyDetail.update({
+                    where: { id: existingPolicy.vehicleDetail.id },
+                    data: vehicleDetailData,
+                });
+            } else {
+                await prisma.vehiclePolicyDetail.create({
+                    data: { ...vehicleDetailData, policyId: existingPolicy.id },
+                });
+            }
+        } else {
+            // CREATE new policy
+            await prisma.insurancePolicy.create({
+                data: {
+                    uuid,
+                    ...insurancePolicyData,
+                    vehicleDetail: {
+                        create: vehicleDetailData,
+                    },
+                    homeDetail: {},
+                    lifeDetail: {},
+                },
+            });
+        }
     } else {
         insuranceGeneralInformation.error?.issues.forEach((issue) => {
             console.log(`Data: Insurance General Information Validation Error`);
