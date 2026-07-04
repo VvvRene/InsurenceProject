@@ -34,6 +34,9 @@ export const LeftDrawer: React.FC<LeftDrawerProps> = ({ isToolbarAdjusted = fals
           <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/brokers'); }} >
             <ListItemText primary={t('nav.brokers')} />
           </ListItemButton>
+          <ListItemButton sx={{ pl: 4 }} onClick={() => { closeDrawer(); navigate('/vehicle-info'); }} >
+            <ListItemText primary={t('nav.vehicleInfo')} />
+          </ListItemButton>
         </CollapsibleListItem>
         {/* Collapsible List Item for Files Management */}
         <CollapsibleListItem label={t('nav.filesManagement')}>

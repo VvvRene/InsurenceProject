@@ -10,6 +10,7 @@
     "clients": "客戶",
     "insuranceCompanies": "保險公司",
     "brokers": "經紀",
+    "vehicleInfo": "車輛資訊",
     "filesManagement": "檔案管理",
     "about": "關於"
   },
@@ -92,6 +93,8 @@
     "addClient": "新增客戶",
     "addInsuranceCompany": "新增保險公司",
     "addBroker": "新增經紀",
+    "addVehicleType": "新增車輛類型",
+    "addVehicleBodyType": "新增車身類型",
     "coverageType": "保障類型",
     "comprehensive": "綜合保險",
     "thirdParty": "第三者保險",
@@ -122,6 +125,18 @@
     "mainlandChina": "中國內地",
     "overseas": "海外",
     "moneyLenderLicence": "放債人牌照號碼（如適用）"
+  },
+  "vehicleInfo": {
+    "title": "車輛資訊",
+    "vehicleTypes": "車輛類型",
+    "vehicleBodyTypes": "車身類型",
+    "searchType": "搜尋車輛類型",
+    "searchTypePlaceholder": "例如：房車",
+    "searchBodyType": "搜尋車身類型",
+    "searchBodyTypePlaceholder": "例如：雙門轎跑車",
+    "addVehicleType": "新增車輛類型",
+    "addVehicleBodyType": "新增車身類型",
+    "name": "名稱"
   },
   "broker": {
     "title": "經紀",

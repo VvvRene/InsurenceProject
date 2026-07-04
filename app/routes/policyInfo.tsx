@@ -18,7 +18,9 @@ export async function loader() {
     const insuranceCompanies = await prisma.insuranceCompany.findMany();
     const brokers = await prisma.broker.findMany();
     const insurancePolicies = await prisma.insurancePolicy.findMany();
-    return { clients, insuranceCompanies, brokers, insurancePolicies };
+    const vehicleTypes = await prisma.vehicleType.findMany();
+    const vehicleBodyTypes = await prisma.vehicleBodyType.findMany();
+    return { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -32,6 +34,10 @@ export async function action({ request }: Route.ActionArgs) {
             return insuranceCompanyUpsertAction(formData);
         case "broker_upsert":
             return brokerUpsertAction(formData);
+        case "vehicle_type_upsert":
+            return vehicleTypeUpsertAction(formData);
+        case "vehicle_body_type_upsert":
+            return vehicleBodyTypeUpsertAction(formData);
         default:
             throw new Response("Invalid Intent", { status: 400 });
     }
@@ -100,6 +106,28 @@ async function brokerUpsertAction(formData: FormData) {
             console.log(`Field: ${issue.path.join(".")}`);
             console.log(`Error: ${issue.message}`);
         });
+    }
+}
+
+async function vehicleTypeUpsertAction(formData: FormData) {
+    const rawData = fromFormData(formData);
+    const name = rawData.name as string;
+    if (name && name.trim()) {
+        const existing = await prisma.vehicleType.findUnique({ where: { name: name.trim() } });
+        if (!existing) {
+            await prisma.vehicleType.create({ data: { name: name.trim() } });
+        }
+    }
+}
+
+async function vehicleBodyTypeUpsertAction(formData: FormData) {
+    const rawData = fromFormData(formData);
+    const name = rawData.name as string;
+    if (name && name.trim()) {
+        const existing = await prisma.vehicleBodyType.findUnique({ where: { name: name.trim() } });
+        if (!existing) {
+            await prisma.vehicleBodyType.create({ data: { name: name.trim() } });
+        }
     }
 }
 
@@ -198,7 +226,7 @@ async function policyCreateAction(formData: FormData) {
 
 export default function PolicyInfo({ }: Route.ComponentProps) {
     const fetcher = useFetcher();
-    const { clients, insuranceCompanies, brokers, insurancePolicies } = useLoaderData<typeof loader>();
+    const { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes } = useLoaderData<typeof loader>();
     const handlePolicyUpsert = async (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => {
         const formData = toFormData(data);
         formData.append("intent", "policy_upsert");
@@ -211,6 +239,8 @@ export default function PolicyInfo({ }: Route.ComponentProps) {
                 insuranceCompanies={insuranceCompanies}
                 brokers={brokers}
                 insurancePolicies={insurancePolicies}
+                vehicleTypes={vehicleTypes}
+                vehicleBodyTypes={vehicleBodyTypes}
                 onSave={handlePolicyUpsert} />
         </>
     );

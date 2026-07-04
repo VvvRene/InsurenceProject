@@ -18,7 +18,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { Broker, Client, InsuranceCompany, InsurancePolicy } from '~/generated/prisma/browser';
+import type { Broker, Client, InsuranceCompany, InsurancePolicy, VehicleType, VehicleBodyType } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
@@ -41,13 +41,15 @@ interface PolicyInfoPageProps {
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[]; // Add broker type if needed
     insurancePolicies: InsurancePolicy[];
+    vehicleTypes?: VehicleType[];
+    vehicleBodyTypes?: VehicleBodyType[];
     onSave?: (data: { 
         insuranceGeneralInformation: InsuranceGeneralInformation; 
         vehiclePolicyDetailInformation: VehiclePolicyDetailInformation 
     }) => void; // Optional onSave callback
 }
 
-const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompanies, brokers, insurancePolicies, onSave }) => {
+const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes, onSave }) => {
     const { t } = useTranslation();
     const { control, handleSubmit, reset, watch } = useForm<SearchFilters>({
         defaultValues: {
@@ -200,6 +202,8 @@ const PolicyInfoPage: React.FC<PolicyInfoPageProps> = ({ clients, insuranceCompa
                 clients={clients}
                 insuranceCompanies={insuranceCompanies}
                 brokers={brokers}
+                vehicleTypes={vehicleTypes}
+                vehicleBodyTypes={vehicleBodyTypes}
                 open={isDialogOpen} 
                 onClose={() => setIsDialogOpen(false)} 
                 onSave={onSave} />

@@ -58,6 +58,8 @@ export const ModelName = {
   LifePolicyDetail: 'LifePolicyDetail',
   InsuranceCompany: 'InsuranceCompany',
   Broker: 'Broker',
+  VehicleType: 'VehicleType',
+  VehicleBodyType: 'VehicleBodyType',
   ClientFile: 'ClientFile',
   Currency: 'Currency'
 } as const
@@ -184,6 +186,22 @@ export const BrokerScalarFieldEnum = {
 } as const
 
 export type BrokerScalarFieldEnum = (typeof BrokerScalarFieldEnum)[keyof typeof BrokerScalarFieldEnum]
+
+
+export const VehicleTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type VehicleTypeScalarFieldEnum = (typeof VehicleTypeScalarFieldEnum)[keyof typeof VehicleTypeScalarFieldEnum]
+
+
+export const VehicleBodyTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type VehicleBodyTypeScalarFieldEnum = (typeof VehicleBodyTypeScalarFieldEnum)[keyof typeof VehicleBodyTypeScalarFieldEnum]
 
 
 export const ClientFileScalarFieldEnum = {

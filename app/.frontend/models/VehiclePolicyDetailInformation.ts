@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 export const vehiclePolicyDetailInformationSchema = z.object({
     coverageType: z.enum(['Comprehensive', 'Third-Party']),
     registrationNumber: z.string().min(1, 'Required'),
-    vehicleType: z.enum(['Sedan', 'SUV', 'Truck', 'Motorcycle']),
+    vehicleType: z.string().min(1, 'Required'),
     engineNumber: z.string().min(1, 'Required'),
     chassisNumber: z.string().min(1, 'Required'),
-    vehicleBodyType: z.enum(['Coupe', 'Convertible', 'Hatchback', 'Minivan', 'Pickup', 'Van', 'Wagon']),
+    vehicleBodyType: z.string().min(1, 'Required'),
     manufacturer: z.string().min(1, 'Required'),
     modelName: z.string().min(1, 'Required'),
     enginDisplacement: z.number().nonnegative().min(50, 'Engine displacement must be at least 50cc'),

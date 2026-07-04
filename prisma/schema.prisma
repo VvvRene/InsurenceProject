@@ -109,6 +109,16 @@ model Broker {
   policies InsurancePolicy[]
 }
 
+model VehicleType {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model VehicleBodyType {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
 model ClientFile {
   id          Int      @id @default(autoincrement())
   name        String
