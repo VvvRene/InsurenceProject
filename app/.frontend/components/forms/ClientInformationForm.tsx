@@ -7,22 +7,26 @@ import {
   Stack,
   Box,
   Typography,
-  IconButton
+  IconButton,
+  Autocomplete,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import SaveIcon from '@mui/icons-material/Save';
 import { useTranslation } from 'react-i18next';
 import { ClientInfoSchema, type ClientInfo } from '~/.frontend/models/ClientInfo';
 import { DateTime } from 'luxon';
+import type { Broker, Subagent } from '~/generated/prisma/browser';
 
 interface ClientInformationFormProps {
   client?: ClientInfo,
+  brokers: Broker[],
+  subagents: Subagent[],
   onSave: (client: ClientInfo) => void
 }
 
-const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, onSave }) => {
+const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, brokers, subagents, onSave }) => {
   const { t } = useTranslation();
-  const { control, handleSubmit, watch, reset } = useForm<ClientInfo>({
+  const { control, handleSubmit, watch, reset, setValue } = useForm<ClientInfo>({
     resolver: zodResolver(ClientInfoSchema),
     defaultValues: {
       id: undefined,
@@ -40,6 +44,8 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
       natureOfWork: null,
       remark: null,
       date: null,
+      brokerId: null,
+      subagentId: null,
     }
   });
 
@@ -60,10 +66,36 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
       natureOfWork: client?.natureOfWork ?? null,
       remark: client?.remark ?? null,
       date: client?.date ?? null,
+      brokerId: client?.brokerId ?? null,
+      subagentId: client?.subagentId ?? null,
     });
   }, [client, reset]);
 
   const clientType = watch('type');
+  const selectedBrokerId = watch('brokerId');
+
+  // Filter subagents by selected broker
+  const filteredSubagents = selectedBrokerId
+    ? subagents.filter(s => s.brokerId === selectedBrokerId)
+    : [];
+
+  // When broker changes, clear subagent if it doesn't belong to the new broker
+  const handleBrokerChange = (brokerId: number | null) => {
+    setValue('brokerId', brokerId);
+    if (brokerId) {
+      const currentSubagentId = watch('subagentId');
+      if (currentSubagentId) {
+        const subagentBelongsToBroker = subagents.some(
+          s => s.id === currentSubagentId && s.brokerId === brokerId
+        );
+        if (!subagentBelongsToBroker) {
+          setValue('subagentId', null);
+        }
+      }
+    } else {
+      setValue('subagentId', null);
+    }
+  };
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
@@ -72,7 +104,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
         <Stack >
           <Stack
             direction='row'
-            alignItems="center" // Keeps the text and icon vertically centered
+            alignItems="center"
             justifyContent="space-between"
             sx={{ bgcolor: "layer.level2", py: 2, px: 3 }}
           >
@@ -211,7 +243,7 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                       {...fieldProps}
                       label={t('client.date')}
                       value={value ? DateTime.fromJSDate(new Date(value)) : null}
-                      onChange={(newValue) => onChange(newValue?.toJSDate())} // Explicitly update form state
+                      onChange={(newValue) => onChange(newValue?.toJSDate())}
                       slotProps={{
                         textField: {
                           fullWidth: true,
@@ -248,8 +280,6 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                   helperText={fieldState.error?.message}
                 />}
               />
-
-              {/* Conditional Fields: company-specific fields removed (BR No. & Industry) */}
 
               <Box sx={{ display: 'flex', gap: 2 }}>
                 <Box sx={{ width: '35%' }}>
@@ -305,7 +335,59 @@ const ClientInformationForm: React.FC<ClientInformationFormProps> = ({ client, o
                 />
               </Box>
 
-              {/* Work Description removed */}
+              {/* Broker / Subagent Assignment */}
+              <Typography variant="subtitle1" sx={{ fontWeight: 600, mt: 1 }}>
+                {t('client.assignment')}
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Controller
+                  name="brokerId"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      value={brokers.find(b => b.id === field.value) ?? null}
+                      onChange={(_, newValue) => {
+                        handleBrokerChange(newValue?.id ?? null);
+                      }}
+                      options={brokers}
+                      getOptionLabel={(option) => option.name}
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t('client.broker')}
+                          fullWidth
+                        />
+                      )}
+                      fullWidth
+                    />
+                  )}
+                />
+                <Controller
+                  name="subagentId"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      value={subagents.find(s => s.id === field.value) ?? null}
+                      onChange={(_, newValue) => {
+                        setValue('subagentId', newValue?.id ?? null);
+                      }}
+                      options={filteredSubagents}
+                      getOptionLabel={(option) => option.name}
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t('client.subagent')}
+                          fullWidth
+                          disabled={!selectedBrokerId}
+                        />
+                      )}
+                      fullWidth
+                    />
+                  )}
+                />
+              </Box>
 
               <Controller
                 name="remark"

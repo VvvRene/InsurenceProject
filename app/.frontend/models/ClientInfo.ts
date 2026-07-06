@@ -19,6 +19,8 @@ export const ClientInfoSchema = z.object({
     
     remark: z.string().nullable().optional(),
     date: z.date().nullable(),
+    brokerId: z.number().int().nullable().optional(),
+    subagentId: z.number().int().nullable().optional(),
 });
 
 export type ClientInfo = z.infer<typeof ClientInfoSchema>;

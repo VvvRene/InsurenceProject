@@ -784,14 +784,6 @@ export type InsurancePolicyUpdateOneWithoutPreviousPolicyNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InsurancePolicyUpdateToOneWithWhereWithoutPreviousPolicyInput, Prisma.InsurancePolicyUpdateWithoutPreviousPolicyInput>, Prisma.InsurancePolicyUncheckedUpdateWithoutPreviousPolicyInput>
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type InsurancePolicyUncheckedUpdateOneWithoutPreviousPolicyNestedInput = {
   create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutPreviousPolicyInput, Prisma.InsurancePolicyUncheckedCreateWithoutPreviousPolicyInput>
   connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutPreviousPolicyInput

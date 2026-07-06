@@ -1360,7 +1360,9 @@ export const ClientScalarFieldEnum = {
   industry: 'industry',
   natureOfWork: 'natureOfWork',
   workDescription: 'workDescription',
-  remark: 'remark'
+  remark: 'remark',
+  brokerId: 'brokerId',
+  subagentId: 'subagentId'
 } as const
 
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]

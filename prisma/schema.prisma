@@ -26,6 +26,10 @@ model Client {
   natureOfWork    String?
   workDescription String?
   remark          String?
+  brokerId        Int?
+  subagentId      Int?
+  broker          Broker?           @relation(fields: [brokerId], references: [id])
+  subagent        Subagent?         @relation(fields: [subagentId], references: [id])
   files           ClientFile[]
   policies        InsurancePolicy[]
 }
@@ -111,6 +115,7 @@ model Broker {
   name      String            @unique
   policies  InsurancePolicy[]
   subagents Subagent[]
+  clients   Client[]
 }
 
 model Subagent {
@@ -118,6 +123,7 @@ model Subagent {
   name     String
   brokerId Int
   broker   Broker  @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+  clients  Client[]
 
   @@unique([name, brokerId])
 }

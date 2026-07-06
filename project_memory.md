@@ -49,6 +49,14 @@
       - Brokers page updated with expandable subagent rows under each broker, supporting add/edit/delete via collapsible table rows.
       - Route `app/routes/brokers.tsx` updated: loader includes `subagents` relation, action handles `subagent_upsert` and `subagent_delete` intents.
       - i18n translations added in both `en.json` and `zh-TW.json` under the `subagent` key.
+    - **Client-to-Broker/Subagent assignment**:
+      - Client model updated with optional `brokerId` and `subagentId` foreign keys (many-to-one to Broker and Subagent respectively).
+      - Broker and Subagent models each have a `clients[]` relation back to Client.
+      - Migration `20260706154352_add_broker_subagent_to_client` created and applied.
+      - ClientInfo schema extended with `brokerId` and `subagentId` fields.
+      - Client form (`ClientInformationForm.tsx`) now has broker/subagent autocomplete selectors; subagent dropdown is filtered by selected broker.
+      - Clients list page (`ClientsInfoPage.tsx`) displays Broker and Subagent columns in the table.
+      - i18n keys `assignment`, `broker`, `subagent` added to client section in both locales.
     - Vehicle Type and Vehicle Body Type tables added to database (`VehicleType`, `VehicleBodyType`) with migration `20260702172801`.
     - Vehicle Type and Vehicle Body Type are now stored in the DB and fetched via loader, seeded with defaults.
     - Policy upsert dialog now has create buttons (+) for Vehicle Type and Vehicle Body Type fields, using Autocomplete (freeSolo with dropdown).

@@ -205,6 +205,7 @@ export type SubagentWhereInput = {
   name?: Prisma.StringFilter<"Subagent"> | string
   brokerId?: Prisma.IntFilter<"Subagent"> | number
   broker?: Prisma.XOR<Prisma.BrokerScalarRelationFilter, Prisma.BrokerWhereInput>
+  clients?: Prisma.ClientListRelationFilter
 }
 
 export type SubagentOrderByWithRelationInput = {
@@ -212,6 +213,7 @@ export type SubagentOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   broker?: Prisma.BrokerOrderByWithRelationInput
+  clients?: Prisma.ClientOrderByRelationAggregateInput
 }
 
 export type SubagentWhereUniqueInput = Prisma.AtLeast<{
@@ -223,6 +225,7 @@ export type SubagentWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Subagent"> | string
   brokerId?: Prisma.IntFilter<"Subagent"> | number
   broker?: Prisma.XOR<Prisma.BrokerScalarRelationFilter, Prisma.BrokerWhereInput>
+  clients?: Prisma.ClientListRelationFilter
 }, "id" | "name_brokerId">
 
 export type SubagentOrderByWithAggregationInput = {
@@ -248,23 +251,27 @@ export type SubagentScalarWhereWithAggregatesInput = {
 export type SubagentCreateInput = {
   name: string
   broker: Prisma.BrokerCreateNestedOneWithoutSubagentsInput
+  clients?: Prisma.ClientCreateNestedManyWithoutSubagentInput
 }
 
 export type SubagentUncheckedCreateInput = {
   id?: number
   name: string
   brokerId: number
+  clients?: Prisma.ClientUncheckedCreateNestedManyWithoutSubagentInput
 }
 
 export type SubagentUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   broker?: Prisma.BrokerUpdateOneRequiredWithoutSubagentsNestedInput
+  clients?: Prisma.ClientUpdateManyWithoutSubagentNestedInput
 }
 
 export type SubagentUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
+  clients?: Prisma.ClientUncheckedUpdateManyWithoutSubagentNestedInput
 }
 
 export type SubagentCreateManyInput = {
@@ -281,6 +288,11 @@ export type SubagentUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type SubagentNullableScalarRelationFilter = {
+  is?: Prisma.SubagentWhereInput | null
+  isNot?: Prisma.SubagentWhereInput | null
 }
 
 export type SubagentListRelationFilter = {
@@ -326,6 +338,22 @@ export type SubagentSumOrderByAggregateInput = {
   brokerId?: Prisma.SortOrder
 }
 
+export type SubagentCreateNestedOneWithoutClientsInput = {
+  create?: Prisma.XOR<Prisma.SubagentCreateWithoutClientsInput, Prisma.SubagentUncheckedCreateWithoutClientsInput>
+  connectOrCreate?: Prisma.SubagentCreateOrConnectWithoutClientsInput
+  connect?: Prisma.SubagentWhereUniqueInput
+}
+
+export type SubagentUpdateOneWithoutClientsNestedInput = {
+  create?: Prisma.XOR<Prisma.SubagentCreateWithoutClientsInput, Prisma.SubagentUncheckedCreateWithoutClientsInput>
+  connectOrCreate?: Prisma.SubagentCreateOrConnectWithoutClientsInput
+  upsert?: Prisma.SubagentUpsertWithoutClientsInput
+  disconnect?: Prisma.SubagentWhereInput | boolean
+  delete?: Prisma.SubagentWhereInput | boolean
+  connect?: Prisma.SubagentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SubagentUpdateToOneWithWhereWithoutClientsInput, Prisma.SubagentUpdateWithoutClientsInput>, Prisma.SubagentUncheckedUpdateWithoutClientsInput>
+}
+
 export type SubagentCreateNestedManyWithoutBrokerInput = {
   create?: Prisma.XOR<Prisma.SubagentCreateWithoutBrokerInput, Prisma.SubagentUncheckedCreateWithoutBrokerInput> | Prisma.SubagentCreateWithoutBrokerInput[] | Prisma.SubagentUncheckedCreateWithoutBrokerInput[]
   connectOrCreate?: Prisma.SubagentCreateOrConnectWithoutBrokerInput | Prisma.SubagentCreateOrConnectWithoutBrokerInput[]
@@ -368,13 +396,53 @@ export type SubagentUncheckedUpdateManyWithoutBrokerNestedInput = {
   deleteMany?: Prisma.SubagentScalarWhereInput | Prisma.SubagentScalarWhereInput[]
 }
 
+export type SubagentCreateWithoutClientsInput = {
+  name: string
+  broker: Prisma.BrokerCreateNestedOneWithoutSubagentsInput
+}
+
+export type SubagentUncheckedCreateWithoutClientsInput = {
+  id?: number
+  name: string
+  brokerId: number
+}
+
+export type SubagentCreateOrConnectWithoutClientsInput = {
+  where: Prisma.SubagentWhereUniqueInput
+  create: Prisma.XOR<Prisma.SubagentCreateWithoutClientsInput, Prisma.SubagentUncheckedCreateWithoutClientsInput>
+}
+
+export type SubagentUpsertWithoutClientsInput = {
+  update: Prisma.XOR<Prisma.SubagentUpdateWithoutClientsInput, Prisma.SubagentUncheckedUpdateWithoutClientsInput>
+  create: Prisma.XOR<Prisma.SubagentCreateWithoutClientsInput, Prisma.SubagentUncheckedCreateWithoutClientsInput>
+  where?: Prisma.SubagentWhereInput
+}
+
+export type SubagentUpdateToOneWithWhereWithoutClientsInput = {
+  where?: Prisma.SubagentWhereInput
+  data: Prisma.XOR<Prisma.SubagentUpdateWithoutClientsInput, Prisma.SubagentUncheckedUpdateWithoutClientsInput>
+}
+
+export type SubagentUpdateWithoutClientsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  broker?: Prisma.BrokerUpdateOneRequiredWithoutSubagentsNestedInput
+}
+
+export type SubagentUncheckedUpdateWithoutClientsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  brokerId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
 export type SubagentCreateWithoutBrokerInput = {
   name: string
+  clients?: Prisma.ClientCreateNestedManyWithoutSubagentInput
 }
 
 export type SubagentUncheckedCreateWithoutBrokerInput = {
   id?: number
   name: string
+  clients?: Prisma.ClientUncheckedCreateNestedManyWithoutSubagentInput
 }
 
 export type SubagentCreateOrConnectWithoutBrokerInput = {
@@ -419,11 +487,13 @@ export type SubagentCreateManyBrokerInput = {
 
 export type SubagentUpdateWithoutBrokerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  clients?: Prisma.ClientUpdateManyWithoutSubagentNestedInput
 }
 
 export type SubagentUncheckedUpdateWithoutBrokerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  clients?: Prisma.ClientUncheckedUpdateManyWithoutSubagentNestedInput
 }
 
 export type SubagentUncheckedUpdateManyWithoutBrokerInput = {
@@ -432,12 +502,43 @@ export type SubagentUncheckedUpdateManyWithoutBrokerInput = {
 }
 
 
+/**
+ * Count Type SubagentCountOutputType
+ */
+
+export type SubagentCountOutputType = {
+  clients: number
+}
+
+export type SubagentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  clients?: boolean | SubagentCountOutputTypeCountClientsArgs
+}
+
+/**
+ * SubagentCountOutputType without action
+ */
+export type SubagentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SubagentCountOutputType
+   */
+  select?: Prisma.SubagentCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SubagentCountOutputType without action
+ */
+export type SubagentCountOutputTypeCountClientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientWhereInput
+}
+
 
 export type SubagentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   brokerId?: boolean
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clients?: boolean | Prisma.Subagent$clientsArgs<ExtArgs>
+  _count?: boolean | Prisma.SubagentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subagent"]>
 
 export type SubagentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -463,6 +564,8 @@ export type SubagentSelectScalar = {
 export type SubagentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "brokerId", ExtArgs["result"]["subagent"]>
 export type SubagentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clients?: boolean | Prisma.Subagent$clientsArgs<ExtArgs>
+  _count?: boolean | Prisma.SubagentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SubagentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
@@ -475,6 +578,7 @@ export type $SubagentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Subagent"
   objects: {
     broker: Prisma.$BrokerPayload<ExtArgs>
+    clients: Prisma.$ClientPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -875,6 +979,7 @@ readonly fields: SubagentFieldRefs;
 export interface Prisma__SubagentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   broker<T extends Prisma.BrokerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BrokerDefaultArgs<ExtArgs>>): Prisma.Prisma__BrokerClient<runtime.Types.Result.GetResult<Prisma.$BrokerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  clients<T extends Prisma.Subagent$clientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subagent$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1305,6 +1410,30 @@ export type SubagentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Subagents to delete.
    */
   limit?: number
+}
+
+/**
+ * Subagent.clients
+ */
+export type Subagent$clientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Client
+   */
+  select?: Prisma.ClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Client
+   */
+  omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  where?: Prisma.ClientWhereInput
+  orderBy?: Prisma.ClientOrderByWithRelationInput | Prisma.ClientOrderByWithRelationInput[]
+  cursor?: Prisma.ClientWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientScalarFieldEnum | Prisma.ClientScalarFieldEnum[]
 }
 
 /**
