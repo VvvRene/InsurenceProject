@@ -21,7 +21,19 @@ export const ClientInfoSchema = z.object({
     date: z.date().nullable(),
     brokerId: z.number().int().nullable().optional(),
     subagentId: z.number().int().nullable().optional(),
-});
+}).refine(
+    (data) => {
+        // If subagentId is set, brokerId must also be set
+        if (data.subagentId && !data.brokerId) {
+            return false;
+        }
+        return true;
+    },
+    {
+        message: 'Broker is required when a subagent is assigned',
+        path: ['brokerId'],
+    }
+);
 
 export type ClientInfo = z.infer<typeof ClientInfoSchema>;
 

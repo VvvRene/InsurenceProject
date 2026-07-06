@@ -57,6 +57,10 @@
       - Client form (`ClientInformationForm.tsx`) now has broker/subagent autocomplete selectors; subagent dropdown is filtered by selected broker.
       - Clients list page (`ClientsInfoPage.tsx`) displays Broker and Subagent columns in the table.
       - i18n keys `assignment`, `broker`, `subagent` added to client section in both locales.
+      - **Database constraints** (migration `20260706155136_add_client_subagent_constraint`):
+        - CHECK constraint: `brokerId IS NOT NULL OR subagentId IS NULL` — prevents setting subagentId without brokerId.
+        - PostgreSQL trigger function validates that the subagentId belongs to the same broker as brokerId on every insert/update.
+        - Zod `.refine()` validation at the application layer enforces the same rule with a user-friendly error message.
     - Vehicle Type and Vehicle Body Type tables added to database (`VehicleType`, `VehicleBodyType`) with migration `20260702172801`.
     - Vehicle Type and Vehicle Body Type are now stored in the DB and fetched via loader, seeded with defaults.
     - Policy upsert dialog now has create buttons (+) for Vehicle Type and Vehicle Body Type fields, using Autocomplete (freeSolo with dropdown).
