@@ -48,6 +48,8 @@
     - Vehicle Info management page at `/vehicle-info` with search, add, edit capabilities for both Vehicle Types and Vehicle Body Types — mirrors the Brokers page pattern.
     - Navigation link "Vehicle Info / 車輛資訊" added to the sidebar under Data Management.
     - All text is translated in both `en.json` and `zh-TW.json`.
+    - Expiry Date auto-updates when Effective Date changes: Expiry Date = Effective Date + 1 year - 1 day (implemented in `InsurancePolicyForm.tsx` via `useEffect` watching `effectiveDate` field changes).
+    - Policy Number field is no longer compulsory — removed `.min(1, 'Required')` validation from `insuranceGeneralInformationSchema` in `InsuranceGenernalInformation.ts`, allowing empty string values.
   - Next steps / Suggestions:
     - Run `npm install` and `npx prisma migrate dev` to verify database connectivity and apply migrations.
     - Start the dev server (`npm run dev` or equivalent) to confirm build and routing behavior.
