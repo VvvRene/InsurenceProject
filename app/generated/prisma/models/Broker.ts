@@ -193,12 +193,14 @@ export type BrokerWhereInput = {
   id?: Prisma.IntFilter<"Broker"> | number
   name?: Prisma.StringFilter<"Broker"> | string
   policies?: Prisma.InsurancePolicyListRelationFilter
+  subagents?: Prisma.SubagentListRelationFilter
 }
 
 export type BrokerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   policies?: Prisma.InsurancePolicyOrderByRelationAggregateInput
+  subagents?: Prisma.SubagentOrderByRelationAggregateInput
 }
 
 export type BrokerWhereUniqueInput = Prisma.AtLeast<{
@@ -208,6 +210,7 @@ export type BrokerWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.BrokerWhereInput[]
   NOT?: Prisma.BrokerWhereInput | Prisma.BrokerWhereInput[]
   policies?: Prisma.InsurancePolicyListRelationFilter
+  subagents?: Prisma.SubagentListRelationFilter
 }, "id" | "name">
 
 export type BrokerOrderByWithAggregationInput = {
@@ -231,23 +234,27 @@ export type BrokerScalarWhereWithAggregatesInput = {
 export type BrokerCreateInput = {
   name: string
   policies?: Prisma.InsurancePolicyCreateNestedManyWithoutBrokerInput
+  subagents?: Prisma.SubagentCreateNestedManyWithoutBrokerInput
 }
 
 export type BrokerUncheckedCreateInput = {
   id?: number
   name: string
   policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutBrokerInput
+  subagents?: Prisma.SubagentUncheckedCreateNestedManyWithoutBrokerInput
 }
 
 export type BrokerUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   policies?: Prisma.InsurancePolicyUpdateManyWithoutBrokerNestedInput
+  subagents?: Prisma.SubagentUpdateManyWithoutBrokerNestedInput
 }
 
 export type BrokerUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutBrokerNestedInput
+  subagents?: Prisma.SubagentUncheckedUpdateManyWithoutBrokerNestedInput
 }
 
 export type BrokerCreateManyInput = {
@@ -306,13 +313,29 @@ export type BrokerUpdateOneRequiredWithoutPoliciesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BrokerUpdateToOneWithWhereWithoutPoliciesInput, Prisma.BrokerUpdateWithoutPoliciesInput>, Prisma.BrokerUncheckedUpdateWithoutPoliciesInput>
 }
 
+export type BrokerCreateNestedOneWithoutSubagentsInput = {
+  create?: Prisma.XOR<Prisma.BrokerCreateWithoutSubagentsInput, Prisma.BrokerUncheckedCreateWithoutSubagentsInput>
+  connectOrCreate?: Prisma.BrokerCreateOrConnectWithoutSubagentsInput
+  connect?: Prisma.BrokerWhereUniqueInput
+}
+
+export type BrokerUpdateOneRequiredWithoutSubagentsNestedInput = {
+  create?: Prisma.XOR<Prisma.BrokerCreateWithoutSubagentsInput, Prisma.BrokerUncheckedCreateWithoutSubagentsInput>
+  connectOrCreate?: Prisma.BrokerCreateOrConnectWithoutSubagentsInput
+  upsert?: Prisma.BrokerUpsertWithoutSubagentsInput
+  connect?: Prisma.BrokerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BrokerUpdateToOneWithWhereWithoutSubagentsInput, Prisma.BrokerUpdateWithoutSubagentsInput>, Prisma.BrokerUncheckedUpdateWithoutSubagentsInput>
+}
+
 export type BrokerCreateWithoutPoliciesInput = {
   name: string
+  subagents?: Prisma.SubagentCreateNestedManyWithoutBrokerInput
 }
 
 export type BrokerUncheckedCreateWithoutPoliciesInput = {
   id?: number
   name: string
+  subagents?: Prisma.SubagentUncheckedCreateNestedManyWithoutBrokerInput
 }
 
 export type BrokerCreateOrConnectWithoutPoliciesInput = {
@@ -333,11 +356,51 @@ export type BrokerUpdateToOneWithWhereWithoutPoliciesInput = {
 
 export type BrokerUpdateWithoutPoliciesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  subagents?: Prisma.SubagentUpdateManyWithoutBrokerNestedInput
 }
 
 export type BrokerUncheckedUpdateWithoutPoliciesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  subagents?: Prisma.SubagentUncheckedUpdateManyWithoutBrokerNestedInput
+}
+
+export type BrokerCreateWithoutSubagentsInput = {
+  name: string
+  policies?: Prisma.InsurancePolicyCreateNestedManyWithoutBrokerInput
+}
+
+export type BrokerUncheckedCreateWithoutSubagentsInput = {
+  id?: number
+  name: string
+  policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutBrokerInput
+}
+
+export type BrokerCreateOrConnectWithoutSubagentsInput = {
+  where: Prisma.BrokerWhereUniqueInput
+  create: Prisma.XOR<Prisma.BrokerCreateWithoutSubagentsInput, Prisma.BrokerUncheckedCreateWithoutSubagentsInput>
+}
+
+export type BrokerUpsertWithoutSubagentsInput = {
+  update: Prisma.XOR<Prisma.BrokerUpdateWithoutSubagentsInput, Prisma.BrokerUncheckedUpdateWithoutSubagentsInput>
+  create: Prisma.XOR<Prisma.BrokerCreateWithoutSubagentsInput, Prisma.BrokerUncheckedCreateWithoutSubagentsInput>
+  where?: Prisma.BrokerWhereInput
+}
+
+export type BrokerUpdateToOneWithWhereWithoutSubagentsInput = {
+  where?: Prisma.BrokerWhereInput
+  data: Prisma.XOR<Prisma.BrokerUpdateWithoutSubagentsInput, Prisma.BrokerUncheckedUpdateWithoutSubagentsInput>
+}
+
+export type BrokerUpdateWithoutSubagentsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  policies?: Prisma.InsurancePolicyUpdateManyWithoutBrokerNestedInput
+}
+
+export type BrokerUncheckedUpdateWithoutSubagentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutBrokerNestedInput
 }
 
 
@@ -347,10 +410,12 @@ export type BrokerUncheckedUpdateWithoutPoliciesInput = {
 
 export type BrokerCountOutputType = {
   policies: number
+  subagents: number
 }
 
 export type BrokerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   policies?: boolean | BrokerCountOutputTypeCountPoliciesArgs
+  subagents?: boolean | BrokerCountOutputTypeCountSubagentsArgs
 }
 
 /**
@@ -370,11 +435,19 @@ export type BrokerCountOutputTypeCountPoliciesArgs<ExtArgs extends runtime.Types
   where?: Prisma.InsurancePolicyWhereInput
 }
 
+/**
+ * BrokerCountOutputType without action
+ */
+export type BrokerCountOutputTypeCountSubagentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubagentWhereInput
+}
+
 
 export type BrokerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   policies?: boolean | Prisma.Broker$policiesArgs<ExtArgs>
+  subagents?: boolean | Prisma.Broker$subagentsArgs<ExtArgs>
   _count?: boolean | Prisma.BrokerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["broker"]>
 
@@ -396,6 +469,7 @@ export type BrokerSelectScalar = {
 export type BrokerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["broker"]>
 export type BrokerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   policies?: boolean | Prisma.Broker$policiesArgs<ExtArgs>
+  subagents?: boolean | Prisma.Broker$subagentsArgs<ExtArgs>
   _count?: boolean | Prisma.BrokerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BrokerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -405,6 +479,7 @@ export type $BrokerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Broker"
   objects: {
     policies: Prisma.$InsurancePolicyPayload<ExtArgs>[]
+    subagents: Prisma.$SubagentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -804,6 +879,7 @@ readonly fields: BrokerFieldRefs;
 export interface Prisma__BrokerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   policies<T extends Prisma.Broker$policiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Broker$policiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InsurancePolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subagents<T extends Prisma.Broker$subagentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Broker$subagentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubagentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1249,6 +1325,30 @@ export type Broker$policiesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.InsurancePolicyScalarFieldEnum | Prisma.InsurancePolicyScalarFieldEnum[]
+}
+
+/**
+ * Broker.subagents
+ */
+export type Broker$subagentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Subagent
+   */
+  select?: Prisma.SubagentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Subagent
+   */
+  omit?: Prisma.SubagentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubagentInclude<ExtArgs> | null
+  where?: Prisma.SubagentWhereInput
+  orderBy?: Prisma.SubagentOrderByWithRelationInput | Prisma.SubagentOrderByWithRelationInput[]
+  cursor?: Prisma.SubagentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubagentScalarFieldEnum | Prisma.SubagentScalarFieldEnum[]
 }
 
 /**

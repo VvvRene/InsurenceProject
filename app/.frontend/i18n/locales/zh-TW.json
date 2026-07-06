@@ -151,6 +151,14 @@
     "createBroker": "新增經紀",
     "brokerName": "經紀姓名"
   },
+  "subagent": {
+    "subagents": "下屬經紀",
+    "addSubagent": "新增下屬經紀",
+    "editSubagent": "編輯下屬經紀",
+    "createSubagent": "新增下屬經紀",
+    "subagentName": "下屬經紀姓名",
+    "noSubagents": "此經紀暫無下屬經紀。"
+  },
   "insuranceCompany": {
     "title": "保險公司",
     "searchByName": "按名稱搜尋",

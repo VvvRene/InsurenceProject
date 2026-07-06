@@ -107,9 +107,19 @@ model InsuranceCompany {
 }
 
 model Broker {
-  id       Int               @id @default(autoincrement())
-  name     String            @unique
-  policies InsurancePolicy[]
+  id        Int               @id @default(autoincrement())
+  name      String            @unique
+  policies  InsurancePolicy[]
+  subagents Subagent[]
+}
+
+model Subagent {
+  id       Int     @id @default(autoincrement())
+  name     String
+  brokerId Int
+  broker   Broker  @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+
+  @@unique([name, brokerId])
 }
 
 model VehicleType {

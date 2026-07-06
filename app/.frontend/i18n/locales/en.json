@@ -151,6 +151,14 @@
     "createBroker": "Create Broker",
     "brokerName": "Broker Name"
   },
+  "subagent": {
+    "subagents": "Subagents",
+    "addSubagent": "Add Subagent",
+    "editSubagent": "Edit Subagent",
+    "createSubagent": "Create Subagent",
+    "subagentName": "Subagent Name",
+    "noSubagents": "No subagents for this broker."
+  },
   "insuranceCompany": {
     "title": "Insurance Companies",
     "searchByName": "Search by name",

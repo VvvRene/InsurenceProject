@@ -391,6 +391,7 @@ export const ModelName = {
   LifePolicyDetail: 'LifePolicyDetail',
   InsuranceCompany: 'InsuranceCompany',
   Broker: 'Broker',
+  Subagent: 'Subagent',
   VehicleType: 'VehicleType',
   VehicleBodyType: 'VehicleBodyType',
   ClientFile: 'ClientFile',
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "client" | "insurancePolicy" | "vehiclePolicyDetail" | "homePolicyDetail" | "lifePolicyDetail" | "insuranceCompany" | "broker" | "vehicleType" | "vehicleBodyType" | "clientFile" | "currency"
+    modelProps: "client" | "insurancePolicy" | "vehiclePolicyDetail" | "homePolicyDetail" | "lifePolicyDetail" | "insuranceCompany" | "broker" | "subagent" | "vehicleType" | "vehicleBodyType" | "clientFile" | "currency"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -932,6 +933,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Subagent: {
+      payload: Prisma.$SubagentPayload<ExtArgs>
+      fields: Prisma.SubagentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SubagentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SubagentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>
+        }
+        findFirst: {
+          args: Prisma.SubagentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SubagentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>
+        }
+        findMany: {
+          args: Prisma.SubagentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>[]
+        }
+        create: {
+          args: Prisma.SubagentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>
+        }
+        createMany: {
+          args: Prisma.SubagentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SubagentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>[]
+        }
+        delete: {
+          args: Prisma.SubagentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>
+        }
+        update: {
+          args: Prisma.SubagentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>
+        }
+        deleteMany: {
+          args: Prisma.SubagentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SubagentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SubagentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>[]
+        }
+        upsert: {
+          args: Prisma.SubagentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubagentPayload>
+        }
+        aggregate: {
+          args: Prisma.SubagentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubagent>
+        }
+        groupBy: {
+          args: Prisma.SubagentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubagentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SubagentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubagentCountAggregateOutputType> | number
+        }
+      }
+    }
     VehicleType: {
       payload: Prisma.$VehicleTypePayload<ExtArgs>
       fields: Prisma.VehicleTypeFieldRefs
@@ -1378,6 +1453,15 @@ export const BrokerScalarFieldEnum = {
 export type BrokerScalarFieldEnum = (typeof BrokerScalarFieldEnum)[keyof typeof BrokerScalarFieldEnum]
 
 
+export const SubagentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  brokerId: 'brokerId'
+} as const
+
+export type SubagentScalarFieldEnum = (typeof SubagentScalarFieldEnum)[keyof typeof SubagentScalarFieldEnum]
+
+
 export const VehicleTypeScalarFieldEnum = {
   id: 'id',
   name: 'name'
@@ -1611,6 +1695,7 @@ export type GlobalOmitConfig = {
   lifePolicyDetail?: Prisma.LifePolicyDetailOmit
   insuranceCompany?: Prisma.InsuranceCompanyOmit
   broker?: Prisma.BrokerOmit
+  subagent?: Prisma.SubagentOmit
   vehicleType?: Prisma.VehicleTypeOmit
   vehicleBodyType?: Prisma.VehicleBodyTypeOmit
   clientFile?: Prisma.ClientFileOmit

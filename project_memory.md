@@ -41,6 +41,14 @@
     - API routes and server endpoints: several route files exist (e.g., `clientFileDownload.$fileId.ts`) and may need full implementation and tests.
     - Static assets/uploads: `public/uploads` and `public/` content exist; verify upload handling and permissions.
   - Newly added features:
+    - **Subagent entity** created with many-to-one relationship to Broker:
+      - Prisma `Subagent` model added with fields `id`, `name`, `brokerId` (FK to Broker with cascade delete), and a unique constraint on `[name, brokerId]`.
+      - Migration `20260706153019_add_subagent_model` created and applied.
+      - Frontend model `SubagentInfo.ts` (Zod schema + TypeScript type) created.
+      - `SubagentInformationForm` and `SubagentUpsertDialog` components created (reusable pattern mirroring Broker form/dialog).
+      - Brokers page updated with expandable subagent rows under each broker, supporting add/edit/delete via collapsible table rows.
+      - Route `app/routes/brokers.tsx` updated: loader includes `subagents` relation, action handles `subagent_upsert` and `subagent_delete` intents.
+      - i18n translations added in both `en.json` and `zh-TW.json` under the `subagent` key.
     - Vehicle Type and Vehicle Body Type tables added to database (`VehicleType`, `VehicleBodyType`) with migration `20260702172801`.
     - Vehicle Type and Vehicle Body Type are now stored in the DB and fetched via loader, seeded with defaults.
     - Policy upsert dialog now has create buttons (+) for Vehicle Type and Vehicle Body Type fields, using Autocomplete (freeSolo with dropdown).
