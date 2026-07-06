@@ -130,11 +130,20 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
 
     useEffect(() => {
         const subscription = insuranceGeneralInformationWatch((value, { name, type }) => {
-            console.log("Insurance general information data changed:", value);
-            setInsuranceGeneralInformation(value as InsuranceGeneralInformation); // Update default values with the latest form data
+            console.log("Insurance general information data changed:", value, name, type);
+            const newValue = value as InsuranceGeneralInformation;
+
+            // When effectiveDate changes, auto-update expiryDate to effectiveDate + 1 year - 1 day
+            if (name === 'effectiveDate' && newValue.effectiveDate) {
+                const calculatedExpiryDate = DateTime.fromJSDate(newValue.effectiveDate).plus({ years: 1 }).minus({ days: 1 }).toJSDate();
+                setInsuranceGeneralInformationValue('expiryDate', calculatedExpiryDate);
+                newValue.expiryDate = calculatedExpiryDate;
+            }
+
+            setInsuranceGeneralInformation(newValue);
         });
         return () => subscription.unsubscribe();
-    }, [insuranceGeneralInformationWatch]);
+    }, [insuranceGeneralInformationWatch, setInsuranceGeneralInformationValue]);
 
     useEffect(() => {
         const subscription = vehiclePolicyDetailInformationWatch((value, { name, type }) => {
