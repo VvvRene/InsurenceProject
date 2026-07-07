@@ -92,6 +92,8 @@
     "insuranceCompany": "Insurance Company",
     "broker": "Broker",
     "effectiveDate": "Effective Date",
+    "clientBroker": "Client's Broker",
+    "clientSubagent": "Client's Subagent",
     "clientIsRequired": "Client is required",
     "addClient": "Add client",
     "addInsuranceCompany": "Add insurance company",

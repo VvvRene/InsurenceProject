@@ -70,6 +70,7 @@
     - All text is translated in both `en.json` and `zh-TW.json`.
     - Expiry Date auto-updates when Effective Date changes: Expiry Date = Effective Date + 1 year - 1 day (implemented in `InsurancePolicyForm.tsx` via `useEffect` watching `effectiveDate` field changes).
     - Policy Number field is no longer compulsory — removed `.min(1, 'Required')` validation from `insuranceGeneralInformationSchema` in `InsuranceGenernalInformation.ts`, allowing empty string values.
+    - In the Insurance Policy Form, when a client is selected, read-only "Client's Broker" and "Client's Subagent" fields appear (hidden by default) showing the broker/subagent assigned to that client. The data flows from the loader (which includes `broker` and `subagent` relations on clients and fetches all subagents) through `PolicyInfoPage` → `PolicyUpsertDialog` → `InsurancePolicyForm` → `GeneranlInforamtionForm`.
   - Next steps / Suggestions:
     - Run `npm install` and `npx prisma migrate dev` to verify database connectivity and apply migrations.
     - Start the dev server (`npm run dev` or equivalent) to confirm build and routing behavior.

@@ -8,7 +8,7 @@ import {
 
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import type { Broker, Client, InsuranceCompany } from '~/generated/prisma/browser';
+import type { Broker, Client, InsuranceCompany, Subagent } from '~/generated/prisma/browser';
 import { TabsLayout, type TabItem } from '../TabsLayout';
 import InsurancePolicyGeneralInformationForm from './insurance_policy/GeneranlInforamtionForm';
 import VehicleDetailForm from './insurance_policy/VehicleDetailForm';
@@ -32,6 +32,7 @@ import { toFormData } from '~/utils/toFormData';
 
 interface InsurancePolicyFormProps {
     clients: Client[]; // Assuming you have a list of clients to select from
+    subagents: Subagent[];
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[]; // Add broker type if needed
     vehicleTypes: VehicleOptionInfo[];
@@ -41,7 +42,7 @@ interface InsurancePolicyFormProps {
     onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void; // Optional onSave callback
 }
 
-const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, initialGeneralInfo, initialVehicleDetail, onSave }) => {
+const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, subagents, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, initialGeneralInfo, initialVehicleDetail, onSave }) => {
     const { t } = useTranslation();
     const fetcher = useFetcher();
 
@@ -159,6 +160,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
             content: <InsurancePolicyGeneralInformationForm
                 control={insuranceGeneralInformationControl}
                 clients={availableClients}
+                subagents={subagents}
                 insuranceCompanies={availableInsuranceCompanies}
                 brokers={availableBrokers}
                 onAddInsuranceCompany={() => setIsInsuranceCompanyDialogOpen(true)}
@@ -357,6 +359,8 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, insu
 
             <ClientUpsertDialog
                 open={isClientDialogOpen}
+                brokers={availableBrokers}
+                subagents={subagents}
                 onClose={() => setIsClientDialogOpen(false)}
                 onSave={handleClientDialogSave}
             />
