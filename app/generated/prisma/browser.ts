@@ -53,6 +53,11 @@ export type InsuranceCompany = Prisma.InsuranceCompanyModel
  */
 export type Broker = Prisma.BrokerModel
 /**
+ * Model Subagent
+ * 
+ */
+export type Subagent = Prisma.SubagentModel
+/**
  * Model VehicleType
  * 
  */

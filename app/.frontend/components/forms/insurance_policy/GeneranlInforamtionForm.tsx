@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import {
     Box, Grid, TextField, MenuItem, Typography, Button,
@@ -6,12 +5,12 @@ import {
     IconButton, Autocomplete
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useForm, Controller, type Control } from 'react-hook-form';
+import { useForm, Controller, useWatch, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import type { Broker, Client, InsuranceCompany } from '~/generated/prisma/browser';
+import type { Broker, Client, InsuranceCompany, Subagent } from '~/generated/prisma/browser';
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { DatePicker } from '@mui/x-date-pickers';
 import { validate } from 'uuid';
@@ -20,6 +19,7 @@ import { validate } from 'uuid';
 interface InsurancePolicyGeneralInformationFormProps {
     control: Control<InsuranceGeneralInformation>; // React Hook Form control object 
     clients: Client[]; // Assuming you have a list of clients to select from
+    subagents: Subagent[];
     insuranceCompanies: InsuranceCompany[]; // Assuming insurance companies are also clients, adjust as needed
     brokers: Broker[];  
     onAddInsuranceCompany?: () => void;
@@ -30,6 +30,7 @@ interface InsurancePolicyGeneralInformationFormProps {
 const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInformationFormProps> = ({
     control, 
     clients,
+    subagents,
     insuranceCompanies,
     brokers,
     onAddInsuranceCompany,
@@ -37,6 +38,21 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
     onAddClient
 }) => {
     const { t } = useTranslation();
+
+    const selectedClientId = useWatch({ control, name: 'clientId' });
+    const selectedClient = selectedClientId ? clients.find((client) => client.id === selectedClientId) : null;
+
+    // Derive the broker and subagent names from the selected client's relations
+    const selectedClientBrokerName = selectedClient?.brokerId
+        ? brokers.find((b) => b.id === selectedClient.brokerId)?.name ?? null
+        : null;
+    const selectedClientSubagentName = selectedClient?.subagentId
+        ? subagents.find((s) => s.id === selectedClient.subagentId)?.name ?? null
+        : null;
+
+    const showClientBroker = !!(selectedClientBrokerName);
+    const showClientSubagent = !!(selectedClientSubagentName);
+
     return (
         <Box sx={{ overflow: 'hidden' }}>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -217,6 +233,30 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                 </IconButton>
                             ) : null}
                         </Box>
+
+                        {/* Client's Broker (read-only, hidden by default) */}
+                        {showClientBroker && (
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                                <Box sx={{ width: '50%' }}>
+                                    <TextField
+                                        disabled
+                                        label={t('policy.clientBroker')}
+                                        value={selectedClientBrokerName || ''}
+                                        fullWidth
+                                    />
+                                </Box>
+                                {showClientSubagent && (
+                                    <Box sx={{ width: '50%' }}>
+                                        <TextField
+                                            disabled
+                                            label={t('policy.clientSubagent')}
+                                            value={selectedClientSubagentName || ''}
+                                            fullWidth
+                                        />
+                                    </Box>
+                                )}
+                            </Box>
+                        )}
 
                         {/* Insurance Company */}
                         <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>

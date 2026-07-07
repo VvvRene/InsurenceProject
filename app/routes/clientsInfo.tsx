@@ -6,15 +6,17 @@ import { useFetcher, useLoaderData } from "react-router";
 import { ClientInfoSchema, type ClientInfo } from "~/.frontend/models/ClientInfo";
 import { toFormData } from "~/utils/toFormData";
 import { fromFormData } from "~/utils/fromFormData";
-import { ne } from "@faker-js/faker";
 
 export async function loader() {
-    const clients = await prisma.client.findMany();
-    return { clients };
+    const clients = await prisma.client.findMany({
+        include: { broker: true, subagent: true },
+    });
+    const brokers = await prisma.broker.findMany({ orderBy: { name: 'asc' } });
+    const subagents = await prisma.subagent.findMany({ orderBy: { name: 'asc' } });
+    return { clients, brokers, subagents };
 }
 
 export async function action({ request }: Route.ActionArgs) {
-    // Handle form submissions or other actions here
     const formData = await request.formData();
     const intent = formData.get("intent");
     switch (intent) {
@@ -32,6 +34,8 @@ async function clientCreateAction(formData: FormData) {
         ...rawData,
         id: parsedId,
         date: rawData.date ? new Date(rawData.date) : null,
+        brokerId: rawData.brokerId ? Number(rawData.brokerId) : null,
+        subagentId: rawData.subagentId ? Number(rawData.subagentId) : null,
     });  
     if (result.success) {
         const clientData = {
@@ -54,6 +58,8 @@ async function clientCreateAction(formData: FormData) {
             industry: result.data.industry,
             natureOfWork: result.data.natureOfWork,
             remark: result.data.remark, 
+            brokerId: result.data.brokerId ?? null,
+            subagentId: result.data.subagentId ?? null,
         };
 
         if (result.data.id) {
@@ -85,7 +91,7 @@ async function clientCreateAction(formData: FormData) {
 
 export default function clientsInfo({ }: Route.ComponentProps) {
     const fetcher = useFetcher();
-    const { clients } = useLoaderData<typeof loader>();
+    const { clients, brokers, subagents } = useLoaderData<typeof loader>();
     const handleClientUpsert = async (clientInfo: ClientInfo) => {
         const formData = toFormData(clientInfo);
         formData.append("intent", "client_upsert");
@@ -93,7 +99,7 @@ export default function clientsInfo({ }: Route.ComponentProps) {
     }
     return (
         <>
-            <ClientsInfoPage clients={clients} onSave={handleClientUpsert} />
+            <ClientsInfoPage clients={clients} brokers={brokers} subagents={subagents} onSave={handleClientUpsert} />
         </>
     );
 }

@@ -36,6 +36,9 @@
     "phone": "Phone#",
     "email": "Email",
     "remark": "Remark",
+    "assignment": "Assignment",
+    "broker": "Broker",
+    "subagent": "Subagent",
     "editClient": "Edit Client",
     "createClient": "Create Client",
     "clientType": "Client Type",
@@ -89,6 +92,8 @@
     "insuranceCompany": "Insurance Company",
     "broker": "Broker",
     "effectiveDate": "Effective Date",
+    "clientBroker": "Client's Broker",
+    "clientSubagent": "Client's Subagent",
     "clientIsRequired": "Client is required",
     "addClient": "Add client",
     "addInsuranceCompany": "Add insurance company",
@@ -150,6 +155,14 @@
     "editBroker": "Edit Broker",
     "createBroker": "Create Broker",
     "brokerName": "Broker Name"
+  },
+  "subagent": {
+    "subagents": "Subagents",
+    "addSubagent": "Add Subagent",
+    "editSubagent": "Edit Subagent",
+    "createSubagent": "Create Subagent",
+    "subagentName": "Subagent Name",
+    "noSubagents": "No subagents for this broker."
   },
   "insuranceCompany": {
     "title": "Insurance Companies",

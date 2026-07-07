@@ -14,7 +14,13 @@ import { InsuranceCompanyInfoSchema, type InsuranceCompanyInfo } from "~/.fronte
 import { BrokerInfoSchema, type BrokerInfo } from "~/.frontend/models/BrokerInfo";
 
 export async function loader() {
-    const clients = await prisma.client.findMany();
+    const clients = await prisma.client.findMany({
+        include: {
+            broker: true,
+            subagent: true,
+        },
+    });
+    const subagents = await prisma.subagent.findMany();
     const insuranceCompanies = await prisma.insuranceCompany.findMany();
     const brokers = await prisma.broker.findMany();
     const insurancePolicies = await prisma.insurancePolicy.findMany({
@@ -27,7 +33,7 @@ export async function loader() {
     });
     const vehicleTypes = await prisma.vehicleType.findMany();
     const vehicleBodyTypes = await prisma.vehicleBodyType.findMany();
-    return { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes };
+    return { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes, subagents };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -254,7 +260,7 @@ async function policyUpsertAction(formData: FormData) {
 
 export default function PolicyInfo({ }: Route.ComponentProps) {
     const fetcher = useFetcher();
-    const { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes } = useLoaderData<typeof loader>();
+    const { clients, insuranceCompanies, brokers, insurancePolicies, vehicleTypes, vehicleBodyTypes, subagents } = useLoaderData<typeof loader>();
     const handlePolicyUpsert = async (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => {
         const formData = toFormData(data);
         formData.append("intent", "policy_upsert");
@@ -266,6 +272,7 @@ export default function PolicyInfo({ }: Route.ComponentProps) {
                 clients={clients}
                 insuranceCompanies={insuranceCompanies}
                 brokers={brokers}
+                subagents={subagents}
                 insurancePolicies={insurancePolicies}
                 vehicleTypes={vehicleTypes}
                 vehicleBodyTypes={vehicleBodyTypes}

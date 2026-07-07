@@ -1,14 +1,12 @@
 "use client";
 
 import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { Dialog, Paper } from '@mui/material';
-import type { Client } from '~/generated/prisma/client';
-import ClientInformationForm from '../forms/ClientInformationForm';
-import { Container } from '@mui/system';
+import { useForm } from 'react-hook-form';
+import { Dialog } from '@mui/material';
 import type { ClientInfo } from '~/.frontend/models/ClientInfo';
+import type { Broker, Subagent } from '~/generated/prisma/browser';
+import ClientInformationForm from '../forms/ClientInformationForm';
 
-// Define the shape of the form data
 interface FileUploadFormInputs {
   description: string;
   file: FileList;
@@ -18,18 +16,20 @@ interface FileUploadFormInputs {
 interface ClientCreationDialogProps {
   open: boolean;
   client?: ClientInfo;
+  brokers: Broker[];
+  subagents: Subagent[];
   onClose: () => void;
   onSave: (client: ClientInfo) => void;
 }
 
-const ClientCreationDialog: React.FC<ClientCreationDialogProps> = ({ open, client, onClose, onSave }) => {
+const ClientCreationDialog: React.FC<ClientCreationDialogProps> = ({ open, client, brokers, subagents, onClose, onSave }) => {
 
   const { reset } = useForm<FileUploadFormInputs>({
-    defaultValues: null as unknown as FileUploadFormInputs // Initialize with null and cast to the correct type
+    defaultValues: null as unknown as FileUploadFormInputs
   });
 
   const handleInternalClose = () => {
-    reset(); // Clear form on close
+    reset();
     onClose();
   };
  
@@ -47,7 +47,7 @@ const ClientCreationDialog: React.FC<ClientCreationDialogProps> = ({ open, clien
         },
       }}
     >
-      <ClientInformationForm client={client} onSave={onSave}></ClientInformationForm>
+      <ClientInformationForm client={client} brokers={brokers} subagents={subagents} onSave={onSave} />
     </Dialog>
   );
 };

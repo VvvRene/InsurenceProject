@@ -28,10 +28,14 @@ export type AggregateClient = {
 
 export type ClientAvgAggregateOutputType = {
   id: number | null
+  brokerId: number | null
+  subagentId: number | null
 }
 
 export type ClientSumAggregateOutputType = {
   id: number | null
+  brokerId: number | null
+  subagentId: number | null
 }
 
 export type ClientMinAggregateOutputType = {
@@ -53,6 +57,8 @@ export type ClientMinAggregateOutputType = {
   natureOfWork: string | null
   workDescription: string | null
   remark: string | null
+  brokerId: number | null
+  subagentId: number | null
 }
 
 export type ClientMaxAggregateOutputType = {
@@ -74,6 +80,8 @@ export type ClientMaxAggregateOutputType = {
   natureOfWork: string | null
   workDescription: string | null
   remark: string | null
+  brokerId: number | null
+  subagentId: number | null
 }
 
 export type ClientCountAggregateOutputType = {
@@ -95,16 +103,22 @@ export type ClientCountAggregateOutputType = {
   natureOfWork: number
   workDescription: number
   remark: number
+  brokerId: number
+  subagentId: number
   _all: number
 }
 
 
 export type ClientAvgAggregateInputType = {
   id?: true
+  brokerId?: true
+  subagentId?: true
 }
 
 export type ClientSumAggregateInputType = {
   id?: true
+  brokerId?: true
+  subagentId?: true
 }
 
 export type ClientMinAggregateInputType = {
@@ -126,6 +140,8 @@ export type ClientMinAggregateInputType = {
   natureOfWork?: true
   workDescription?: true
   remark?: true
+  brokerId?: true
+  subagentId?: true
 }
 
 export type ClientMaxAggregateInputType = {
@@ -147,6 +163,8 @@ export type ClientMaxAggregateInputType = {
   natureOfWork?: true
   workDescription?: true
   remark?: true
+  brokerId?: true
+  subagentId?: true
 }
 
 export type ClientCountAggregateInputType = {
@@ -168,6 +186,8 @@ export type ClientCountAggregateInputType = {
   natureOfWork?: true
   workDescription?: true
   remark?: true
+  brokerId?: true
+  subagentId?: true
   _all?: true
 }
 
@@ -276,6 +296,8 @@ export type ClientGroupByOutputType = {
   natureOfWork: string | null
   workDescription: string | null
   remark: string | null
+  brokerId: number | null
+  subagentId: number | null
   _count: ClientCountAggregateOutputType | null
   _avg: ClientAvgAggregateOutputType | null
   _sum: ClientSumAggregateOutputType | null
@@ -320,6 +342,10 @@ export type ClientWhereInput = {
   natureOfWork?: Prisma.StringNullableFilter<"Client"> | string | null
   workDescription?: Prisma.StringNullableFilter<"Client"> | string | null
   remark?: Prisma.StringNullableFilter<"Client"> | string | null
+  brokerId?: Prisma.IntNullableFilter<"Client"> | number | null
+  subagentId?: Prisma.IntNullableFilter<"Client"> | number | null
+  broker?: Prisma.XOR<Prisma.BrokerNullableScalarRelationFilter, Prisma.BrokerWhereInput> | null
+  subagent?: Prisma.XOR<Prisma.SubagentNullableScalarRelationFilter, Prisma.SubagentWhereInput> | null
   files?: Prisma.ClientFileListRelationFilter
   policies?: Prisma.InsurancePolicyListRelationFilter
 }
@@ -343,6 +369,10 @@ export type ClientOrderByWithRelationInput = {
   natureOfWork?: Prisma.SortOrderInput | Prisma.SortOrder
   workDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
+  brokerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  subagentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  broker?: Prisma.BrokerOrderByWithRelationInput
+  subagent?: Prisma.SubagentOrderByWithRelationInput
   files?: Prisma.ClientFileOrderByRelationAggregateInput
   policies?: Prisma.InsurancePolicyOrderByRelationAggregateInput
 }
@@ -369,6 +399,10 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   natureOfWork?: Prisma.StringNullableFilter<"Client"> | string | null
   workDescription?: Prisma.StringNullableFilter<"Client"> | string | null
   remark?: Prisma.StringNullableFilter<"Client"> | string | null
+  brokerId?: Prisma.IntNullableFilter<"Client"> | number | null
+  subagentId?: Prisma.IntNullableFilter<"Client"> | number | null
+  broker?: Prisma.XOR<Prisma.BrokerNullableScalarRelationFilter, Prisma.BrokerWhereInput> | null
+  subagent?: Prisma.XOR<Prisma.SubagentNullableScalarRelationFilter, Prisma.SubagentWhereInput> | null
   files?: Prisma.ClientFileListRelationFilter
   policies?: Prisma.InsurancePolicyListRelationFilter
 }, "id">
@@ -392,6 +426,8 @@ export type ClientOrderByWithAggregationInput = {
   natureOfWork?: Prisma.SortOrderInput | Prisma.SortOrder
   workDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
+  brokerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  subagentId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClientCountOrderByAggregateInput
   _avg?: Prisma.ClientAvgOrderByAggregateInput
   _max?: Prisma.ClientMaxOrderByAggregateInput
@@ -421,6 +457,8 @@ export type ClientScalarWhereWithAggregatesInput = {
   natureOfWork?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   workDescription?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   remark?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  brokerId?: Prisma.IntNullableWithAggregatesFilter<"Client"> | number | null
+  subagentId?: Prisma.IntNullableWithAggregatesFilter<"Client"> | number | null
 }
 
 export type ClientCreateInput = {
@@ -441,6 +479,8 @@ export type ClientCreateInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  broker?: Prisma.BrokerCreateNestedOneWithoutClientsInput
+  subagent?: Prisma.SubagentCreateNestedOneWithoutClientsInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
   policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
 }
@@ -464,6 +504,8 @@ export type ClientUncheckedCreateInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  brokerId?: number | null
+  subagentId?: number | null
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
   policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
 }
@@ -486,6 +528,8 @@ export type ClientUpdateInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broker?: Prisma.BrokerUpdateOneWithoutClientsNestedInput
+  subagent?: Prisma.SubagentUpdateOneWithoutClientsNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
   policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
 }
@@ -509,6 +553,8 @@ export type ClientUncheckedUpdateInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subagentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
   policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
 }
@@ -532,6 +578,8 @@ export type ClientCreateManyInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  brokerId?: number | null
+  subagentId?: number | null
 }
 
 export type ClientUpdateManyMutationInput = {
@@ -573,6 +621,8 @@ export type ClientUncheckedUpdateManyInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subagentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ClientCountOrderByAggregateInput = {
@@ -594,10 +644,14 @@ export type ClientCountOrderByAggregateInput = {
   natureOfWork?: Prisma.SortOrder
   workDescription?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  brokerId?: Prisma.SortOrder
+  subagentId?: Prisma.SortOrder
 }
 
 export type ClientAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  brokerId?: Prisma.SortOrder
+  subagentId?: Prisma.SortOrder
 }
 
 export type ClientMaxOrderByAggregateInput = {
@@ -619,6 +673,8 @@ export type ClientMaxOrderByAggregateInput = {
   natureOfWork?: Prisma.SortOrder
   workDescription?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  brokerId?: Prisma.SortOrder
+  subagentId?: Prisma.SortOrder
 }
 
 export type ClientMinOrderByAggregateInput = {
@@ -640,15 +696,29 @@ export type ClientMinOrderByAggregateInput = {
   natureOfWork?: Prisma.SortOrder
   workDescription?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  brokerId?: Prisma.SortOrder
+  subagentId?: Prisma.SortOrder
 }
 
 export type ClientSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  brokerId?: Prisma.SortOrder
+  subagentId?: Prisma.SortOrder
 }
 
 export type ClientScalarRelationFilter = {
   is?: Prisma.ClientWhereInput
   isNot?: Prisma.ClientWhereInput
+}
+
+export type ClientListRelationFilter = {
+  every?: Prisma.ClientWhereInput
+  some?: Prisma.ClientWhereInput
+  none?: Prisma.ClientWhereInput
+}
+
+export type ClientOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -675,6 +745,14 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ClientCreateNestedOneWithoutPoliciesInput = {
   create?: Prisma.XOR<Prisma.ClientCreateWithoutPoliciesInput, Prisma.ClientUncheckedCreateWithoutPoliciesInput>
   connectOrCreate?: Prisma.ClientCreateOrConnectWithoutPoliciesInput
@@ -687,6 +765,90 @@ export type ClientUpdateOneRequiredWithoutPoliciesNestedInput = {
   upsert?: Prisma.ClientUpsertWithoutPoliciesInput
   connect?: Prisma.ClientWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutPoliciesInput, Prisma.ClientUpdateWithoutPoliciesInput>, Prisma.ClientUncheckedUpdateWithoutPoliciesInput>
+}
+
+export type ClientCreateNestedManyWithoutBrokerInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutBrokerInput, Prisma.ClientUncheckedCreateWithoutBrokerInput> | Prisma.ClientCreateWithoutBrokerInput[] | Prisma.ClientUncheckedCreateWithoutBrokerInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutBrokerInput | Prisma.ClientCreateOrConnectWithoutBrokerInput[]
+  createMany?: Prisma.ClientCreateManyBrokerInputEnvelope
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+}
+
+export type ClientUncheckedCreateNestedManyWithoutBrokerInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutBrokerInput, Prisma.ClientUncheckedCreateWithoutBrokerInput> | Prisma.ClientCreateWithoutBrokerInput[] | Prisma.ClientUncheckedCreateWithoutBrokerInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutBrokerInput | Prisma.ClientCreateOrConnectWithoutBrokerInput[]
+  createMany?: Prisma.ClientCreateManyBrokerInputEnvelope
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+}
+
+export type ClientUpdateManyWithoutBrokerNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutBrokerInput, Prisma.ClientUncheckedCreateWithoutBrokerInput> | Prisma.ClientCreateWithoutBrokerInput[] | Prisma.ClientUncheckedCreateWithoutBrokerInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutBrokerInput | Prisma.ClientCreateOrConnectWithoutBrokerInput[]
+  upsert?: Prisma.ClientUpsertWithWhereUniqueWithoutBrokerInput | Prisma.ClientUpsertWithWhereUniqueWithoutBrokerInput[]
+  createMany?: Prisma.ClientCreateManyBrokerInputEnvelope
+  set?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  disconnect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  delete?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  update?: Prisma.ClientUpdateWithWhereUniqueWithoutBrokerInput | Prisma.ClientUpdateWithWhereUniqueWithoutBrokerInput[]
+  updateMany?: Prisma.ClientUpdateManyWithWhereWithoutBrokerInput | Prisma.ClientUpdateManyWithWhereWithoutBrokerInput[]
+  deleteMany?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+}
+
+export type ClientUncheckedUpdateManyWithoutBrokerNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutBrokerInput, Prisma.ClientUncheckedCreateWithoutBrokerInput> | Prisma.ClientCreateWithoutBrokerInput[] | Prisma.ClientUncheckedCreateWithoutBrokerInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutBrokerInput | Prisma.ClientCreateOrConnectWithoutBrokerInput[]
+  upsert?: Prisma.ClientUpsertWithWhereUniqueWithoutBrokerInput | Prisma.ClientUpsertWithWhereUniqueWithoutBrokerInput[]
+  createMany?: Prisma.ClientCreateManyBrokerInputEnvelope
+  set?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  disconnect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  delete?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  update?: Prisma.ClientUpdateWithWhereUniqueWithoutBrokerInput | Prisma.ClientUpdateWithWhereUniqueWithoutBrokerInput[]
+  updateMany?: Prisma.ClientUpdateManyWithWhereWithoutBrokerInput | Prisma.ClientUpdateManyWithWhereWithoutBrokerInput[]
+  deleteMany?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+}
+
+export type ClientCreateNestedManyWithoutSubagentInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutSubagentInput, Prisma.ClientUncheckedCreateWithoutSubagentInput> | Prisma.ClientCreateWithoutSubagentInput[] | Prisma.ClientUncheckedCreateWithoutSubagentInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutSubagentInput | Prisma.ClientCreateOrConnectWithoutSubagentInput[]
+  createMany?: Prisma.ClientCreateManySubagentInputEnvelope
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+}
+
+export type ClientUncheckedCreateNestedManyWithoutSubagentInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutSubagentInput, Prisma.ClientUncheckedCreateWithoutSubagentInput> | Prisma.ClientCreateWithoutSubagentInput[] | Prisma.ClientUncheckedCreateWithoutSubagentInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutSubagentInput | Prisma.ClientCreateOrConnectWithoutSubagentInput[]
+  createMany?: Prisma.ClientCreateManySubagentInputEnvelope
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+}
+
+export type ClientUpdateManyWithoutSubagentNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutSubagentInput, Prisma.ClientUncheckedCreateWithoutSubagentInput> | Prisma.ClientCreateWithoutSubagentInput[] | Prisma.ClientUncheckedCreateWithoutSubagentInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutSubagentInput | Prisma.ClientCreateOrConnectWithoutSubagentInput[]
+  upsert?: Prisma.ClientUpsertWithWhereUniqueWithoutSubagentInput | Prisma.ClientUpsertWithWhereUniqueWithoutSubagentInput[]
+  createMany?: Prisma.ClientCreateManySubagentInputEnvelope
+  set?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  disconnect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  delete?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  update?: Prisma.ClientUpdateWithWhereUniqueWithoutSubagentInput | Prisma.ClientUpdateWithWhereUniqueWithoutSubagentInput[]
+  updateMany?: Prisma.ClientUpdateManyWithWhereWithoutSubagentInput | Prisma.ClientUpdateManyWithWhereWithoutSubagentInput[]
+  deleteMany?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+}
+
+export type ClientUncheckedUpdateManyWithoutSubagentNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutSubagentInput, Prisma.ClientUncheckedCreateWithoutSubagentInput> | Prisma.ClientCreateWithoutSubagentInput[] | Prisma.ClientUncheckedCreateWithoutSubagentInput[]
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutSubagentInput | Prisma.ClientCreateOrConnectWithoutSubagentInput[]
+  upsert?: Prisma.ClientUpsertWithWhereUniqueWithoutSubagentInput | Prisma.ClientUpsertWithWhereUniqueWithoutSubagentInput[]
+  createMany?: Prisma.ClientCreateManySubagentInputEnvelope
+  set?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  disconnect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  delete?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  connect?: Prisma.ClientWhereUniqueInput | Prisma.ClientWhereUniqueInput[]
+  update?: Prisma.ClientUpdateWithWhereUniqueWithoutSubagentInput | Prisma.ClientUpdateWithWhereUniqueWithoutSubagentInput[]
+  updateMany?: Prisma.ClientUpdateManyWithWhereWithoutSubagentInput | Prisma.ClientUpdateManyWithWhereWithoutSubagentInput[]
+  deleteMany?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
 }
 
 export type ClientCreateNestedOneWithoutFilesInput = {
@@ -721,6 +883,8 @@ export type ClientCreateWithoutPoliciesInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  broker?: Prisma.BrokerCreateNestedOneWithoutClientsInput
+  subagent?: Prisma.SubagentCreateNestedOneWithoutClientsInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
 }
 
@@ -743,6 +907,8 @@ export type ClientUncheckedCreateWithoutPoliciesInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  brokerId?: number | null
+  subagentId?: number | null
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
 }
 
@@ -780,6 +946,8 @@ export type ClientUpdateWithoutPoliciesInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broker?: Prisma.BrokerUpdateOneWithoutClientsNestedInput
+  subagent?: Prisma.SubagentUpdateOneWithoutClientsNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
 }
 
@@ -802,7 +970,181 @@ export type ClientUncheckedUpdateWithoutPoliciesInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subagentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type ClientCreateWithoutBrokerInput = {
+  type: string
+  identity: string
+  abbr: string
+  name: string
+  chineseName?: string | null
+  address1?: string | null
+  address2?: string | null
+  phoneNumber?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
+  subagent?: Prisma.SubagentCreateNestedOneWithoutClientsInput
+  files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
+  policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
+}
+
+export type ClientUncheckedCreateWithoutBrokerInput = {
+  id?: number
+  type: string
+  identity: string
+  abbr: string
+  name: string
+  chineseName?: string | null
+  address1?: string | null
+  address2?: string | null
+  phoneNumber?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
+  subagentId?: number | null
+  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
+  policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
+}
+
+export type ClientCreateOrConnectWithoutBrokerInput = {
+  where: Prisma.ClientWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientCreateWithoutBrokerInput, Prisma.ClientUncheckedCreateWithoutBrokerInput>
+}
+
+export type ClientCreateManyBrokerInputEnvelope = {
+  data: Prisma.ClientCreateManyBrokerInput | Prisma.ClientCreateManyBrokerInput[]
+  skipDuplicates?: boolean
+}
+
+export type ClientUpsertWithWhereUniqueWithoutBrokerInput = {
+  where: Prisma.ClientWhereUniqueInput
+  update: Prisma.XOR<Prisma.ClientUpdateWithoutBrokerInput, Prisma.ClientUncheckedUpdateWithoutBrokerInput>
+  create: Prisma.XOR<Prisma.ClientCreateWithoutBrokerInput, Prisma.ClientUncheckedCreateWithoutBrokerInput>
+}
+
+export type ClientUpdateWithWhereUniqueWithoutBrokerInput = {
+  where: Prisma.ClientWhereUniqueInput
+  data: Prisma.XOR<Prisma.ClientUpdateWithoutBrokerInput, Prisma.ClientUncheckedUpdateWithoutBrokerInput>
+}
+
+export type ClientUpdateManyWithWhereWithoutBrokerInput = {
+  where: Prisma.ClientScalarWhereInput
+  data: Prisma.XOR<Prisma.ClientUpdateManyMutationInput, Prisma.ClientUncheckedUpdateManyWithoutBrokerInput>
+}
+
+export type ClientScalarWhereInput = {
+  AND?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+  OR?: Prisma.ClientScalarWhereInput[]
+  NOT?: Prisma.ClientScalarWhereInput | Prisma.ClientScalarWhereInput[]
+  id?: Prisma.IntFilter<"Client"> | number
+  type?: Prisma.StringFilter<"Client"> | string
+  identity?: Prisma.StringFilter<"Client"> | string
+  abbr?: Prisma.StringFilter<"Client"> | string
+  name?: Prisma.StringFilter<"Client"> | string
+  chineseName?: Prisma.StringNullableFilter<"Client"> | string | null
+  address1?: Prisma.StringNullableFilter<"Client"> | string | null
+  address2?: Prisma.StringNullableFilter<"Client"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"Client"> | string | null
+  email?: Prisma.StringNullableFilter<"Client"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Client"> | Date | string | null
+  gender?: Prisma.StringFilter<"Client"> | string
+  industry?: Prisma.StringNullableFilter<"Client"> | string | null
+  natureOfWork?: Prisma.StringNullableFilter<"Client"> | string | null
+  workDescription?: Prisma.StringNullableFilter<"Client"> | string | null
+  remark?: Prisma.StringNullableFilter<"Client"> | string | null
+  brokerId?: Prisma.IntNullableFilter<"Client"> | number | null
+  subagentId?: Prisma.IntNullableFilter<"Client"> | number | null
+}
+
+export type ClientCreateWithoutSubagentInput = {
+  type: string
+  identity: string
+  abbr: string
+  name: string
+  chineseName?: string | null
+  address1?: string | null
+  address2?: string | null
+  phoneNumber?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
+  broker?: Prisma.BrokerCreateNestedOneWithoutClientsInput
+  files?: Prisma.ClientFileCreateNestedManyWithoutClientInput
+  policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
+}
+
+export type ClientUncheckedCreateWithoutSubagentInput = {
+  id?: number
+  type: string
+  identity: string
+  abbr: string
+  name: string
+  chineseName?: string | null
+  address1?: string | null
+  address2?: string | null
+  phoneNumber?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
+  brokerId?: number | null
+  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientInput
+  policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
+}
+
+export type ClientCreateOrConnectWithoutSubagentInput = {
+  where: Prisma.ClientWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientCreateWithoutSubagentInput, Prisma.ClientUncheckedCreateWithoutSubagentInput>
+}
+
+export type ClientCreateManySubagentInputEnvelope = {
+  data: Prisma.ClientCreateManySubagentInput | Prisma.ClientCreateManySubagentInput[]
+  skipDuplicates?: boolean
+}
+
+export type ClientUpsertWithWhereUniqueWithoutSubagentInput = {
+  where: Prisma.ClientWhereUniqueInput
+  update: Prisma.XOR<Prisma.ClientUpdateWithoutSubagentInput, Prisma.ClientUncheckedUpdateWithoutSubagentInput>
+  create: Prisma.XOR<Prisma.ClientCreateWithoutSubagentInput, Prisma.ClientUncheckedCreateWithoutSubagentInput>
+}
+
+export type ClientUpdateWithWhereUniqueWithoutSubagentInput = {
+  where: Prisma.ClientWhereUniqueInput
+  data: Prisma.XOR<Prisma.ClientUpdateWithoutSubagentInput, Prisma.ClientUncheckedUpdateWithoutSubagentInput>
+}
+
+export type ClientUpdateManyWithWhereWithoutSubagentInput = {
+  where: Prisma.ClientScalarWhereInput
+  data: Prisma.XOR<Prisma.ClientUpdateManyMutationInput, Prisma.ClientUncheckedUpdateManyWithoutSubagentInput>
 }
 
 export type ClientCreateWithoutFilesInput = {
@@ -823,6 +1165,8 @@ export type ClientCreateWithoutFilesInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  broker?: Prisma.BrokerCreateNestedOneWithoutClientsInput
+  subagent?: Prisma.SubagentCreateNestedOneWithoutClientsInput
   policies?: Prisma.InsurancePolicyCreateNestedManyWithoutClientInput
 }
 
@@ -845,6 +1189,8 @@ export type ClientUncheckedCreateWithoutFilesInput = {
   natureOfWork?: string | null
   workDescription?: string | null
   remark?: string | null
+  brokerId?: number | null
+  subagentId?: number | null
   policies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutClientInput
 }
 
@@ -882,6 +1228,8 @@ export type ClientUpdateWithoutFilesInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broker?: Prisma.BrokerUpdateOneWithoutClientsNestedInput
+  subagent?: Prisma.SubagentUpdateOneWithoutClientsNestedInput
   policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
 }
 
@@ -904,7 +1252,191 @@ export type ClientUncheckedUpdateWithoutFilesInput = {
   natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subagentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type ClientCreateManyBrokerInput = {
+  id?: number
+  type: string
+  identity: string
+  abbr: string
+  name: string
+  chineseName?: string | null
+  address1?: string | null
+  address2?: string | null
+  phoneNumber?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
+  subagentId?: number | null
+}
+
+export type ClientUpdateWithoutBrokerInput = {
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subagent?: Prisma.SubagentUpdateOneWithoutClientsNestedInput
+  files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
+  policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateWithoutBrokerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subagentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
+  policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateManyWithoutBrokerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subagentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ClientCreateManySubagentInput = {
+  id?: number
+  type: string
+  identity: string
+  abbr: string
+  name: string
+  chineseName?: string | null
+  address1?: string | null
+  address2?: string | null
+  phoneNumber?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  date?: Date | string | null
+  gender: string
+  industry?: string | null
+  natureOfWork?: string | null
+  workDescription?: string | null
+  remark?: string | null
+  brokerId?: number | null
+}
+
+export type ClientUpdateWithoutSubagentInput = {
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  broker?: Prisma.BrokerUpdateOneWithoutClientsNestedInput
+  files?: Prisma.ClientFileUpdateManyWithoutClientNestedInput
+  policies?: Prisma.InsurancePolicyUpdateManyWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateWithoutSubagentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientNestedInput
+  policies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateManyWithoutSubagentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  identity?: Prisma.StringFieldUpdateOperationsInput | string
+  abbr?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  chineseName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  natureOfWork?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -966,6 +1498,10 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   natureOfWork?: boolean
   workDescription?: boolean
   remark?: boolean
+  brokerId?: boolean
+  subagentId?: boolean
+  broker?: boolean | Prisma.Client$brokerArgs<ExtArgs>
+  subagent?: boolean | Prisma.Client$subagentArgs<ExtArgs>
   files?: boolean | Prisma.Client$filesArgs<ExtArgs>
   policies?: boolean | Prisma.Client$policiesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
@@ -990,6 +1526,10 @@ export type ClientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   natureOfWork?: boolean
   workDescription?: boolean
   remark?: boolean
+  brokerId?: boolean
+  subagentId?: boolean
+  broker?: boolean | Prisma.Client$brokerArgs<ExtArgs>
+  subagent?: boolean | Prisma.Client$subagentArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1011,6 +1551,10 @@ export type ClientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   natureOfWork?: boolean
   workDescription?: boolean
   remark?: boolean
+  brokerId?: boolean
+  subagentId?: boolean
+  broker?: boolean | Prisma.Client$brokerArgs<ExtArgs>
+  subagent?: boolean | Prisma.Client$subagentArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
 export type ClientSelectScalar = {
@@ -1032,20 +1576,32 @@ export type ClientSelectScalar = {
   natureOfWork?: boolean
   workDescription?: boolean
   remark?: boolean
+  brokerId?: boolean
+  subagentId?: boolean
 }
 
-export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "identity" | "abbr" | "name" | "chineseName" | "address1" | "address2" | "phoneNumber" | "email" | "createdAt" | "updatedAt" | "date" | "gender" | "industry" | "natureOfWork" | "workDescription" | "remark", ExtArgs["result"]["client"]>
+export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "identity" | "abbr" | "name" | "chineseName" | "address1" | "address2" | "phoneNumber" | "email" | "createdAt" | "updatedAt" | "date" | "gender" | "industry" | "natureOfWork" | "workDescription" | "remark" | "brokerId" | "subagentId", ExtArgs["result"]["client"]>
 export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  broker?: boolean | Prisma.Client$brokerArgs<ExtArgs>
+  subagent?: boolean | Prisma.Client$subagentArgs<ExtArgs>
   files?: boolean | Prisma.Client$filesArgs<ExtArgs>
   policies?: boolean | Prisma.Client$policiesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ClientIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ClientIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ClientIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  broker?: boolean | Prisma.Client$brokerArgs<ExtArgs>
+  subagent?: boolean | Prisma.Client$subagentArgs<ExtArgs>
+}
+export type ClientIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  broker?: boolean | Prisma.Client$brokerArgs<ExtArgs>
+  subagent?: boolean | Prisma.Client$subagentArgs<ExtArgs>
+}
 
 export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Client"
   objects: {
+    broker: Prisma.$BrokerPayload<ExtArgs> | null
+    subagent: Prisma.$SubagentPayload<ExtArgs> | null
     files: Prisma.$ClientFilePayload<ExtArgs>[]
     policies: Prisma.$InsurancePolicyPayload<ExtArgs>[]
   }
@@ -1068,6 +1624,8 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     natureOfWork: string | null
     workDescription: string | null
     remark: string | null
+    brokerId: number | null
+    subagentId: number | null
   }, ExtArgs["result"]["client"]>
   composites: {}
 }
@@ -1462,6 +2020,8 @@ readonly fields: ClientFieldRefs;
  */
 export interface Prisma__ClientClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  broker<T extends Prisma.Client$brokerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$brokerArgs<ExtArgs>>): Prisma.Prisma__BrokerClient<runtime.Types.Result.GetResult<Prisma.$BrokerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  subagent<T extends Prisma.Client$subagentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$subagentArgs<ExtArgs>>): Prisma.Prisma__SubagentClient<runtime.Types.Result.GetResult<Prisma.$SubagentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   files<T extends Prisma.Client$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   policies<T extends Prisma.Client$policiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$policiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InsurancePolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1511,6 +2071,8 @@ export interface ClientFieldRefs {
   readonly natureOfWork: Prisma.FieldRef<"Client", 'String'>
   readonly workDescription: Prisma.FieldRef<"Client", 'String'>
   readonly remark: Prisma.FieldRef<"Client", 'String'>
+  readonly brokerId: Prisma.FieldRef<"Client", 'Int'>
+  readonly subagentId: Prisma.FieldRef<"Client", 'Int'>
 }
     
 
@@ -1765,6 +2327,10 @@ export type ClientCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.ClientCreateManyInput | Prisma.ClientCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1835,6 +2401,10 @@ export type ClientUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Clients to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1901,6 +2471,44 @@ export type ClientDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Clients to delete.
    */
   limit?: number
+}
+
+/**
+ * Client.broker
+ */
+export type Client$brokerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Broker
+   */
+  select?: Prisma.BrokerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Broker
+   */
+  omit?: Prisma.BrokerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BrokerInclude<ExtArgs> | null
+  where?: Prisma.BrokerWhereInput
+}
+
+/**
+ * Client.subagent
+ */
+export type Client$subagentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Subagent
+   */
+  select?: Prisma.SubagentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Subagent
+   */
+  omit?: Prisma.SubagentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubagentInclude<ExtArgs> | null
+  where?: Prisma.SubagentWhereInput
 }
 
 /**

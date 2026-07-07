@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import {
     Box,
-    Card,
-    CardContent,
     TextField,
     MenuItem,
     Button,
     Typography,
     Stack,
-    Divider,
     Grid,
-    List,
     Table,
     TableBody,
     TableHead,
@@ -22,7 +18,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { Client } from '~/generated/prisma/browser';
+import type { Client, Broker, Subagent } from '~/generated/prisma/browser';
 import FloatingButton from '../components/FloatingButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -39,7 +35,9 @@ interface SearchFilters {
 }
 
 interface ClientsInfoPageProps {
-    clients: Client[]; // Replace with actual client type
+    clients: Client[];
+    brokers: Broker[];
+    subagents: Subagent[];
     onSave: (client: ClientInfo) => void
 }
 
@@ -59,9 +57,11 @@ const toClientInfo = (client: Client): ClientInfo => ({
     natureOfWork: client.natureOfWork ?? null,
     remark: client.remark ?? null,
     date: client.date ? new Date(client.date) : null,
+    brokerId: client.brokerId ?? null,
+    subagentId: client.subagentId ?? null,
 });
 
-const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) => {
+const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, brokers, subagents, onSave } ) => {
     const { t } = useTranslation();
     const { control, handleSubmit, reset, watch } = useForm<SearchFilters>({
         defaultValues: {
@@ -75,10 +75,8 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedClient, setSelectedClient] = useState<ClientInfo | undefined>(undefined);
 
-
     const onSearch = (data: SearchFilters) => {
         console.log('Filtering clients with:', data);
-        // Trigger your data fetching logic here
     };
 
     const clientSearch = watch("searchQuery");
@@ -109,6 +107,18 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
         onSave(client);
         handleDialogClose();
     }
+
+    const getBrokerName = (brokerId: number | null): string => {
+        if (!brokerId) return t('client.nA');
+        const broker = brokers.find(b => b.id === brokerId);
+        return broker ? broker.name : t('client.nA');
+    };
+
+    const getSubagentName = (subagentId: number | null): string => {
+        if (!subagentId) return '';
+        const subagent = subagents.find(s => s.id === subagentId);
+        return subagent ? subagent.name : '';
+    };
  
     return (
         <Box sx={{ margin: '0 auto' }}>
@@ -196,16 +206,18 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                 </form>
             </Paper>
 
-            {/* Results Placeholder */}
+            {/* Results */}
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'action.hover', borderRadius: 2 }}>
                 <TableContainer component={Paper} sx={{ width: "100%", bgcolor: "layer.level1" }}>
                     <Table>
                         <TableHead sx={{ backgroundColor: "primary.main" }}>
                             <TableRow>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.type')}</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.name')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "8%" }}>{t('client.type')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "12%" }}>{t('client.name')}</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.phone')}</TableCell>
-                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "20%" }}>{t('client.email')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "15%" }}>{t('client.email')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.broker')}</TableCell>
+                                <TableCell sx={{ color: "primary.contrastText", fontWeight: 800, width: "10%" }}>{t('client.subagent')}</TableCell>
                                 <TableCell sx={{ color: "primary.contrastText", fontWeight: 800 }}>{t('client.remark')}</TableCell>
                             </TableRow>
                         </TableHead>
@@ -216,6 +228,8 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                                     <TableCell>{client.name}</TableCell>
                                     <TableCell>{client.phoneNumber || ""}</TableCell>
                                     <TableCell>{client.email || t('client.nA')}</TableCell>
+                                    <TableCell>{getBrokerName(client.brokerId)}</TableCell>
+                                    <TableCell>{getSubagentName(client.subagentId)}</TableCell>
                                     <TableCell>{client.remark || t('client.nA')}</TableCell>
                                 </TableRow>
                             ))}
@@ -224,7 +238,14 @@ const ClientsInfoPage : React.FC<ClientsInfoPageProps> = ({ clients, onSave } ) 
                 </TableContainer>
             </Box>
             <FloatingButton icon={PersonAddIcon} onClicked={handleAddButtonOnClicked} />
-            <ClientCreationDialog open={isDialogOpen} client={selectedClient} onClose={handleDialogClose} onSave={handleDialogSave}></ClientCreationDialog>
+            <ClientCreationDialog
+                open={isDialogOpen}
+                client={selectedClient}
+                brokers={brokers}
+                subagents={subagents}
+                onClose={handleDialogClose}
+                onSave={handleDialogSave}
+            />
         </Box>
     )
 }

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Dialog } from '@mui/material';
-import type { Client, VehicleType, VehicleBodyType, InsurancePolicy } from '~/generated/prisma/client'; 
+import type { Client, VehicleType, VehicleBodyType, InsurancePolicy, Subagent } from '~/generated/prisma/client'; 
 import InsurancePolicyForm from '../forms/InsurancePolicyForm';
 import type { InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import type { VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation';
@@ -13,6 +13,7 @@ interface PolicyUpsertDialogProps {
   clients?: Client[];
   insuranceCompanies?: any[];
   brokers?: any[];
+  subagents?: Subagent[];
   vehicleTypes?: VehicleType[];
   vehicleBodyTypes?: VehicleBodyType[];
   policy?: (InsurancePolicy & { vehicleDetail?: { coverageType: string; registrationNumber: string; vehicleType: string; engineNumber?: string | null; chassisNumber?: string | null; vehicleBodyType: string; manufacturer?: string | null; modelName?: string | null; enginDisplacement: number; totalWeight: number; yearOfManufacture: number; seatNumber: number; region: string; moneyLenderLicence?: string | null; gp?: number | null; an?: number | null; san?: number | null; } | null }) | null;
@@ -20,7 +21,7 @@ interface PolicyUpsertDialogProps {
   onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void;
 }
 
-const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, policy, onClose, onSave }) => {
+const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, insuranceCompanies, brokers, subagents, vehicleTypes, vehicleBodyTypes, policy, onClose, onSave }) => {
 
   const handleInternalClose = () => {
     onClose();
@@ -93,6 +94,7 @@ const PolicyUpsertDialog: React.FC<PolicyUpsertDialogProps> = ({ open, clients, 
     > 
         <InsurancePolicyForm
           clients={clients || []}
+          subagents={subagents || []}
           insuranceCompanies={insuranceCompanies || []}
           brokers={brokers || []}
           vehicleTypes={vehicleTypes || []}

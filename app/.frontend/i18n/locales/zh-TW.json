@@ -36,6 +36,9 @@
     "phone": "電話",
     "email": "電郵",
     "remark": "備註",
+    "assignment": "分配",
+    "broker": "經紀",
+    "subagent": "下屬經紀",
     "editClient": "編輯客戶",
     "createClient": "新增客戶",
     "clientType": "客戶類型",
@@ -89,6 +92,8 @@
     "insuranceCompany": "保險公司",
     "broker": "經紀",
     "effectiveDate": "生效日期",
+    "clientBroker": "客戶所屬經紀",
+    "clientSubagent": "客戶所屬下屬經紀",
     "clientIsRequired": "必須選擇客戶",
     "addClient": "新增客戶",
     "addInsuranceCompany": "新增保險公司",
@@ -150,6 +155,14 @@
     "editBroker": "編輯經紀",
     "createBroker": "新增經紀",
     "brokerName": "經紀姓名"
+  },
+  "subagent": {
+    "subagents": "下屬經紀",
+    "addSubagent": "新增下屬經紀",
+    "editSubagent": "編輯下屬經紀",
+    "createSubagent": "新增下屬經紀",
+    "subagentName": "下屬經紀姓名",
+    "noSubagents": "此經紀暫無下屬經紀。"
   },
   "insuranceCompany": {
     "title": "保險公司",
