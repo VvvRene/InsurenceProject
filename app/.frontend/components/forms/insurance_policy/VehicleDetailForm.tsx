@@ -7,6 +7,7 @@ import { useForm, Controller, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
 import { useTranslation } from 'react-i18next';
+import { NumericFormat } from 'react-number-format';
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation'; 
 import type { VehicleOptionInfo } from '~/.frontend/models/VehicleOptionInfo';
 
@@ -25,18 +26,6 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
     const { t } = useTranslation();
     const currentVehicleTypes = vehicleTypes ?? [];
     const currentVehicleBodyTypes = vehicleBodyTypes ?? [];
-
-    const formatCurrencyValue = (value: number | string | null | undefined) => {
-        const numericValue = typeof value === 'number' ? value : Number(value ?? 0);
-        return Number.isFinite(numericValue) ? numericValue.toFixed(2) : '0.00';
-    };
-
-    const parseCurrencyValue = (value: string) => {
-        const cleanedValue = value.replace(/[^0-9.]/g, '');
-        if (cleanedValue === '') return 0;
-        const numericValue = Number(cleanedValue);
-        return Number.isFinite(numericValue) ? numericValue : 0;
-    };
 
     return (
         <Box sx={{ overflow: 'hidden' }}>
@@ -336,19 +325,21 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                     name="gp"
                                     control={control}
                                     render={({ field, fieldState }) => (
-                                        <TextField
-                                            value={formatCurrencyValue(field.value)}
-                                            onChange={(event) => field.onChange(parseCurrencyValue(event.target.value))}
-                                            onBlur={field.onBlur}
-                                            fullWidth
-                                            type="text"
+                                        <NumericFormat
+                                            value={field.value == null ? '' : String(field.value)}
+                                            onValueChange={(values) => field.onChange(values.floatValue ?? 0)}
+                                            customInput={TextField}
                                             label={t('policy.gp')}
+                                            fullWidth
+                                            thousandSeparator=","
+                                            decimalScale={2}
+                                            fixedDecimalScale
+                                            allowNegative={false}
+                                            prefix="HK$ "
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">HK$</InputAdornment>,
-                                            }}
                                             inputProps={{ inputMode: 'decimal' }}
+                                            onBlur={field.onBlur}
                                         />
                                     )}
                                 />
@@ -358,19 +349,21 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                     name="an"
                                     control={control}
                                     render={({ field, fieldState }) => (
-                                        <TextField
-                                            value={formatCurrencyValue(field.value)}
-                                            onChange={(event) => field.onChange(parseCurrencyValue(event.target.value))}
-                                            onBlur={field.onBlur}
-                                            fullWidth
-                                            type="text"
+                                        <NumericFormat
+                                            value={field.value == null ? '' : String(field.value)}
+                                            onValueChange={(values) => field.onChange(values.floatValue ?? 0)}
+                                            customInput={TextField}
                                             label={t('policy.an')}
+                                            fullWidth
+                                            thousandSeparator=","
+                                            decimalScale={2}
+                                            fixedDecimalScale
+                                            allowNegative={false}
+                                            prefix="HK$ "
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">HK$</InputAdornment>,
-                                            }}
                                             inputProps={{ inputMode: 'decimal' }}
+                                            onBlur={field.onBlur}
                                         />
                                     )}
                                 />
@@ -380,19 +373,21 @@ const VehicleDetailForm: React.FC<VehicleDetailFormProps> = ({ control, defaultV
                                     name="san"
                                     control={control}
                                     render={({ field, fieldState }) => (
-                                        <TextField
-                                            value={formatCurrencyValue(field.value)}
-                                            onChange={(event) => field.onChange(parseCurrencyValue(event.target.value))}
-                                            onBlur={field.onBlur}
-                                            fullWidth
-                                            type="text"
+                                        <NumericFormat
+                                            value={field.value == null ? '' : String(field.value)}
+                                            onValueChange={(values) => field.onChange(values.floatValue ?? 0)}
+                                            customInput={TextField}
                                             label={t('policy.san')}
+                                            fullWidth
+                                            thousandSeparator=","
+                                            decimalScale={2}
+                                            fixedDecimalScale
+                                            allowNegative={false}
+                                            prefix="HK$ "
                                             error={!!fieldState.error}
                                             helperText={fieldState.error ? fieldState.error.message : ''}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">HK$</InputAdornment>,
-                                            }}
                                             inputProps={{ inputMode: 'decimal' }}
+                                            onBlur={field.onBlur}
                                         />
                                     )}
                                 />

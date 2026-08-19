@@ -17,7 +17,9 @@ export const insuranceGeneralInformationSchema = z.object({
     // Date fields
     effectiveDate: z.date(),
     expiryDate: z.date(),
-    premiumAmount: z.number().nonnegative(),
+    premiumAmount: z.union([z.number(), z.string()])
+        .transform((value) => value === '' ? 0 : Number(value))
+        .pipe(z.number().nonnegative()),
     currency: z.enum(['HKD', 'USD', 'CNY']),
     updateDate: z.date(),
 

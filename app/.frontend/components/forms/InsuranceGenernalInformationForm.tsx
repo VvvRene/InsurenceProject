@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import type { InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
-import { HookFormTextField } from '../HookFormTextField';
+import { HookFormCurrencyField, HookFormTextField } from '../HookFormTextField';
 
 export interface InsuranceGeneralInformationFormProps {
   data?: InsuranceGeneralInformation;
@@ -105,7 +105,16 @@ export const InsuranceGeneralInformationForm: React.FC<InsuranceGeneralInformati
                 <HookFormTextField select name="currency" control={control} size="small" sx={{ minWidth: 80 }}>
                   <MenuItem value="HKD">HKD</MenuItem>
                 </HookFormTextField>
-                <HookFormTextField name="premiumAmount" control={control} size="small" fullWidth />
+                <HookFormCurrencyField
+                  name="premiumAmount"
+                  control={control}
+                  size="small"
+                  fullWidth
+                  prefix="HKD "
+                  thousandSeparator=","
+                  decimalScale={2}
+                  allowNegative={false}
+                />
               </Grid>
 
             </Grid>

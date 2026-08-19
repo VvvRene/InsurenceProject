@@ -107,7 +107,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
         setValue: setInsuranceGeneralInformationValue,
         getValues: getInsuranceGeneralInformationValues
     } = useForm<InsuranceGeneralInformation>({
-        resolver: zodResolver(insuranceGeneralInformationSchema),
+        resolver: zodResolver(insuranceGeneralInformationSchema) as any,
         defaultValues: insuranceGeneralInformation
     });
 
@@ -119,7 +119,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
         trigger: vehiclePolicyDetailInformationTrigger,
         getValues: getVehiclePolicyDetailInformationValues
     } = useForm<VehiclePolicyDetailInformation>({
-        resolver: zodResolver(vehiclePolicyDetailInformationSchema),
+        resolver: zodResolver(vehiclePolicyDetailInformationSchema) as any,
         defaultValues: vehiclePolicyDetailInformation
     });
 

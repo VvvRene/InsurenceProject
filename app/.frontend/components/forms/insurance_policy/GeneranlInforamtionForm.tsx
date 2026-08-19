@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import type { Broker, Client, InsuranceCompany, Subagent } from '~/generated/prisma/browser';
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { DatePicker } from '@mui/x-date-pickers';
+import { NumericFormat } from 'react-number-format';
 import { validate } from 'uuid';
 
 
@@ -394,6 +395,29 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                 />
                             </Box>
                         </Stack>
+
+                        <Controller
+                            name="premiumAmount"
+                            control={control}
+                            render={({ field, fieldState }) => (
+                                <NumericFormat
+                                    value={field.value ?? 0}
+                                    onValueChange={(values) => field.onChange(values.floatValue ?? 0)}
+                                    customInput={TextField}
+                                    label={t('policy.premiumAmount') || 'Premium Amount'}
+                                    fullWidth
+                                    thousandSeparator=","
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    allowNegative={false}
+                                    prefix="HKD "
+                                    error={!!fieldState.error}
+                                    helperText={fieldState.error?.message}
+                                    inputProps={{ inputMode: 'decimal' }}
+                                />
+                            )}
+                        />
+
                         <Controller
                             name="remark"
                             control={control}
