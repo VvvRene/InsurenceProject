@@ -80,7 +80,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
         if (initialVehicleDetail) return initialVehicleDetail;
         return {
             coverageType: 'Comprehensive',
-            registrationNumber: 'New',
+            registrationNumber: '',
             vehicleType: 'Sedan',
             engineNumber: '',
             chassisNumber: '',
