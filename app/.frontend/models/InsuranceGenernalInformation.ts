@@ -12,6 +12,7 @@ export const insuranceGeneralInformationSchema = z.object({
     remark: z.string().optional().nullable(),
     // Mapping relational fields to their respective IDs
     clientId: z.number().min(1, "Client is required"),
+    clientBrokerId: z.number().int().nullable().optional(),
     insuranceCompanyId: z.number().min(1, "Insurance Company is required"), 
     brokerId: z.number().min(1, "Broker is required"), 
     // Date fields

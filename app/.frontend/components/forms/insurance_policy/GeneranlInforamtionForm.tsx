@@ -5,7 +5,7 @@ import {
     IconButton, Autocomplete
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useForm, Controller, useWatch, type Control } from 'react-hook-form';
+import { useForm, Controller, useWatch, type Control, type UseFormSetValue } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/system';
 import { DateTime } from 'luxon';
@@ -26,6 +26,8 @@ interface InsurancePolicyGeneralInformationFormProps {
     onAddInsuranceCompany?: () => void;
     onAddBroker?: () => void;
     onAddClient?: () => void;
+    initialGeneralInfo?: InsuranceGeneralInformation;
+    setValue: UseFormSetValue<InsuranceGeneralInformation>;
 }
 
 const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInformationFormProps> = ({
@@ -36,16 +38,18 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
     brokers,
     onAddInsuranceCompany,
     onAddBroker,
-    onAddClient
+    onAddClient,
+    initialGeneralInfo,
+    setValue,
 }) => {
     const { t } = useTranslation();
 
     const selectedClientId = useWatch({ control, name: 'clientId' });
+    const selectedClientBrokerId = useWatch({ control, name: 'clientBrokerId' });
     const selectedClient = selectedClientId ? clients.find((client) => client.id === selectedClientId) : null;
 
-    // Derive the broker and subagent names from the selected client's relations
-    const selectedClientBrokerName = selectedClient?.brokerId
-        ? brokers.find((b) => b.id === selectedClient.brokerId)?.name ?? null
+    const selectedClientBrokerName = selectedClientBrokerId
+        ? brokers.find((b) => b.id === selectedClientBrokerId)?.name ?? null
         : null;
     const selectedClientSubagentName = selectedClient?.subagentId
         ? subagents.find((s) => s.id === selectedClient.subagentId)?.name ?? null
@@ -204,7 +208,12 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                                 value={selectedClient}
                                                 isOptionEqualToValue={(option, value) => option.id === value.id}
                                                 getOptionLabel={(option) => option?.name ?? ''}
-                                                onChange={(_, newValue) => field.onChange(newValue?.id ?? null)}
+                                                onChange={(_, newValue) => {
+                                                    field.onChange(newValue?.id ?? null);
+                                                    if (!initialGeneralInfo) {
+                                                        setValue('clientBrokerId', newValue?.brokerId ?? null);
+                                                    }
+                                                }}
                                                 renderInput={(params) => (
                                                     <TextField
                                                         {...params}

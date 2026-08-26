@@ -75,6 +75,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
             premiumAmount: 0,
             policyNumber: '',
             clientId: 0,
+            clientBrokerId: null,
             insuranceCompanyId: 0,
             brokerId: 0,
             quotationNumber: '',
@@ -173,7 +174,9 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
                 brokers={availableBrokers}
                 onAddInsuranceCompany={() => setIsInsuranceCompanyDialogOpen(true)}
                 onAddBroker={() => setIsBrokerDialogOpen(true)}
-                onAddClient={() => setIsClientDialogOpen(true)} />
+                onAddClient={() => setIsClientDialogOpen(true)}
+                initialGeneralInfo={initialGeneralInfo}
+                setValue={setInsuranceGeneralInformationValue} />
         },
         {
             label: t('policy.detail'),

@@ -29,6 +29,7 @@ export type AggregateInsurancePolicy = {
 export type InsurancePolicyAvgAggregateOutputType = {
   id: number | null
   clientId: number | null
+  clientBrokerId: number | null
   insuranceCompanyId: number | null
   brokerId: number | null
   premiumAmount: number | null
@@ -38,6 +39,7 @@ export type InsurancePolicyAvgAggregateOutputType = {
 export type InsurancePolicySumAggregateOutputType = {
   id: number | null
   clientId: number | null
+  clientBrokerId: number | null
   insuranceCompanyId: number | null
   brokerId: number | null
   premiumAmount: number | null
@@ -53,6 +55,7 @@ export type InsurancePolicyMinAggregateOutputType = {
   quotationNumber: string | null
   remark: string | null
   clientId: number | null
+  clientBrokerId: number | null
   insuranceCompanyId: number | null
   brokerId: number | null
   effectiveDate: Date | null
@@ -73,6 +76,7 @@ export type InsurancePolicyMaxAggregateOutputType = {
   quotationNumber: string | null
   remark: string | null
   clientId: number | null
+  clientBrokerId: number | null
   insuranceCompanyId: number | null
   brokerId: number | null
   effectiveDate: Date | null
@@ -93,6 +97,7 @@ export type InsurancePolicyCountAggregateOutputType = {
   quotationNumber: number
   remark: number
   clientId: number
+  clientBrokerId: number
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: number
@@ -109,6 +114,7 @@ export type InsurancePolicyCountAggregateOutputType = {
 export type InsurancePolicyAvgAggregateInputType = {
   id?: true
   clientId?: true
+  clientBrokerId?: true
   insuranceCompanyId?: true
   brokerId?: true
   premiumAmount?: true
@@ -118,6 +124,7 @@ export type InsurancePolicyAvgAggregateInputType = {
 export type InsurancePolicySumAggregateInputType = {
   id?: true
   clientId?: true
+  clientBrokerId?: true
   insuranceCompanyId?: true
   brokerId?: true
   premiumAmount?: true
@@ -133,6 +140,7 @@ export type InsurancePolicyMinAggregateInputType = {
   quotationNumber?: true
   remark?: true
   clientId?: true
+  clientBrokerId?: true
   insuranceCompanyId?: true
   brokerId?: true
   effectiveDate?: true
@@ -153,6 +161,7 @@ export type InsurancePolicyMaxAggregateInputType = {
   quotationNumber?: true
   remark?: true
   clientId?: true
+  clientBrokerId?: true
   insuranceCompanyId?: true
   brokerId?: true
   effectiveDate?: true
@@ -173,6 +182,7 @@ export type InsurancePolicyCountAggregateInputType = {
   quotationNumber?: true
   remark?: true
   clientId?: true
+  clientBrokerId?: true
   insuranceCompanyId?: true
   brokerId?: true
   effectiveDate?: true
@@ -280,6 +290,7 @@ export type InsurancePolicyGroupByOutputType = {
   quotationNumber: string | null
   remark: string | null
   clientId: number
+  clientBrokerId: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date
@@ -323,6 +334,7 @@ export type InsurancePolicyWhereInput = {
   quotationNumber?: Prisma.StringNullableFilter<"InsurancePolicy"> | string | null
   remark?: Prisma.StringNullableFilter<"InsurancePolicy"> | string | null
   clientId?: Prisma.IntFilter<"InsurancePolicy"> | number
+  clientBrokerId?: Prisma.IntNullableFilter<"InsurancePolicy"> | number | null
   insuranceCompanyId?: Prisma.IntFilter<"InsurancePolicy"> | number
   brokerId?: Prisma.IntFilter<"InsurancePolicy"> | number
   effectiveDate?: Prisma.DateTimeFilter<"InsurancePolicy"> | Date | string
@@ -334,6 +346,7 @@ export type InsurancePolicyWhereInput = {
   previousPolicyId?: Prisma.IntNullableFilter<"InsurancePolicy"> | number | null
   homeDetail?: Prisma.XOR<Prisma.HomePolicyDetailNullableScalarRelationFilter, Prisma.HomePolicyDetailWhereInput> | null
   broker?: Prisma.XOR<Prisma.BrokerScalarRelationFilter, Prisma.BrokerWhereInput>
+  clientBroker?: Prisma.XOR<Prisma.BrokerNullableScalarRelationFilter, Prisma.BrokerWhereInput> | null
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
   insuranceCompany?: Prisma.XOR<Prisma.InsuranceCompanyScalarRelationFilter, Prisma.InsuranceCompanyWhereInput>
   previousPolicy?: Prisma.XOR<Prisma.InsurancePolicyNullableScalarRelationFilter, Prisma.InsurancePolicyWhereInput> | null
@@ -351,6 +364,7 @@ export type InsurancePolicyOrderByWithRelationInput = {
   quotationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrderInput | Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -362,6 +376,7 @@ export type InsurancePolicyOrderByWithRelationInput = {
   previousPolicyId?: Prisma.SortOrderInput | Prisma.SortOrder
   homeDetail?: Prisma.HomePolicyDetailOrderByWithRelationInput
   broker?: Prisma.BrokerOrderByWithRelationInput
+  clientBroker?: Prisma.BrokerOrderByWithRelationInput
   client?: Prisma.ClientOrderByWithRelationInput
   insuranceCompany?: Prisma.InsuranceCompanyOrderByWithRelationInput
   previousPolicy?: Prisma.InsurancePolicyOrderByWithRelationInput
@@ -383,6 +398,7 @@ export type InsurancePolicyWhereUniqueInput = Prisma.AtLeast<{
   quotationNumber?: Prisma.StringNullableFilter<"InsurancePolicy"> | string | null
   remark?: Prisma.StringNullableFilter<"InsurancePolicy"> | string | null
   clientId?: Prisma.IntFilter<"InsurancePolicy"> | number
+  clientBrokerId?: Prisma.IntNullableFilter<"InsurancePolicy"> | number | null
   insuranceCompanyId?: Prisma.IntFilter<"InsurancePolicy"> | number
   brokerId?: Prisma.IntFilter<"InsurancePolicy"> | number
   effectiveDate?: Prisma.DateTimeFilter<"InsurancePolicy"> | Date | string
@@ -393,6 +409,7 @@ export type InsurancePolicyWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"InsurancePolicy"> | Date | string
   homeDetail?: Prisma.XOR<Prisma.HomePolicyDetailNullableScalarRelationFilter, Prisma.HomePolicyDetailWhereInput> | null
   broker?: Prisma.XOR<Prisma.BrokerScalarRelationFilter, Prisma.BrokerWhereInput>
+  clientBroker?: Prisma.XOR<Prisma.BrokerNullableScalarRelationFilter, Prisma.BrokerWhereInput> | null
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
   insuranceCompany?: Prisma.XOR<Prisma.InsuranceCompanyScalarRelationFilter, Prisma.InsuranceCompanyWhereInput>
   previousPolicy?: Prisma.XOR<Prisma.InsurancePolicyNullableScalarRelationFilter, Prisma.InsurancePolicyWhereInput> | null
@@ -410,6 +427,7 @@ export type InsurancePolicyOrderByWithAggregationInput = {
   quotationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrderInput | Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -438,6 +456,7 @@ export type InsurancePolicyScalarWhereWithAggregatesInput = {
   quotationNumber?: Prisma.StringNullableWithAggregatesFilter<"InsurancePolicy"> | string | null
   remark?: Prisma.StringNullableWithAggregatesFilter<"InsurancePolicy"> | string | null
   clientId?: Prisma.IntWithAggregatesFilter<"InsurancePolicy"> | number
+  clientBrokerId?: Prisma.IntNullableWithAggregatesFilter<"InsurancePolicy"> | number | null
   insuranceCompanyId?: Prisma.IntWithAggregatesFilter<"InsurancePolicy"> | number
   brokerId?: Prisma.IntWithAggregatesFilter<"InsurancePolicy"> | number
   effectiveDate?: Prisma.DateTimeWithAggregatesFilter<"InsurancePolicy"> | Date | string
@@ -450,7 +469,7 @@ export type InsurancePolicyScalarWhereWithAggregatesInput = {
 }
 
 export type InsurancePolicyCreateInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -464,6 +483,7 @@ export type InsurancePolicyCreateInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
@@ -474,13 +494,14 @@ export type InsurancePolicyCreateInput = {
 
 export type InsurancePolicyUncheckedCreateInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -511,6 +532,7 @@ export type InsurancePolicyUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
@@ -528,6 +550,7 @@ export type InsurancePolicyUncheckedUpdateInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -545,13 +568,14 @@ export type InsurancePolicyUncheckedUpdateInput = {
 
 export type InsurancePolicyCreateManyInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -587,6 +611,7 @@ export type InsurancePolicyUncheckedUpdateManyInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -622,6 +647,7 @@ export type InsurancePolicyCountOrderByAggregateInput = {
   quotationNumber?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -636,6 +662,7 @@ export type InsurancePolicyCountOrderByAggregateInput = {
 export type InsurancePolicyAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   premiumAmount?: Prisma.SortOrder
@@ -651,6 +678,7 @@ export type InsurancePolicyMaxOrderByAggregateInput = {
   quotationNumber?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -671,6 +699,7 @@ export type InsurancePolicyMinOrderByAggregateInput = {
   quotationNumber?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   effectiveDate?: Prisma.SortOrder
@@ -685,6 +714,7 @@ export type InsurancePolicyMinOrderByAggregateInput = {
 export type InsurancePolicySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  clientBrokerId?: Prisma.SortOrder
   insuranceCompanyId?: Prisma.SortOrder
   brokerId?: Prisma.SortOrder
   premiumAmount?: Prisma.SortOrder
@@ -885,10 +915,24 @@ export type InsurancePolicyCreateNestedManyWithoutBrokerInput = {
   connect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
 }
 
+export type InsurancePolicyCreateNestedManyWithoutClientBrokerInput = {
+  create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput> | Prisma.InsurancePolicyCreateWithoutClientBrokerInput[] | Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput[]
+  connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput | Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput[]
+  createMany?: Prisma.InsurancePolicyCreateManyClientBrokerInputEnvelope
+  connect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+}
+
 export type InsurancePolicyUncheckedCreateNestedManyWithoutBrokerInput = {
   create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutBrokerInput> | Prisma.InsurancePolicyCreateWithoutBrokerInput[] | Prisma.InsurancePolicyUncheckedCreateWithoutBrokerInput[]
   connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutBrokerInput | Prisma.InsurancePolicyCreateOrConnectWithoutBrokerInput[]
   createMany?: Prisma.InsurancePolicyCreateManyBrokerInputEnvelope
+  connect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+}
+
+export type InsurancePolicyUncheckedCreateNestedManyWithoutClientBrokerInput = {
+  create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput> | Prisma.InsurancePolicyCreateWithoutClientBrokerInput[] | Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput[]
+  connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput | Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput[]
+  createMany?: Prisma.InsurancePolicyCreateManyClientBrokerInputEnvelope
   connect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
 }
 
@@ -906,6 +950,20 @@ export type InsurancePolicyUpdateManyWithoutBrokerNestedInput = {
   deleteMany?: Prisma.InsurancePolicyScalarWhereInput | Prisma.InsurancePolicyScalarWhereInput[]
 }
 
+export type InsurancePolicyUpdateManyWithoutClientBrokerNestedInput = {
+  create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput> | Prisma.InsurancePolicyCreateWithoutClientBrokerInput[] | Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput[]
+  connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput | Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput[]
+  upsert?: Prisma.InsurancePolicyUpsertWithWhereUniqueWithoutClientBrokerInput | Prisma.InsurancePolicyUpsertWithWhereUniqueWithoutClientBrokerInput[]
+  createMany?: Prisma.InsurancePolicyCreateManyClientBrokerInputEnvelope
+  set?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  disconnect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  delete?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  connect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  update?: Prisma.InsurancePolicyUpdateWithWhereUniqueWithoutClientBrokerInput | Prisma.InsurancePolicyUpdateWithWhereUniqueWithoutClientBrokerInput[]
+  updateMany?: Prisma.InsurancePolicyUpdateManyWithWhereWithoutClientBrokerInput | Prisma.InsurancePolicyUpdateManyWithWhereWithoutClientBrokerInput[]
+  deleteMany?: Prisma.InsurancePolicyScalarWhereInput | Prisma.InsurancePolicyScalarWhereInput[]
+}
+
 export type InsurancePolicyUncheckedUpdateManyWithoutBrokerNestedInput = {
   create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutBrokerInput> | Prisma.InsurancePolicyCreateWithoutBrokerInput[] | Prisma.InsurancePolicyUncheckedCreateWithoutBrokerInput[]
   connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutBrokerInput | Prisma.InsurancePolicyCreateOrConnectWithoutBrokerInput[]
@@ -920,8 +978,22 @@ export type InsurancePolicyUncheckedUpdateManyWithoutBrokerNestedInput = {
   deleteMany?: Prisma.InsurancePolicyScalarWhereInput | Prisma.InsurancePolicyScalarWhereInput[]
 }
 
+export type InsurancePolicyUncheckedUpdateManyWithoutClientBrokerNestedInput = {
+  create?: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput> | Prisma.InsurancePolicyCreateWithoutClientBrokerInput[] | Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput[]
+  connectOrCreate?: Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput | Prisma.InsurancePolicyCreateOrConnectWithoutClientBrokerInput[]
+  upsert?: Prisma.InsurancePolicyUpsertWithWhereUniqueWithoutClientBrokerInput | Prisma.InsurancePolicyUpsertWithWhereUniqueWithoutClientBrokerInput[]
+  createMany?: Prisma.InsurancePolicyCreateManyClientBrokerInputEnvelope
+  set?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  disconnect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  delete?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  connect?: Prisma.InsurancePolicyWhereUniqueInput | Prisma.InsurancePolicyWhereUniqueInput[]
+  update?: Prisma.InsurancePolicyUpdateWithWhereUniqueWithoutClientBrokerInput | Prisma.InsurancePolicyUpdateWithWhereUniqueWithoutClientBrokerInput[]
+  updateMany?: Prisma.InsurancePolicyUpdateManyWithWhereWithoutClientBrokerInput | Prisma.InsurancePolicyUpdateManyWithWhereWithoutClientBrokerInput[]
+  deleteMany?: Prisma.InsurancePolicyScalarWhereInput | Prisma.InsurancePolicyScalarWhereInput[]
+}
+
 export type InsurancePolicyCreateWithoutClientInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -935,6 +1007,7 @@ export type InsurancePolicyCreateWithoutClientInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
   nextPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutPreviousPolicyInput
@@ -944,12 +1017,13 @@ export type InsurancePolicyCreateWithoutClientInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutClientInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1003,6 +1077,7 @@ export type InsurancePolicyScalarWhereInput = {
   quotationNumber?: Prisma.StringNullableFilter<"InsurancePolicy"> | string | null
   remark?: Prisma.StringNullableFilter<"InsurancePolicy"> | string | null
   clientId?: Prisma.IntFilter<"InsurancePolicy"> | number
+  clientBrokerId?: Prisma.IntNullableFilter<"InsurancePolicy"> | number | null
   insuranceCompanyId?: Prisma.IntFilter<"InsurancePolicy"> | number
   brokerId?: Prisma.IntFilter<"InsurancePolicy"> | number
   effectiveDate?: Prisma.DateTimeFilter<"InsurancePolicy"> | Date | string
@@ -1015,7 +1090,7 @@ export type InsurancePolicyScalarWhereInput = {
 }
 
 export type InsurancePolicyCreateWithoutNextPolicyInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1029,6 +1104,7 @@ export type InsurancePolicyCreateWithoutNextPolicyInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
@@ -1038,13 +1114,14 @@ export type InsurancePolicyCreateWithoutNextPolicyInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutNextPolicyInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1065,7 +1142,7 @@ export type InsurancePolicyCreateOrConnectWithoutNextPolicyInput = {
 }
 
 export type InsurancePolicyCreateWithoutPreviousPolicyInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1079,6 +1156,7 @@ export type InsurancePolicyCreateWithoutPreviousPolicyInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   nextPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutPreviousPolicyInput
@@ -1088,13 +1166,14 @@ export type InsurancePolicyCreateWithoutPreviousPolicyInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutPreviousPolicyInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1140,6 +1219,7 @@ export type InsurancePolicyUpdateWithoutNextPolicyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
@@ -1156,6 +1236,7 @@ export type InsurancePolicyUncheckedUpdateWithoutNextPolicyInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1196,6 +1277,7 @@ export type InsurancePolicyUpdateWithoutPreviousPolicyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   nextPolicy?: Prisma.InsurancePolicyUpdateOneWithoutPreviousPolicyNestedInput
@@ -1212,6 +1294,7 @@ export type InsurancePolicyUncheckedUpdateWithoutPreviousPolicyInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1227,7 +1310,7 @@ export type InsurancePolicyUncheckedUpdateWithoutPreviousPolicyInput = {
 }
 
 export type InsurancePolicyCreateWithoutVehicleDetailInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1241,6 +1324,7 @@ export type InsurancePolicyCreateWithoutVehicleDetailInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
@@ -1250,13 +1334,14 @@ export type InsurancePolicyCreateWithoutVehicleDetailInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutVehicleDetailInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1302,6 +1387,7 @@ export type InsurancePolicyUpdateWithoutVehicleDetailInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
@@ -1318,6 +1404,7 @@ export type InsurancePolicyUncheckedUpdateWithoutVehicleDetailInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1333,7 +1420,7 @@ export type InsurancePolicyUncheckedUpdateWithoutVehicleDetailInput = {
 }
 
 export type InsurancePolicyCreateWithoutHomeDetailInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1346,6 +1433,7 @@ export type InsurancePolicyCreateWithoutHomeDetailInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
@@ -1356,13 +1444,14 @@ export type InsurancePolicyCreateWithoutHomeDetailInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutHomeDetailInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1407,6 +1496,7 @@ export type InsurancePolicyUpdateWithoutHomeDetailInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
@@ -1424,6 +1514,7 @@ export type InsurancePolicyUncheckedUpdateWithoutHomeDetailInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1439,7 +1530,7 @@ export type InsurancePolicyUncheckedUpdateWithoutHomeDetailInput = {
 }
 
 export type InsurancePolicyCreateWithoutLifeDetailInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1453,6 +1544,7 @@ export type InsurancePolicyCreateWithoutLifeDetailInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
@@ -1462,13 +1554,14 @@ export type InsurancePolicyCreateWithoutLifeDetailInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutLifeDetailInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1514,6 +1607,7 @@ export type InsurancePolicyUpdateWithoutLifeDetailInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
@@ -1530,6 +1624,7 @@ export type InsurancePolicyUncheckedUpdateWithoutLifeDetailInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1545,7 +1640,7 @@ export type InsurancePolicyUncheckedUpdateWithoutLifeDetailInput = {
 }
 
 export type InsurancePolicyCreateWithoutInsuranceCompanyInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1559,6 +1654,7 @@ export type InsurancePolicyCreateWithoutInsuranceCompanyInput = {
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
   broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
   nextPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutPreviousPolicyInput
@@ -1568,13 +1664,14 @@ export type InsurancePolicyCreateWithoutInsuranceCompanyInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutInsuranceCompanyInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   brokerId: number
   effectiveDate: Date | string
   expiryDate: Date | string
@@ -1616,7 +1713,7 @@ export type InsurancePolicyUpdateManyWithWhereWithoutInsuranceCompanyInput = {
 }
 
 export type InsurancePolicyCreateWithoutBrokerInput = {
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1629,6 +1726,7 @@ export type InsurancePolicyCreateWithoutBrokerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
+  clientBroker?: Prisma.BrokerCreateNestedOneWithoutClientBrokerPoliciesInput
   client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
   insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
   previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
@@ -1639,13 +1737,14 @@ export type InsurancePolicyCreateWithoutBrokerInput = {
 
 export type InsurancePolicyUncheckedCreateWithoutBrokerInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   effectiveDate: Date | string
   expiryDate: Date | string
@@ -1670,6 +1769,63 @@ export type InsurancePolicyCreateManyBrokerInputEnvelope = {
   skipDuplicates?: boolean
 }
 
+export type InsurancePolicyCreateWithoutClientBrokerInput = {
+  uuid: string
+  processType: string
+  category: string
+  policyNumber: string
+  quotationNumber?: string | null
+  remark?: string | null
+  effectiveDate: Date | string
+  expiryDate: Date | string
+  premiumAmount?: number | null
+  currency?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  homeDetail?: Prisma.HomePolicyDetailCreateNestedOneWithoutPolicyInput
+  broker: Prisma.BrokerCreateNestedOneWithoutPoliciesInput
+  client: Prisma.ClientCreateNestedOneWithoutPoliciesInput
+  insuranceCompany: Prisma.InsuranceCompanyCreateNestedOneWithoutPoliciesInput
+  previousPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutNextPolicyInput
+  nextPolicy?: Prisma.InsurancePolicyCreateNestedOneWithoutPreviousPolicyInput
+  lifeDetail?: Prisma.LifePolicyDetailCreateNestedOneWithoutPolicyInput
+  vehicleDetail?: Prisma.VehiclePolicyDetailCreateNestedOneWithoutPolicyInput
+}
+
+export type InsurancePolicyUncheckedCreateWithoutClientBrokerInput = {
+  id?: number
+  uuid: string
+  processType: string
+  category: string
+  policyNumber: string
+  quotationNumber?: string | null
+  remark?: string | null
+  clientId: number
+  insuranceCompanyId: number
+  brokerId: number
+  effectiveDate: Date | string
+  expiryDate: Date | string
+  premiumAmount?: number | null
+  currency?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  previousPolicyId?: number | null
+  homeDetail?: Prisma.HomePolicyDetailUncheckedCreateNestedOneWithoutPolicyInput
+  nextPolicy?: Prisma.InsurancePolicyUncheckedCreateNestedOneWithoutPreviousPolicyInput
+  lifeDetail?: Prisma.LifePolicyDetailUncheckedCreateNestedOneWithoutPolicyInput
+  vehicleDetail?: Prisma.VehiclePolicyDetailUncheckedCreateNestedOneWithoutPolicyInput
+}
+
+export type InsurancePolicyCreateOrConnectWithoutClientBrokerInput = {
+  where: Prisma.InsurancePolicyWhereUniqueInput
+  create: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput>
+}
+
+export type InsurancePolicyCreateManyClientBrokerInputEnvelope = {
+  data: Prisma.InsurancePolicyCreateManyClientBrokerInput | Prisma.InsurancePolicyCreateManyClientBrokerInput[]
+  skipDuplicates?: boolean
+}
+
 export type InsurancePolicyUpsertWithWhereUniqueWithoutBrokerInput = {
   where: Prisma.InsurancePolicyWhereUniqueInput
   update: Prisma.XOR<Prisma.InsurancePolicyUpdateWithoutBrokerInput, Prisma.InsurancePolicyUncheckedUpdateWithoutBrokerInput>
@@ -1686,14 +1842,31 @@ export type InsurancePolicyUpdateManyWithWhereWithoutBrokerInput = {
   data: Prisma.XOR<Prisma.InsurancePolicyUpdateManyMutationInput, Prisma.InsurancePolicyUncheckedUpdateManyWithoutBrokerInput>
 }
 
+export type InsurancePolicyUpsertWithWhereUniqueWithoutClientBrokerInput = {
+  where: Prisma.InsurancePolicyWhereUniqueInput
+  update: Prisma.XOR<Prisma.InsurancePolicyUpdateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedUpdateWithoutClientBrokerInput>
+  create: Prisma.XOR<Prisma.InsurancePolicyCreateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedCreateWithoutClientBrokerInput>
+}
+
+export type InsurancePolicyUpdateWithWhereUniqueWithoutClientBrokerInput = {
+  where: Prisma.InsurancePolicyWhereUniqueInput
+  data: Prisma.XOR<Prisma.InsurancePolicyUpdateWithoutClientBrokerInput, Prisma.InsurancePolicyUncheckedUpdateWithoutClientBrokerInput>
+}
+
+export type InsurancePolicyUpdateManyWithWhereWithoutClientBrokerInput = {
+  where: Prisma.InsurancePolicyScalarWhereInput
+  data: Prisma.XOR<Prisma.InsurancePolicyUpdateManyMutationInput, Prisma.InsurancePolicyUncheckedUpdateManyWithoutClientBrokerInput>
+}
+
 export type InsurancePolicyCreateManyClientInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
+  clientBrokerId?: number | null
   insuranceCompanyId: number
   brokerId: number
   effectiveDate: Date | string
@@ -1720,6 +1893,7 @@ export type InsurancePolicyUpdateWithoutClientInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
   nextPolicy?: Prisma.InsurancePolicyUpdateOneWithoutPreviousPolicyNestedInput
@@ -1735,6 +1909,7 @@ export type InsurancePolicyUncheckedUpdateWithoutClientInput = {
   policyNumber?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1758,6 +1933,7 @@ export type InsurancePolicyUncheckedUpdateManyWithoutClientInput = {
   policyNumber?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1771,13 +1947,14 @@ export type InsurancePolicyUncheckedUpdateManyWithoutClientInput = {
 
 export type InsurancePolicyCreateManyInsuranceCompanyInput = {
   id?: number
-  uuid?: string
+  uuid: string
   processType: string
   category: string
   policyNumber: string
   quotationNumber?: string | null
   remark?: string | null
   clientId: number
+  clientBrokerId?: number | null
   brokerId: number
   effectiveDate: Date | string
   expiryDate: Date | string
@@ -1803,6 +1980,7 @@ export type InsurancePolicyUpdateWithoutInsuranceCompanyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
   broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
   nextPolicy?: Prisma.InsurancePolicyUpdateOneWithoutPreviousPolicyNestedInput
@@ -1819,6 +1997,7 @@ export type InsurancePolicyUncheckedUpdateWithoutInsuranceCompanyInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1842,6 +2021,7 @@ export type InsurancePolicyUncheckedUpdateManyWithoutInsuranceCompanyInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1854,7 +2034,27 @@ export type InsurancePolicyUncheckedUpdateManyWithoutInsuranceCompanyInput = {
 
 export type InsurancePolicyCreateManyBrokerInput = {
   id?: number
-  uuid?: string
+  uuid: string
+  processType: string
+  category: string
+  policyNumber: string
+  quotationNumber?: string | null
+  remark?: string | null
+  clientId: number
+  clientBrokerId?: number | null
+  insuranceCompanyId: number
+  effectiveDate: Date | string
+  expiryDate: Date | string
+  premiumAmount?: number | null
+  currency?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  previousPolicyId?: number | null
+}
+
+export type InsurancePolicyCreateManyClientBrokerInput = {
+  id?: number
+  uuid: string
   processType: string
   category: string
   policyNumber: string
@@ -1862,6 +2062,7 @@ export type InsurancePolicyCreateManyBrokerInput = {
   remark?: string | null
   clientId: number
   insuranceCompanyId: number
+  brokerId: number
   effectiveDate: Date | string
   expiryDate: Date | string
   premiumAmount?: number | null
@@ -1885,6 +2086,7 @@ export type InsurancePolicyUpdateWithoutBrokerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
+  clientBroker?: Prisma.BrokerUpdateOneWithoutClientBrokerPoliciesNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
   insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
   previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
@@ -1902,6 +2104,7 @@ export type InsurancePolicyUncheckedUpdateWithoutBrokerInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1925,7 +2128,75 @@ export type InsurancePolicyUncheckedUpdateManyWithoutBrokerInput = {
   quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  clientBrokerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
+  effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  premiumAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  previousPolicyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type InsurancePolicyUpdateWithoutClientBrokerInput = {
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
+  processType?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  policyNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  premiumAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  homeDetail?: Prisma.HomePolicyDetailUpdateOneWithoutPolicyNestedInput
+  broker?: Prisma.BrokerUpdateOneRequiredWithoutPoliciesNestedInput
+  client?: Prisma.ClientUpdateOneRequiredWithoutPoliciesNestedInput
+  insuranceCompany?: Prisma.InsuranceCompanyUpdateOneRequiredWithoutPoliciesNestedInput
+  previousPolicy?: Prisma.InsurancePolicyUpdateOneWithoutNextPolicyNestedInput
+  nextPolicy?: Prisma.InsurancePolicyUpdateOneWithoutPreviousPolicyNestedInput
+  lifeDetail?: Prisma.LifePolicyDetailUpdateOneWithoutPolicyNestedInput
+  vehicleDetail?: Prisma.VehiclePolicyDetailUpdateOneWithoutPolicyNestedInput
+}
+
+export type InsurancePolicyUncheckedUpdateWithoutClientBrokerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
+  processType?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  policyNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
+  brokerId?: Prisma.IntFieldUpdateOperationsInput | number
+  effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  premiumAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  previousPolicyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  homeDetail?: Prisma.HomePolicyDetailUncheckedUpdateOneWithoutPolicyNestedInput
+  nextPolicy?: Prisma.InsurancePolicyUncheckedUpdateOneWithoutPreviousPolicyNestedInput
+  lifeDetail?: Prisma.LifePolicyDetailUncheckedUpdateOneWithoutPolicyNestedInput
+  vehicleDetail?: Prisma.VehiclePolicyDetailUncheckedUpdateOneWithoutPolicyNestedInput
+}
+
+export type InsurancePolicyUncheckedUpdateManyWithoutClientBrokerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
+  processType?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  policyNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  quotationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.IntFieldUpdateOperationsInput | number
+  insuranceCompanyId?: Prisma.IntFieldUpdateOperationsInput | number
+  brokerId?: Prisma.IntFieldUpdateOperationsInput | number
   effectiveDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   premiumAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1946,6 +2217,7 @@ export type InsurancePolicySelect<ExtArgs extends runtime.Types.Extensions.Inter
   quotationNumber?: boolean
   remark?: boolean
   clientId?: boolean
+  clientBrokerId?: boolean
   insuranceCompanyId?: boolean
   brokerId?: boolean
   effectiveDate?: boolean
@@ -1957,6 +2229,7 @@ export type InsurancePolicySelect<ExtArgs extends runtime.Types.Extensions.Inter
   previousPolicyId?: boolean
   homeDetail?: boolean | Prisma.InsurancePolicy$homeDetailArgs<ExtArgs>
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clientBroker?: boolean | Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   insuranceCompany?: boolean | Prisma.InsuranceCompanyDefaultArgs<ExtArgs>
   previousPolicy?: boolean | Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>
@@ -1974,6 +2247,7 @@ export type InsurancePolicySelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   quotationNumber?: boolean
   remark?: boolean
   clientId?: boolean
+  clientBrokerId?: boolean
   insuranceCompanyId?: boolean
   brokerId?: boolean
   effectiveDate?: boolean
@@ -1984,6 +2258,7 @@ export type InsurancePolicySelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   updatedAt?: boolean
   previousPolicyId?: boolean
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clientBroker?: boolean | Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   insuranceCompany?: boolean | Prisma.InsuranceCompanyDefaultArgs<ExtArgs>
   previousPolicy?: boolean | Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>
@@ -1998,6 +2273,7 @@ export type InsurancePolicySelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   quotationNumber?: boolean
   remark?: boolean
   clientId?: boolean
+  clientBrokerId?: boolean
   insuranceCompanyId?: boolean
   brokerId?: boolean
   effectiveDate?: boolean
@@ -2008,6 +2284,7 @@ export type InsurancePolicySelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   updatedAt?: boolean
   previousPolicyId?: boolean
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clientBroker?: boolean | Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   insuranceCompany?: boolean | Prisma.InsuranceCompanyDefaultArgs<ExtArgs>
   previousPolicy?: boolean | Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>
@@ -2022,6 +2299,7 @@ export type InsurancePolicySelectScalar = {
   quotationNumber?: boolean
   remark?: boolean
   clientId?: boolean
+  clientBrokerId?: boolean
   insuranceCompanyId?: boolean
   brokerId?: boolean
   effectiveDate?: boolean
@@ -2033,10 +2311,11 @@ export type InsurancePolicySelectScalar = {
   previousPolicyId?: boolean
 }
 
-export type InsurancePolicyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uuid" | "processType" | "category" | "policyNumber" | "quotationNumber" | "remark" | "clientId" | "insuranceCompanyId" | "brokerId" | "effectiveDate" | "expiryDate" | "premiumAmount" | "currency" | "createdAt" | "updatedAt" | "previousPolicyId", ExtArgs["result"]["insurancePolicy"]>
+export type InsurancePolicyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uuid" | "processType" | "category" | "policyNumber" | "quotationNumber" | "remark" | "clientId" | "clientBrokerId" | "insuranceCompanyId" | "brokerId" | "effectiveDate" | "expiryDate" | "premiumAmount" | "currency" | "createdAt" | "updatedAt" | "previousPolicyId", ExtArgs["result"]["insurancePolicy"]>
 export type InsurancePolicyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   homeDetail?: boolean | Prisma.InsurancePolicy$homeDetailArgs<ExtArgs>
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clientBroker?: boolean | Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   insuranceCompany?: boolean | Prisma.InsuranceCompanyDefaultArgs<ExtArgs>
   previousPolicy?: boolean | Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>
@@ -2046,12 +2325,14 @@ export type InsurancePolicyInclude<ExtArgs extends runtime.Types.Extensions.Inte
 }
 export type InsurancePolicyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clientBroker?: boolean | Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   insuranceCompany?: boolean | Prisma.InsuranceCompanyDefaultArgs<ExtArgs>
   previousPolicy?: boolean | Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>
 }
 export type InsurancePolicyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   broker?: boolean | Prisma.BrokerDefaultArgs<ExtArgs>
+  clientBroker?: boolean | Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   insuranceCompany?: boolean | Prisma.InsuranceCompanyDefaultArgs<ExtArgs>
   previousPolicy?: boolean | Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>
@@ -2062,6 +2343,7 @@ export type $InsurancePolicyPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     homeDetail: Prisma.$HomePolicyDetailPayload<ExtArgs> | null
     broker: Prisma.$BrokerPayload<ExtArgs>
+    clientBroker: Prisma.$BrokerPayload<ExtArgs> | null
     client: Prisma.$ClientPayload<ExtArgs>
     insuranceCompany: Prisma.$InsuranceCompanyPayload<ExtArgs>
     previousPolicy: Prisma.$InsurancePolicyPayload<ExtArgs> | null
@@ -2078,6 +2360,7 @@ export type $InsurancePolicyPayload<ExtArgs extends runtime.Types.Extensions.Int
     quotationNumber: string | null
     remark: string | null
     clientId: number
+    clientBrokerId: number | null
     insuranceCompanyId: number
     brokerId: number
     effectiveDate: Date
@@ -2483,6 +2766,7 @@ export interface Prisma__InsurancePolicyClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   homeDetail<T extends Prisma.InsurancePolicy$homeDetailArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InsurancePolicy$homeDetailArgs<ExtArgs>>): Prisma.Prisma__HomePolicyDetailClient<runtime.Types.Result.GetResult<Prisma.$HomePolicyDetailPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   broker<T extends Prisma.BrokerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BrokerDefaultArgs<ExtArgs>>): Prisma.Prisma__BrokerClient<runtime.Types.Result.GetResult<Prisma.$BrokerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  clientBroker<T extends Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InsurancePolicy$clientBrokerArgs<ExtArgs>>): Prisma.Prisma__BrokerClient<runtime.Types.Result.GetResult<Prisma.$BrokerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   client<T extends Prisma.ClientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientDefaultArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   insuranceCompany<T extends Prisma.InsuranceCompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InsuranceCompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__InsuranceCompanyClient<runtime.Types.Result.GetResult<Prisma.$InsuranceCompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   previousPolicy<T extends Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InsurancePolicy$previousPolicyArgs<ExtArgs>>): Prisma.Prisma__InsurancePolicyClient<runtime.Types.Result.GetResult<Prisma.$InsurancePolicyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2526,6 +2810,7 @@ export interface InsurancePolicyFieldRefs {
   readonly quotationNumber: Prisma.FieldRef<"InsurancePolicy", 'String'>
   readonly remark: Prisma.FieldRef<"InsurancePolicy", 'String'>
   readonly clientId: Prisma.FieldRef<"InsurancePolicy", 'Int'>
+  readonly clientBrokerId: Prisma.FieldRef<"InsurancePolicy", 'Int'>
   readonly insuranceCompanyId: Prisma.FieldRef<"InsurancePolicy", 'Int'>
   readonly brokerId: Prisma.FieldRef<"InsurancePolicy", 'Int'>
   readonly effectiveDate: Prisma.FieldRef<"InsurancePolicy", 'DateTime'>
@@ -2952,6 +3237,25 @@ export type InsurancePolicy$homeDetailArgs<ExtArgs extends runtime.Types.Extensi
    */
   include?: Prisma.HomePolicyDetailInclude<ExtArgs> | null
   where?: Prisma.HomePolicyDetailWhereInput
+}
+
+/**
+ * InsurancePolicy.clientBroker
+ */
+export type InsurancePolicy$clientBrokerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Broker
+   */
+  select?: Prisma.BrokerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Broker
+   */
+  omit?: Prisma.BrokerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BrokerInclude<ExtArgs> | null
+  where?: Prisma.BrokerWhereInput
 }
 
 /**

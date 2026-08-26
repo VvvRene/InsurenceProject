@@ -43,6 +43,7 @@ model InsurancePolicy {
   quotationNumber    String?
   remark             String?
   clientId           Int
+  clientBrokerId     Int?
   insuranceCompanyId Int
   brokerId           Int
   effectiveDate      DateTime
@@ -54,6 +55,7 @@ model InsurancePolicy {
   previousPolicyId   Int?                 @unique
   homeDetail         HomePolicyDetail?
   broker             Broker               @relation(fields: [brokerId], references: [id])
+  clientBroker       Broker?              @relation("ClientBrokerPolicies", fields: [clientBrokerId], references: [id])
   client             Client               @relation(fields: [clientId], references: [id], onDelete: Cascade)
   insuranceCompany   InsuranceCompany     @relation(fields: [insuranceCompanyId], references: [id])
   previousPolicy     InsurancePolicy?     @relation("PolicyHistory", fields: [previousPolicyId], references: [id])
@@ -114,6 +116,7 @@ model Broker {
   id        Int               @id @default(autoincrement())
   name      String            @unique
   policies  InsurancePolicy[]
+  clientBrokerPolicies InsurancePolicy[] @relation("ClientBrokerPolicies")
   subagents Subagent[]
   clients   Client[]
 }

@@ -1377,6 +1377,7 @@ export const InsurancePolicyScalarFieldEnum = {
   quotationNumber: 'quotationNumber',
   remark: 'remark',
   clientId: 'clientId',
+  clientBrokerId: 'clientBrokerId',
   insuranceCompanyId: 'insuranceCompanyId',
   brokerId: 'brokerId',
   effectiveDate: 'effectiveDate',

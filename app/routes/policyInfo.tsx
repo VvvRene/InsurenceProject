@@ -228,11 +228,16 @@ async function policyUpsertAction(formData: FormData) {
                 });
             }
         } else {
+            const client = await prisma.client.findUnique({
+                where: { id: clientId },
+                select: { brokerId: true },
+            });
             // CREATE new policy
             await prisma.insurancePolicy.create({
                 data: {
                     uuid: createUuid,
                     ...insurancePolicyData,
+                    clientBrokerId: client?.brokerId ?? null,
                     vehicleDetail: {
                         create: vehicleDetailData,
                     },
