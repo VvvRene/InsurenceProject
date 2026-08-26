@@ -4,10 +4,10 @@ import { int, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export const insuranceGeneralInformationSchema = z.object({
-    uuid: z.string().min(1, 'Required'),
+    uuid: z.string().optional().default(''),
     processType: z.enum(['New', 'Renewal']),
     category: z.enum(['Vehicle', 'Home', 'Life']), 
-    policyNumber: z.string(),
+    policyNumber: z.string().optional().default(''),
     quotationNumber: z.string(),
     remark: z.string().optional().nullable(),
     // Mapping relational fields to their respective IDs

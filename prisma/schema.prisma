@@ -36,7 +36,7 @@ model Client {
 
 model InsurancePolicy {
   id                 Int                  @id @default(autoincrement())
-  uuid               String               @unique @default(uuid())
+  uuid               String               @unique
   processType        String
   category           String
   policyNumber       String               @unique

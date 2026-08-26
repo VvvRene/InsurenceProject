@@ -93,7 +93,7 @@ const InsurancePolicyGeneralInformationForm: React.FC<InsurancePolicyGeneralInfo
                                         <TextField
                                             disabled
                                             {...field}
-                                            label={t('policy.policyNumber')}
+                                            label="UUID"
                                             fullWidth
                                             error={!!fieldState.error}
                                             helperText={fieldState.error?.message}

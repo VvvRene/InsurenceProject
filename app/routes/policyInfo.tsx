@@ -168,10 +168,13 @@ async function policyUpsertAction(formData: FormData) {
         const { uuid, processType, category, policyNumber, quotationNumber, remark, clientId, insuranceCompanyId, brokerId, effectiveDate, expiryDate, premiumAmount, currency, previousPolicyId } = insuranceGeneralInformation.data;
         const { coverageType, registrationNumber, vehicleType, engineNumber, chassisNumber, vehicleBodyType, manufacturer, modelName, enginDisplacement, totalWeight, yearOfManufacture, seatNumber, region, moneyLenderLicenceNumber, gp, an, san } = vehiclePolicyDetailInformation.data;
 
+        const createUuid = uuid && uuid.includes('?') ? '' : uuid;
+        const finalPolicyNumber = policyNumber && policyNumber.trim() ? policyNumber.trim() : '';
+
         const insurancePolicyData = {
             processType,
             category,
-            policyNumber,
+            policyNumber: finalPolicyNumber,
             quotationNumber,
             remark: remark || '',
             clientId,
@@ -228,7 +231,7 @@ async function policyUpsertAction(formData: FormData) {
             // CREATE new policy
             await prisma.insurancePolicy.create({
                 data: {
-                    uuid,
+                    uuid: createUuid,
                     ...insurancePolicyData,
                     vehicleDetail: {
                         create: vehicleDetailData,

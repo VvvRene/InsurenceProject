@@ -15,7 +15,6 @@ import VehicleDetailForm from './insurance_policy/VehicleDetailForm';
 import { insuranceGeneralInformationSchema, type InsuranceGeneralInformation } from '~/.frontend/models/InsuranceGenernalInformation';
 import { vehiclePolicyDetailInformationSchema, type VehiclePolicyDetailInformation } from '~/.frontend/models/VehiclePolicyDetailInformation';
 import SaveIcon from '@mui/icons-material/Save';
-import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFetcher } from 'react-router';
@@ -42,6 +41,8 @@ interface InsurancePolicyFormProps {
     onSave?: (data: { insuranceGeneralInformation: InsuranceGeneralInformation; vehiclePolicyDetailInformation: VehiclePolicyDetailInformation }) => void; // Optional onSave callback
 }
 
+const buildTemporaryUuid = () => '';
+
 const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, subagents, insuranceCompanies, brokers, vehicleTypes, vehicleBodyTypes, initialGeneralInfo, initialVehicleDetail, onSave }) => {
     const { t } = useTranslation();
     const fetcher = useFetcher();
@@ -58,9 +59,16 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
     const [availableVehicleBodyTypes, setAvailableVehicleBodyTypes] = useState<VehicleOptionInfo[]>(vehicleBodyTypes);
 
     const [insuranceGeneralInformation, setInsuranceGeneralInformation] = React.useState<InsuranceGeneralInformation>(() => {
-        if (initialGeneralInfo) return initialGeneralInfo;
+        if (initialGeneralInfo) {
+            return {
+                ...initialGeneralInfo,
+                uuid: initialGeneralInfo.uuid || '',
+                policyNumber: initialGeneralInfo.policyNumber || '',
+            };
+        }
+
         return {
-            uuid: uuidv4(),
+            uuid: buildTemporaryUuid(),
             processType: 'New',
             category: 'Vehicle',
             currency: 'HKD',
@@ -71,7 +79,7 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
             brokerId: 0,
             quotationNumber: '',
             effectiveDate: DateTime.now().toJSDate(),
-            expiryDate: DateTime.now().plus({years:1}).minus({days:1}).toJSDate(),
+            expiryDate: DateTime.now().plus({ years: 1 }).minus({ days: 1 }).toJSDate(),
             updateDate: DateTime.now().toJSDate(),
         };
     });
@@ -322,11 +330,14 @@ const InsurancePolicyForm: React.FC<InsurancePolicyFormProps> = ({ clients, suba
                                     setInsuranceGeneralInformation(latestInsuranceGeneralInformation);
                                     setVehiclePolicyDetailInformation(latestVehiclePolicyDetailInformation);
 
-                                    // When creating a new policy (no initialGeneralInfo), generate fresh UUID.
-                                    // When editing, keep the existing UUID so the DB update matches.
-                                    const effectiveUuid = initialGeneralInfo ? latestInsuranceGeneralInformation.uuid : uuidv4();
+                                    const finalUuid = latestInsuranceGeneralInformation.uuid || '';
+
                                     onSave({
-                                        insuranceGeneralInformation: { ...latestInsuranceGeneralInformation, uuid: effectiveUuid },
+                                        insuranceGeneralInformation: {
+                                            ...latestInsuranceGeneralInformation,
+                                            uuid: initialGeneralInfo ? finalUuid : '',
+                                            policyNumber: latestInsuranceGeneralInformation.policyNumber || '',
+                                        },
                                         vehiclePolicyDetailInformation: latestVehiclePolicyDetailInformation
                                     });
                                 }
